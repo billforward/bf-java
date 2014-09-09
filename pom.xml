@@ -6,7 +6,7 @@
     <packaging>jar</packaging>
     <version>1.0.0</version>
     <name>billforward-java</name>
-    <url>https://github.com/billforward/billforward-java</url>
+    <url>https://github.com/billforward/bf-java</url>
     <dependencies>
         <dependency>
             <groupId>com.google.code.gson</groupId>
