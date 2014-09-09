@@ -22,8 +22,8 @@
     </dependencies>
     <description>BillForward Java Bindings</description>
     <organization>
-        <name>billforward</name>
-        <url>https://billforward.com</url>
+        <name>BillForward</name>
+        <url>https://www.billforward.net</url>
     </organization>
     <parent>
         <groupId>org.sonatype.oss</groupId>
@@ -31,9 +31,9 @@
         <version>7</version>
     </parent>
     <scm>
-        <connection>scm:git:git@github.com:billforward/billforward-java.git</connection>
-        <developerConnection>scm:git:git@github.com:billforward/billforward-java.git</developerConnection>
-        <url>git@github.com:billforward/billforward-java.git</url>
+        <connection>scm:git:git@github.com:billforward/bf-java.git</connection>
+        <developerConnection>scm:git:git@github.com:billforward/bf-java.git</developerConnection>
+        <url>git@github.com:billforward/bf-java.git</url>
     </scm>
     <build>
         <resources>
