@@ -40,7 +40,7 @@ BillForwardExample.java
 
 
 
-See [BillForward.java](https://github.com/...) for examples.
+See [BillForward Tests](https://github.com/billforward/bf-java/tree/master/src/test/java/net/billforward/model) and [API Docs] (https://app.billforward.net/api/) for examples.
 
 Testing
 =======
