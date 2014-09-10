@@ -24,7 +24,7 @@ Add this dependency to your project's POM:
 
 Add this dependency to your project's build file:
 
-    compile "net.billforward:billforward-java:1.2014.243"
+    compile "net.billforward:billforward-java:1.2014.253"
 
 ### Others
 
