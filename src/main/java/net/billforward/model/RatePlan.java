@@ -209,7 +209,7 @@ public class RatePlan extends MutableEntity<RatePlan> {
 		super(client_);		
 	}
 	
-	protected RatePlan() {
+	public RatePlan() {
 		
 	}
 	

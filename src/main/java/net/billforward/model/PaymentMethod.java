@@ -159,7 +159,7 @@ public class PaymentMethod extends MutableEntity<PaymentMethod> {
 		super(client_);		
 	}
 	
-	protected PaymentMethod() {
+	public PaymentMethod() {
 		super();
 	}
 	

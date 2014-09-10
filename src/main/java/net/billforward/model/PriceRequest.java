@@ -1,5 +1,8 @@
 package net.billforward.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.billforward.BillForwardClient;
 
 import com.google.gson.reflect.TypeToken;
@@ -17,8 +20,8 @@ public class PriceRequest extends BillingEntity {
 	public String source;
 	public boolean amendment;
 
-	public PricingComponentValue[] existingPricingComponentValues = new PricingComponentValue[0];
-	public PricingComponentValue[] updatedPricingComponentValues = new PricingComponentValue[0];
+	public List<PricingComponentValue> existingPricingComponentValues = new ArrayList<PricingComponentValue>();
+	public List<PricingComponentValue> updatedPricingComponentValues = new ArrayList<PricingComponentValue>();
 
 	
 	public String getBookCode() {
@@ -112,21 +115,19 @@ public class PriceRequest extends BillingEntity {
 		this.amendment = amendment;
 	}
 
-	public PricingComponentValue[] getExistingPricingComponentValues() {
+	public List<PricingComponentValue> getExistingPricingComponentValues() {
 		return existingPricingComponentValues;
 	}
 
-	public void setExistingPricingComponentValues(
-			PricingComponentValue[] existingPricingComponentValues) {
+	public void setExistingPricingComponentValues(List<PricingComponentValue> existingPricingComponentValues) {
 		this.existingPricingComponentValues = existingPricingComponentValues;
 	}
 
-	public PricingComponentValue[] getUpdatedPricingComponentValues() {
+	public List<PricingComponentValue> getUpdatedPricingComponentValues() {
 		return updatedPricingComponentValues;
 	}
 
-	public void setUpdatedPricingComponentValues(
-			PricingComponentValue[] updatedPricingComponentValues) {
+	public void setUpdatedPricingComponentValues(List<PricingComponentValue> updatedPricingComponentValues) {
 		this.updatedPricingComponentValues = updatedPricingComponentValues;
 	}
 
@@ -134,7 +135,7 @@ public class PriceRequest extends BillingEntity {
 		super(client_);		
 	}
 	
-	protected PriceRequest() {
+	public PriceRequest() {
 		
 	}
 	
@@ -157,5 +158,9 @@ public class PriceRequest extends BillingEntity {
 		book,
         instanceID,
         bookID
+	}
+
+	public void addPricingComponentValue(PricingComponentValue value_) {
+		updatedPricingComponentValues.add(value_);		
 	}
 }

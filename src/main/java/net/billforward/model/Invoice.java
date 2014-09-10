@@ -183,7 +183,7 @@ public class Invoice extends BillingEntity {
 	
 	protected static ResourcePath resourcePath;
 
-	public Invoice(BillForwardClient client_) {
+	protected Invoice(BillForwardClient client_) {
 		super(client_);		
 	}
 	

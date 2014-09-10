@@ -21,7 +21,7 @@ public class OrganizationGateway extends MutableEntity<OrganizationGateway> {
 		super(client_);		
 	}
 	
-	protected OrganizationGateway() {
+	public OrganizationGateway() {
 		
 	}
 	

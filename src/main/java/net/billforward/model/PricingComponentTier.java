@@ -77,7 +77,7 @@ public class PricingComponentTier extends MutableEntity<PricingComponentTier> {
 		super(client_);		
 	}
 	
-	protected PricingComponentTier() {
+	public PricingComponentTier() {
 		
 	}
 	

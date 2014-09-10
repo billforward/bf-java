@@ -132,7 +132,7 @@ public class Webhook extends MutableEntity<Webhook> {
 		super(client_);		
 	}
 	
-	protected Webhook() {
+	public Webhook() {
 		
 	}
 	

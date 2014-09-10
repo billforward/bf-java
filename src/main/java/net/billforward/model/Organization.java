@@ -91,7 +91,7 @@ public class Organization extends MutableEntity<Organization> {
 
 	protected static ResourcePath resourcePath;
 	
-	public Organization(BillForwardClient client_) {
+	protected Organization(BillForwardClient client_) {
 		super(client_);		
 	}
 	

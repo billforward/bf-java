@@ -140,7 +140,7 @@ public class Profile extends MutableEntity<Profile> {
 		super(client_);		
 	}
 	
-	protected Profile() {
+	public Profile() {
 		
 	}
 

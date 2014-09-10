@@ -150,7 +150,7 @@ public class Product extends MutableEntity<Product> {
 		super(client_);		
 	}
 	
-	protected Product() {
+	public Product() {
 		
 	}
 

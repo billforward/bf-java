@@ -82,7 +82,7 @@ public class InvoiceLine extends BillingEntity {
 
 	protected static ResourcePath resourcePath;
 
-	public InvoiceLine(BillForwardClient client_) {
+	protected InvoiceLine(BillForwardClient client_) {
 		super(client_);		
 	}
 	

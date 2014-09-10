@@ -31,7 +31,7 @@ public class FixedTermDefinition extends MutableEntity<TaxationStrategy> {
 		super(client_);		
 	}
 	
-	protected FixedTermDefinition() {
+	public FixedTermDefinition() {
 		
 	}
 	

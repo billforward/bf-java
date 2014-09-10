@@ -201,7 +201,7 @@ public class PricingComponent extends MutableEntity<PricingComponent> {
 		super(client_);		
 	}
 	
-	protected PricingComponent() {
+	public PricingComponent() {
 		
 	}
 	

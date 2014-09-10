@@ -156,7 +156,7 @@ public class Address  extends MutableEntity<Address> {
 		super(client_);		
 	}
 	
-	protected Address() {
+	public Address() {
 		
 	}
 	

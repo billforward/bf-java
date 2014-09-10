@@ -135,7 +135,7 @@ public class TaxationStrategy extends MutableEntity<TaxationStrategy> {
 		super(client_);		
 	}
 	
-	protected TaxationStrategy() {
+	public TaxationStrategy() {
 		
 	}
 	

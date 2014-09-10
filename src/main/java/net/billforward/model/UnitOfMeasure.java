@@ -96,7 +96,7 @@ public class UnitOfMeasure extends MutableEntity<UnitOfMeasure> {
 		super(client_);		
 	}
 	
-	protected UnitOfMeasure() {
+	public UnitOfMeasure() {
 		
 	}
 	

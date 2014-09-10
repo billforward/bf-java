@@ -138,7 +138,7 @@ public class Account extends MutableEntity<Account> {
 		super(client_);		
 	}
 	
-	protected Account() {
+	public Account() {
 		
 	}
 	

@@ -26,7 +26,7 @@ public class WebhookSubscription extends BillingEntity {
 		super(client_);		
 	}
 	
-	protected WebhookSubscription() {
+	public WebhookSubscription() {
 		
 	}
 	

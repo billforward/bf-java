@@ -24,7 +24,7 @@ public class TaxationLink extends MutableEntity<TaxationLink> {
 		super(client_);		
 	}
 	
-	protected TaxationLink() {
+	public TaxationLink() {
 		
 	}
 	

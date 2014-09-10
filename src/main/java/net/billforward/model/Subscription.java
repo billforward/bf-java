@@ -226,7 +226,7 @@ public class Subscription extends MutableEntity<Subscription> {
 		super(client_);		
 	}
 	
-	protected Subscription() {
+	public Subscription() {
 		
 	}
 	

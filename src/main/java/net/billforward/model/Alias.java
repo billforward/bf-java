@@ -24,7 +24,7 @@ public class Alias extends BillingEntity {
 		super(client_);		
 	}
 	
-	protected Alias() {
+	public Alias() {
 		
 	}
 	

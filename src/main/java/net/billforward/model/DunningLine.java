@@ -26,7 +26,7 @@ public class DunningLine extends MutableEntity<DunningLine> {
 		super(client_);		
 	}
 	
-	protected DunningLine() {
+	public DunningLine() {
 		
 	}
 	
