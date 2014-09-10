@@ -17,7 +17,7 @@ Add this dependency to your project's POM:
     <dependency>
       <groupId>net.billforward</groupId>
       <artifactId>billforward-java</artifactId>
-      <version>1.0.0</version>
+      <version>1.2014.252</version>
     </dependency>
     
 ### Gradle users
