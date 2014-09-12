@@ -1,7 +1,6 @@
 package net.billforward.model;
 
-import static org.junit.Assert.assertEquals;
-
+import static org.junit.Assert.*;
 import net.billforward.exception.BillforwardException;
 import net.billforward.model.usage.UsageSession;
 
@@ -17,6 +16,21 @@ public class SessionTests extends TestBase {
 
 		String sessionID = "Session ID 1";
 		UsageSession usageSession = UsageSession.startSession(uom, subscription.getID(), sessionID);
+		
+		System.out.println(usageSession.toString());
+	}
+	
+	@Test
+	public void startUsageSessionNoSessioniD() throws BillforwardException {
+		//--Get Subscription to associate with session
+		Subscription subscription = Subscription.getByID("9A93B4F4-330F-49AF-8E86-2446BDC609A9");
+		// Get UnitOfMeasure for usage sessions
+		UnitOfMeasure uom = UnitOfMeasure.getByID("0B430C73-3983-40EA-A9F9-FDBD72567597");
+
+		UsageSession usageSession = UsageSession.startSession(uom, subscription.getID());
+
+		assertNotNull(usageSession);
+		assertNotNull(usageSession.getSessionID());
 		
 		System.out.println(usageSession.toString());
 	}

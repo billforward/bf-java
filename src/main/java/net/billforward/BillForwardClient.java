@@ -90,9 +90,9 @@ public class BillForwardClient
 		for(GatewayTypeMapping mapping : mappings) {
 			apiConfigAdapter.registerSubtype((Class)mapping.getApiType(), mapping.getName());
 		}
-		
+		//2014-09-12T03:00:17Z
 		GSON = new GsonBuilder()
-		.setDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
+		.setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
 		.excludeFieldsWithoutExposeAnnotation()
 		.registerTypeAdapterFactory(apiConfigAdapter)
 		.setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
@@ -332,12 +332,44 @@ public class BillForwardClient
 		}
 	}
 
-	public <T> APIResponse<T> request(RequestMethod method, String url, T obj, Type responseType) throws AuthenticationException, 
-																															InvalidRequestException, 
-																															APIConnectionException, 
-																															CardException, 
-																															APIException {
 
+	
+	public <TRequest, TResponse> TResponse requestUntyped(RequestMethod method, String url, TRequest obj, Type responseType) throws AuthenticationException, 
+																										 InvalidRequestException, 
+																										 APIConnectionException, 
+																										 CardException, 
+																										 APIException {
+		url = String.format("%s/%s", apiUrl, url);
+		String originalDNSCacheTTL = null;
+		Boolean allowedToSetTTL = true;
+		try {
+			originalDNSCacheTTL = java.security.Security.getProperty(DNS_CACHE_TTL_PROPERTY_NAME);
+			// disable DNS cache
+			java.security.Security.setProperty(DNS_CACHE_TTL_PROPERTY_NAME, "0");
+		} catch (SecurityException se) {
+			allowedToSetTTL = false;
+		}
+
+		try {
+			return _requestUntyped(responseType, method, url, obj, apiKey);
+		} finally {
+			if (allowedToSetTTL) {
+				if (originalDNSCacheTTL == null) {
+					// value unspecified by implementation
+					// DNS_CACHE_TTL_PROPERTY_NAME of -1 = cache forever
+					java.security.Security.setProperty(DNS_CACHE_TTL_PROPERTY_NAME, "-1");
+				} else {
+					java.security.Security.setProperty(DNS_CACHE_TTL_PROPERTY_NAME, originalDNSCacheTTL);
+				}
+			}
+		}
+	}
+	
+	public <T> APIResponse<T> request(RequestMethod method, String url, T obj, Type responseType) throws AuthenticationException, 
+																										 InvalidRequestException, 
+																										 APIConnectionException, 
+																										 CardException, 
+																										 APIException {
 		url = String.format("%s/%s", apiUrl, url);
 		String originalDNSCacheTTL = null;
 		Boolean allowedToSetTTL = true;
@@ -364,6 +396,36 @@ public class BillForwardClient
 		}
 	}
 
+	
+	protected <TRequest, TResponse> TResponse  _requestUntyped(Type responseType, RequestMethod method, String url, TRequest obj, String apiKey) throws AuthenticationException,
+			InvalidRequestException, APIConnectionException, CardException,
+			APIException {
+		if ((apiKey == null || apiKey.length() == 0) && (apiKey == null || apiKey.length() == 0)) {
+			throw new AuthenticationException(
+					"No API key provided. (HINT: set your API key using 'BillForward.apiKey = <API-KEY>'. "
+							+ "You can generate API keys from the BillForward web interface. "
+							+ "See https://BillForward.com/api for details or email support@BillForward.com if you have questions.");
+		}
+
+		String query = "";
+		if(obj != null) {
+			query = GSON.toJson(obj);
+		}
+
+		BillForwardResponse response = makeURLConnectionRequest(method, url, query, apiKey);
+		int rCode = response.getResponseCode();
+		String rBody = response.getResponseBody();
+		if (rCode < 200 || rCode >= 300) {
+			handleAPIError(rBody, rCode);
+		}
+		
+		
+		TResponse acc = GSON.fromJson(rBody, responseType);
+		return acc;
+	}
+
+
+	
 	protected <T> APIResponse<T>  _request(Type responseType, RequestMethod method, String url, T obj, String apiKey) throws AuthenticationException,
 			InvalidRequestException, APIConnectionException, CardException,
 			APIException {

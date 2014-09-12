@@ -1,5 +1,8 @@
 package net.billforward.model.usage;
 
+import java.util.Date;
+import java.util.UUID;
+
 import net.billforward.BillForwardClient;
 import net.billforward.exception.APIConnectionException;
 import net.billforward.exception.APIException;
@@ -21,12 +24,12 @@ public class UsageSession extends InsertableEntity<UsageSession> {
 	@Expose protected String sessionID;
 	@Expose protected String uom;
 	@Expose protected String description;
-	@Expose protected int sessionix;
-	@Expose protected String start;
-	@Expose protected String stop;
+	@Expose protected long sessionix;
+	@Expose protected Date start;
+	@Expose protected Date stop;
 	@Expose protected String state;
 	@Expose protected String changedBy;
-	@Expose protected String created;	
+	@Expose protected Date created;	
 
 	public String getSubscriptionID() {
 		return subscriptionID;
@@ -60,19 +63,19 @@ public class UsageSession extends InsertableEntity<UsageSession> {
 		this.description = description;
 	}
 
-	public String getStart() {
+	public Date getStart() {
 		return start;
 	}
 
-	public void setStart(String start) {
+	public void setStart(Date start) {
 		this.start = start;
 	}
 
-	public String getStop() {
+	public Date getStop() {
 		return stop;
 	}
 
-	public void setStop(String stop) {
+	public void setStop(Date stop) {
 		this.stop = stop;
 	}
 
@@ -80,7 +83,7 @@ public class UsageSession extends InsertableEntity<UsageSession> {
 		return organizationID;
 	}
 
-	public int getSessionix() {
+	public long getSessionix() {
 		return sessionix;
 	}
 
@@ -96,10 +99,14 @@ public class UsageSession extends InsertableEntity<UsageSession> {
 		return changedBy;
 	}
 
-	public String getCreated() {
+	public Date getCreated() {
 		return created;
 	}
 
+	public static UsageSession startSession(UnitOfMeasure uom, String subscriptionID) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		return startSession(uom, subscriptionID, UUID.randomUUID().toString().toUpperCase());
+	}
+	
 	public static UsageSession startSession(UnitOfMeasure uom, String subscriptionID, String sessionID) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
 		BillForwardClient client = BillForwardClient.getClient();
 		

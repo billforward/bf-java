@@ -1,6 +1,7 @@
 package net.billforward.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import net.billforward.BillForwardClient;
@@ -31,9 +32,9 @@ public class Profile extends MutableEntity<Profile> {
 	@Expose protected String landline;
 	@Expose protected String dob;
 	@Expose protected String additionalInformation;
-	@Expose protected String updated;
+	@Expose protected Date updated;
 	@Expose protected String changedBy;
-	@Expose protected String created;
+	@Expose protected Date created;
 	@Expose protected List<Address> addresses = new ArrayList<Address>();
 	
 	
@@ -109,7 +110,7 @@ public class Profile extends MutableEntity<Profile> {
 		this.additionalInformation = additionalInformation;
 	}
 
-	public String getUpdated() {
+	public Date getUpdated() {
 		return updated;
 	}
 
@@ -117,7 +118,7 @@ public class Profile extends MutableEntity<Profile> {
 		return changedBy;
 	}
 
-	public String getCreated() {
+	public Date getCreated() {
 		return created;
 	}
 
@@ -127,6 +128,8 @@ public class Profile extends MutableEntity<Profile> {
 	
 	public static Profile getByID(String ID) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
 		Profile[] profiles = getByID(ID, ResourcePath());
+
+		if(profiles == null || profiles.length == 0) return null;
 		return profiles[0];
 	}
 	

@@ -1,6 +1,7 @@
 package net.billforward.model;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import net.billforward.BillForwardClient;
 
@@ -13,11 +14,13 @@ public class PricingComponentTier extends MutableEntity<PricingComponentTier> {
 	@Expose protected String organizationID;
 	@Expose protected int lowerThreshold;
 	@Expose protected int upperThreshold;
-	@Expose protected String componentID;
+	@Expose protected String productRatePlanID;
+	@Expose protected String pricingComponentID;
+	@Expose protected String pricingComponentVersionID;
 	@Expose protected String pricingType;
 	@Expose protected BigDecimal price;
 	@Expose protected String changedBy;
-	@Expose protected String created;
+	@Expose protected Date created;
 	
 	public int getLowerThreshold() {
 		return lowerThreshold;
@@ -67,7 +70,7 @@ public class PricingComponentTier extends MutableEntity<PricingComponentTier> {
 		return changedBy;
 	}
 
-	public String getCreated() {
+	public Date getCreated() {
 		return created;
 	}
 

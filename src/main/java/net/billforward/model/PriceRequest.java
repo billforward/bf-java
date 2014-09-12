@@ -5,23 +5,24 @@ import java.util.List;
 
 import net.billforward.BillForwardClient;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.reflect.TypeToken;
 
 public class PriceRequest extends BillingEntity {
-	public String bookCode;
-	public String codeType;
-	public String couponCode;
-	public String instanceID;
-	public String bookID;
-	public String accountID;
-	public String productRatePlanID;
-	public String productID;
-	public String targetID;
-	public String source;
-	public boolean amendment;
+	@Expose public String bookCode;
+	@Expose public String codeType;
+	@Expose public String couponCode;
+	@Expose public String instanceID;
+	@Expose public String bookID;
+	@Expose public String accountID;
+	@Expose public String productRatePlanID;
+	@Expose public String productID;
+	@Expose public String targetID;
+	@Expose public String source;
+	@Expose public boolean amendment;
 
-	public List<PricingComponentValue> existingPricingComponentValues = new ArrayList<PricingComponentValue>();
-	public List<PricingComponentValue> updatedPricingComponentValues = new ArrayList<PricingComponentValue>();
+	@Expose List<PricingComponentValue> existingPricingComponentValues = new ArrayList<PricingComponentValue>();
+	@Expose List<PricingComponentValue> updatedPricingComponentValues = new ArrayList<PricingComponentValue>();
 
 	
 	public String getBookCode() {

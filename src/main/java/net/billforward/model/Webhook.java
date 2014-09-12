@@ -1,5 +1,7 @@
 package net.billforward.model;
 
+import java.util.Date;
+
 import net.billforward.BillForwardClient;
 import net.billforward.exception.APIConnectionException;
 import net.billforward.exception.APIException;
@@ -21,7 +23,7 @@ public class Webhook extends MutableEntity<Webhook> {
 	@Expose protected String verificationID;
 	@Expose protected boolean deleted;
 	@Expose protected String changedBy;
-	@Expose protected String created;
+	@Expose protected Date created;
 	@Expose protected WebhookSubscription[] webhookSubscriptions;
 	
 	public String getID() {
@@ -109,7 +111,7 @@ public class Webhook extends MutableEntity<Webhook> {
 		return changedBy;
 	}
 
-	public String getCreated() {
+	public Date getCreated() {
 		return created;
 	}
 

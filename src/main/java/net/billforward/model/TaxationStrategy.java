@@ -1,6 +1,7 @@
 package net.billforward.model;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import net.billforward.BillForwardClient;
 import net.billforward.exception.APIConnectionException;
@@ -21,12 +22,12 @@ public class TaxationStrategy extends MutableEntity<TaxationStrategy> {
 	@Expose protected String currency;
 	@Expose protected String name;
 	@Expose protected BigDecimal percentage;
-	@Expose protected String validTill;
-	@Expose protected String validFrom;
+	@Expose protected Date validTill;
+	@Expose protected Date validFrom;
 	@Expose protected Boolean deleted;
-	@Expose protected String updated;
+	@Expose protected Date updated;
 	@Expose protected String changedBy;
-	@Expose protected String created;
+	@Expose protected Date created;
 
 	public String getID() {
 		return id;
@@ -72,19 +73,19 @@ public class TaxationStrategy extends MutableEntity<TaxationStrategy> {
 		this.percentage = percentage;
 	}
 
-	public String getValidTill() {
+	public Date getValidTill() {
 		return validTill;
 	}
 
-	public void setValidTill(String validTill) {
+	public void setValidTill(Date validTill) {
 		this.validTill = validTill;
 	}
 
-	public String getValidFrom() {
+	public Date getValidFrom() {
 		return validFrom;
 	}
 
-	public void setValidFrom(String validFrom) {
+	public void setValidFrom(Date validFrom) {
 		this.validFrom = validFrom;
 	}
 
@@ -104,7 +105,7 @@ public class TaxationStrategy extends MutableEntity<TaxationStrategy> {
 		return organizationID;
 	}
 
-	public String getUpdated() {
+	public Date getUpdated() {
 		return updated;
 	}
 
@@ -112,7 +113,7 @@ public class TaxationStrategy extends MutableEntity<TaxationStrategy> {
 		return changedBy;
 	}
 
-	public String getCreated() {
+	public Date getCreated() {
 		return created;
 	}
 	

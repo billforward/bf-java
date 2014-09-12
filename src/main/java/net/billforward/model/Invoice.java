@@ -1,6 +1,7 @@
 package net.billforward.model;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import net.billforward.BillForwardClient;
 import net.billforward.exception.APIConnectionException;
@@ -18,14 +19,14 @@ public class Invoice extends BillingEntity {
 	@Expose protected String accountID;
 	@Expose protected String organizationID;
 	@Expose protected String state;
-	@Expose protected String periodStart;
-	@Expose protected String periodEnd;
+	@Expose protected Date periodStart;
+	@Expose protected Date periodEnd;
 	@Expose protected Boolean deleted = false;
 	@Expose protected int totalExecutionAttempts;
-	@Expose protected String lastExecutionAttempt;
-	@Expose protected String nextExecutionAttempt;
-	@Expose protected String finalExecutionAttempt;
-	@Expose protected String paymentReceived;
+	@Expose protected Date lastExecutionAttempt;
+	@Expose protected Date nextExecutionAttempt;
+	@Expose protected Date finalExecutionAttempt;
+	@Expose protected Date paymentReceived;
 	@Expose protected String currency;
 	@Expose protected BigDecimal costExcludingTax;
 	@Expose protected BigDecimal invoiceCost;
@@ -37,9 +38,9 @@ public class Invoice extends BillingEntity {
 	@Expose protected String managedBy;
 	@Expose protected Boolean initialInvoice;
 	@Expose protected int versionNumber;
-	@Expose protected String updated;
+	@Expose protected Date updated;
 	@Expose protected String changedBy;
-	@Expose protected String created;	
+	@Expose protected Date created;	
 	
 	protected InvoiceLine[] invoiceLines;
 	protected InvoicePayment[] invoicePayments;
@@ -68,11 +69,11 @@ public class Invoice extends BillingEntity {
 		return InvoiceState.valueOf(state);
 	}
 
-	public String getPeriodStart() {
+	public Date getPeriodStart() {
 		return periodStart;
 	}
 
-	public String getPeriodEnd() {
+	public Date getPeriodEnd() {
 		return periodEnd;
 	}
 
@@ -84,19 +85,19 @@ public class Invoice extends BillingEntity {
 		return totalExecutionAttempts;
 	}
 
-	public String getLastExecutionAttempt() {
+	public Date getLastExecutionAttempt() {
 		return lastExecutionAttempt;
 	}
 
-	public String getNextExecutionAttempt() {
+	public Date getNextExecutionAttempt() {
 		return nextExecutionAttempt;
 	}
 
-	public String getFinalExecutionAttempt() {
+	public Date getFinalExecutionAttempt() {
 		return finalExecutionAttempt;
 	}
 
-	public String getPaymentReceived() {
+	public Date getPaymentReceived() {
 		return paymentReceived;
 	}
 
@@ -148,7 +149,7 @@ public class Invoice extends BillingEntity {
 		return versionNumber;
 	}
 
-	public String getUpdated() {
+	public Date getUpdated() {
 		return updated;
 	}
 
@@ -156,7 +157,7 @@ public class Invoice extends BillingEntity {
 		return changedBy;
 	}
 
-	public String getCreated() {
+	public Date getCreated() {
 		return created;
 	}
 

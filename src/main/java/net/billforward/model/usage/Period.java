@@ -67,6 +67,22 @@ public class Period extends BillingEntity {
 		return getByID(subscriptionID_, ResourcePath());
 	}
 
+	public static Period getLatestPeriodsForSubscription(String subscriptionID_) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		Period[] periods = getByID(subscriptionID_, ResourcePath());
+		Period latestPeriod = null;
+		for(Period period : periods) {
+			if(latestPeriod == null) {
+				latestPeriod = period;
+			}
+			
+			if(period.period > latestPeriod.period) {
+				latestPeriod = period;
+			}
+		}
+		
+		return latestPeriod;
+	}
+
 	public static Period[] getAllPeriods() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
 		return getAll(ResourcePath());
 	}

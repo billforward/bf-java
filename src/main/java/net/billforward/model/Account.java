@@ -1,5 +1,7 @@
 package net.billforward.model;
 
+import java.util.Date;
+
 import net.billforward.BillForwardClient;
 import net.billforward.exception.APIConnectionException;
 import net.billforward.exception.APIException;
@@ -23,8 +25,8 @@ public class Account extends MutableEntity<Account> {
 	@Expose protected String userID;
 	@Expose protected int successfulSubscriptions;
 	@Expose protected boolean  deleted;
-	@Expose protected String created;
-	@Expose protected String updated;
+	@Expose protected Date created;
+	@Expose protected Date updated;
 	@Expose protected String changedBy;
 	@Expose protected Profile profile;
 	@Expose protected PaymentMethod[] paymentMethods;
@@ -83,14 +85,14 @@ public class Account extends MutableEntity<Account> {
 	/**
 	 * @return The UTC DateTime when the object was created. 
 	 */
-	public String getCreated() {
+	public Date getCreated() {
 		return created;
 	}
 	
 	/**
 	 * @return The UTC DateTime when the object was last updated. 
 	 */
-	public String getUpdated() {
+	public Date getUpdated() {
 		return updated;
 	}
 	
@@ -125,6 +127,7 @@ public class Account extends MutableEntity<Account> {
 	
 	public static Account getByID(String ID) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
 		Account[] accs = getByID(ID, ResourcePath());
+		if(accs == null || accs.length == 0) return null;
 		return accs[0];
 	}
 	

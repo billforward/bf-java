@@ -1,5 +1,7 @@
 package net.billforward.model;
 
+import java.util.Date;
+
 import net.billforward.BillForwardClient;
 
 import com.google.gson.annotations.Expose;
@@ -11,9 +13,9 @@ public class OrganizationGateway extends MutableEntity<OrganizationGateway> {
 	@Expose protected String gateway;
 	@Expose protected String enabled;
 	@Expose protected String deleted;
-	@Expose protected String updated;
+	@Expose protected Date updated;
 	@Expose protected String changedBy;
-	@Expose protected String created;	
+	@Expose protected Date created;	
 	
 	protected static ResourcePath resourcePath;
 	

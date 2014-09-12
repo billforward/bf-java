@@ -1,6 +1,8 @@
 package net.billforward.model;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 import net.billforward.BillForwardClient;
 import net.billforward.exception.APIConnectionException;

@@ -1,5 +1,7 @@
 package net.billforward.model;
 
+import java.util.Date;
+
 import net.billforward.BillForwardClient;
 
 import com.google.gson.annotations.Expose;
@@ -10,9 +12,9 @@ public class PaymentMethodSubscriptionLink extends MutableEntity<PaymentMethodSu
 	@Expose protected String subscriptionID;
 	@Expose protected String organizationID;
 	@Expose protected String paymentMethodID;
-	@Expose protected String updated;
+	@Expose protected Date updated;
 	@Expose protected String changedBy;
-	@Expose protected String created;
+	@Expose protected Date created;
 
 	public String getID() {
 		return id;
@@ -38,7 +40,7 @@ public class PaymentMethodSubscriptionLink extends MutableEntity<PaymentMethodSu
 		return organizationID;
 	}
 
-	public String getUpdated() {
+	public Date getUpdated() {
 		return updated;
 	}
 
@@ -46,7 +48,7 @@ public class PaymentMethodSubscriptionLink extends MutableEntity<PaymentMethodSu
 		return changedBy;
 	}
 
-	public String getCreated() {
+	public Date getCreated() {
 		return created;
 	}
 	

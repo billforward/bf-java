@@ -1,5 +1,7 @@
 package net.billforward.model;
 
+import java.util.Date;
+
 import net.billforward.BillForwardClient;
 
 import com.google.gson.annotations.Expose;
@@ -11,11 +13,11 @@ public class PricingComponentValue extends MutableEntity<PricingComponentValue> 
 	@Expose protected String organizationID;
 	@Expose protected int value;
 	@Expose protected String pricingComponentID;
-	@Expose protected String appliesFrom;
-	@Expose protected String appliesTill;
-	@Expose protected String updated;
+	@Expose protected Date appliesFrom;
+	@Expose protected Date appliesTill;
+	@Expose protected Date updated;
 	@Expose protected String changedBy;
-	@Expose protected String created;
+	@Expose protected Date created;
 	
 	public String getID() {
 		return id;
@@ -53,23 +55,23 @@ public class PricingComponentValue extends MutableEntity<PricingComponentValue> 
 		this.pricingComponentID = pricingComponentID;
 	}
 
-	public String getAppliesFrom() {
+	public Date getAppliesFrom() {
 		return appliesFrom;
 	}
 
-	public void setAppliesFrom(String appliesFrom) {
+	public void setAppliesFrom(Date appliesFrom) {
 		this.appliesFrom = appliesFrom;
 	}
 
-	public String getAppliesTill() {
+	public Date getAppliesTill() {
 		return appliesTill;
 	}
 
-	public void setAppliesTill(String appliesTill) {
+	public void setAppliesTill(Date appliesTill) {
 		this.appliesTill = appliesTill;
 	}
 
-	public String getUpdated() {
+	public Date getUpdated() {
 		return updated;
 	}
 
@@ -77,7 +79,7 @@ public class PricingComponentValue extends MutableEntity<PricingComponentValue> 
 		return changedBy;
 	}
 
-	public String getCreated() {
+	public Date getCreated() {
 		return created;
 	}
 

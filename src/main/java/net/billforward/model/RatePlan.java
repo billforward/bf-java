@@ -2,6 +2,7 @@ package net.billforward.model;
 
 import java.util.ArrayList;
 import java.util.Currency;
+import java.util.Date;
 import java.util.List;
 
 import net.billforward.BillForwardClient;
@@ -24,16 +25,16 @@ public class RatePlan extends MutableEntity<RatePlan> {
 	@Expose protected String taxStatus;
 	@Expose protected String proRataMode;
 	@Expose protected Boolean localisedTax;
-	@Expose protected String validFrom;
-	@Expose protected String validTill;
+	@Expose protected Date validFrom;
+	@Expose protected Date validTill;
 	@Expose protected String status;
 	@Expose protected Boolean deleted;
-	@Expose protected String updated;
+	@Expose protected Date updated;
 	@Expose protected String changedBy;
-	@Expose protected String created;	
+	@Expose protected Date created;	
 	
 	/* Concrete objects returned */
-	@Expose protected Product product;
+	protected Product product;
 	@Expose protected List<PricingComponent> pricingComponents = new ArrayList<PricingComponent>();
 	@Expose protected List<TaxationLink> taxation = new ArrayList<TaxationLink>();
 	@Expose protected List<FixedTermDefinition> fixedTermDefinitions = new ArrayList<FixedTermDefinition>();
@@ -106,19 +107,19 @@ public class RatePlan extends MutableEntity<RatePlan> {
 		this.localisedTax = localisedTax;
 	}
 
-	public String getValidFrom() {
+	public Date getValidFrom() {
 		return validFrom;
 	}
 
-	public void setValidFrom(String validFrom) {
+	public void setValidFrom(Date validFrom) {
 		this.validFrom = validFrom;
 	}
 
-	public String getValidTill() {
+	public Date getValidTill() {
 		return validTill;
 	}
 
-	public void setValidTill(String validTill) {
+	public void setValidTill(Date validTill) {
 		this.validTill = validTill;
 	}
 
@@ -138,11 +139,11 @@ public class RatePlan extends MutableEntity<RatePlan> {
 		this.deleted = deleted;
 	}
 
-	public String getUpdated() {
+	public Date getUpdated() {
 		return updated;
 	}
 
-	public void setUpdated(String updated) {
+	public void setUpdated(Date updated) {
 		this.updated = updated;
 	}
 
@@ -150,7 +151,7 @@ public class RatePlan extends MutableEntity<RatePlan> {
 		return changedBy;
 	}
 
-	public String getCreated() {
+	public Date getCreated() {
 		return created;
 	}
 

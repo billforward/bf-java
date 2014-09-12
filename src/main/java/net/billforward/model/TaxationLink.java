@@ -1,5 +1,7 @@
 package net.billforward.model;
 
+import java.util.Date;
+
 import net.billforward.BillForwardClient;
 
 import com.google.gson.annotations.Expose;
@@ -10,9 +12,9 @@ public class TaxationLink extends MutableEntity<TaxationLink> {
 	@Expose protected String organizationID;
 	@Expose protected String taxationStrategyID;
 	@Expose protected String productRatePlanID;
-	@Expose protected String updated;
+	@Expose protected Date updated;
 	@Expose protected String changedBy;
-	@Expose protected String created;
+	@Expose protected Date created;
 
 	public String getID() {
 		return id;

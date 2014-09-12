@@ -1,6 +1,7 @@
 package net.billforward.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import net.billforward.BillForwardClient;
@@ -24,18 +25,19 @@ public class Subscription extends MutableEntity<Subscription> {
 //	@SerializedName("@type")
 	@Expose protected String type;
 	@Expose protected String state;
-	@Expose protected String currentPeriodStart;
-	@Expose protected String currentPeriodEnd;
-	@Expose protected String effectiveStartDate;
-	@Expose protected String actualStartDate;
-	@Expose protected String subscriptionEnd;
-	@Expose protected String currentPeriodEndExplicit;
+	@Expose protected Date currentPeriodStart;
+	@Expose protected Date currentPeriodEnd;
+	@Expose protected Date effectiveStartDate;
+	@Expose protected Date actualStartDate;
+	@Expose protected Date subscriptionEnd;
+	@Expose protected Date currentPeriodEndExplicit;
 	@Expose protected String locked;
 	@Expose protected String managedBy;
-	@Expose protected String updated;
+	@Expose protected Date updated;
 	@Expose protected String changedBy;
-	@Expose protected String created;
+	@Expose protected Date created;
 	protected RatePlan productRatePlan;
+	
 	@Expose protected List<PaymentMethodSubscriptionLink> paymentMethodSubscriptionLinks = new ArrayList<PaymentMethodSubscriptionLink>();
 	@Expose protected List<PricingComponentValue>  pricingComponentValues = new ArrayList<PricingComponentValue>();
 	
@@ -108,51 +110,51 @@ public class Subscription extends MutableEntity<Subscription> {
 		this.state = state.toString();
 	}
 
-	public String getCurrentPeriodStart() {
+	public Date getCurrentPeriodStart() {
 		return currentPeriodStart;
 	}
 
-	public void setCurrentPeriodStart(String currentPeriodStart) {
+	public void setCurrentPeriodStart(Date currentPeriodStart) {
 		this.currentPeriodStart = currentPeriodStart;
 	}
 
-	public String getCurrentPeriodEnd() {
+	public Date getCurrentPeriodEnd() {
 		return currentPeriodEnd;
 	}
 
-	public void setCurrentPeriodEnd(String currentPeriodEnd) {
+	public void setCurrentPeriodEnd(Date currentPeriodEnd) {
 		this.currentPeriodEnd = currentPeriodEnd;
 	}
 
-	public String getEffectiveStartDate() {
+	public Date getEffectiveStartDate() {
 		return effectiveStartDate;
 	}
 
-	public void setEffectiveStartDate(String effectiveStartDate) {
+	public void setEffectiveStartDate(Date effectiveStartDate) {
 		this.effectiveStartDate = effectiveStartDate;
 	}
 
-	public String getActualStartDate() {
+	public Date getActualStartDate() {
 		return actualStartDate;
 	}
 
-	public void setActualStartDate(String actualStartDate) {
+	public void setActualStartDate(Date actualStartDate) {
 		this.actualStartDate = actualStartDate;
 	}
 
-	public String getSubscriptionEnd() {
+	public Date getSubscriptionEnd() {
 		return subscriptionEnd;
 	}
 
-	public void setSubscriptionEnd(String subscriptionEnd) {
+	public void setSubscriptionEnd(Date subscriptionEnd) {
 		this.subscriptionEnd = subscriptionEnd;
 	}
 
-	public String getCurrentPeriodEndExplicit() {
+	public Date getCurrentPeriodEndExplicit() {
 		return currentPeriodEndExplicit;
 	}
 
-	public void setCurrentPeriodEndExplicit(String currentPeriodEndExplicit) {
+	public void setCurrentPeriodEndExplicit(Date currentPeriodEndExplicit) {
 		this.currentPeriodEndExplicit = currentPeriodEndExplicit;
 	}
 
@@ -165,7 +167,7 @@ public class Subscription extends MutableEntity<Subscription> {
 		this.managedBy = managedBy;
 	}
 
-	public String getUpdated() {
+	public Date getUpdated() {
 		return updated;
 	}
 
@@ -173,7 +175,7 @@ public class Subscription extends MutableEntity<Subscription> {
 		return changedBy;
 	}
 
-	public String getCreated() {
+	public Date getCreated() {
 		return created;
 	}
 
@@ -196,6 +198,9 @@ public class Subscription extends MutableEntity<Subscription> {
 
 	public static Subscription getByID(String ID) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
 		Subscription[] subs = getByID(ID, ResourcePath());
+
+		if(subs == null || subs.length == 0) return null;
+		
 		return subs[0];
 	}
 

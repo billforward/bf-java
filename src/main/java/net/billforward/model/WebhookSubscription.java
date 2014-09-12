@@ -1,5 +1,7 @@
 package net.billforward.model;
 
+import java.util.Date;
+
 import net.billforward.BillForwardClient;
 
 import com.google.gson.annotations.Expose;
@@ -12,9 +14,9 @@ public class WebhookSubscription extends BillingEntity {
 	@Expose protected String domain;
 	@Expose protected String action;
 	@Expose protected boolean deleted;
-	@Expose protected String updated;
+	@Expose protected Date updated;
 	@Expose protected String changedBy;
-	@Expose protected String created;
+	@Expose protected Date created;
 	
 	public String getID() {
 		return id;

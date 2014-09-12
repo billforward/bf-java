@@ -1,5 +1,7 @@
 package net.billforward.model;
 
+import java.util.Date;
+
 import net.billforward.BillForwardClient;
 import net.billforward.exception.APIConnectionException;
 import net.billforward.exception.APIException;
@@ -16,9 +18,9 @@ public class UnitOfMeasure extends MutableEntity<UnitOfMeasure> {
 	@Expose protected String organizationID;
 	@Expose protected String displayedAs;
 	@Expose protected boolean deleted;
-	@Expose protected String updated;
+	@Expose protected Date updated;
 	@Expose protected String changedBy;
-	@Expose protected String created;
+	@Expose protected Date created;
 	@Expose protected String roundingScheme;
 
 	public String getID() {
@@ -65,7 +67,7 @@ public class UnitOfMeasure extends MutableEntity<UnitOfMeasure> {
 		return organizationID;
 	}
 
-	public String getUpdated() {
+	public Date getUpdated() {
 		return updated;
 	}
 
@@ -73,7 +75,7 @@ public class UnitOfMeasure extends MutableEntity<UnitOfMeasure> {
 		return changedBy;
 	}
 
-	public String getCreated() {
+	public Date getCreated() {
 		return created;
 	}
 	

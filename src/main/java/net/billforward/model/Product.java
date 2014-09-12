@@ -1,5 +1,7 @@
 package net.billforward.model;
 
+import java.util.Date;
+
 import net.billforward.BillForwardClient;
 import net.billforward.exception.APIConnectionException;
 import net.billforward.exception.APIException;
@@ -18,16 +20,15 @@ public class Product extends MutableEntity<Product> {
 	@Expose protected String description;
 	@Expose protected String durationPeriod;
 	@Expose protected int duration;
-	@Expose protected String trial;
+	@Expose protected int trial;
 	@Expose protected String trialPeriod;
 	@Expose protected String productType;
 	@Expose protected String state = "prod";
-	@Expose protected Boolean primaryAddress;
 	@Expose protected Boolean deleted = false;
-	@Expose protected Boolean startDate;
-	@Expose protected String updated;
+	@Expose protected Date startDate;
+	@Expose protected Date updated;
 	@Expose protected String changedBy;
-	@Expose protected String created;	
+	@Expose protected Date created;	
 	
 	public String getID() {
 		return id;
@@ -81,11 +82,11 @@ public class Product extends MutableEntity<Product> {
 		this.duration = duration;
 	}
 
-	public String getTrial() {
+	public int getTrial() {
 		return trial;
 	}
 
-	public void setTrial(String trial) {
+	public void setTrial(int trial) {
 		this.trial = trial;
 	}
 
@@ -112,27 +113,19 @@ public class Product extends MutableEntity<Product> {
 		return state;
 	}
 
-	public Boolean getPrimaryAddress() {
-		return primaryAddress;
-	}
-
-	public void setPrimaryAddress(Boolean primaryAddress) {
-		this.primaryAddress = primaryAddress;
-	}
-
 	public Boolean getDeleted() {
 		return deleted;
 	}
 
-	public Boolean getStartDate() {
+	public Date getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Boolean startDate) {
+	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
 
-	public String getUpdated() {
+	public Date getUpdated() {
 		return updated;
 	}
 
@@ -140,7 +133,7 @@ public class Product extends MutableEntity<Product> {
 		return changedBy;
 	}
 	
-	public String getCreated() {
+	public Date getCreated() {
 		return created;
 	}
 

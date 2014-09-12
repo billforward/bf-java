@@ -1,5 +1,6 @@
 package net.billforward.model;
 
+import java.util.Date;
 import java.util.List;
 
 import net.billforward.BillForwardClient;
@@ -17,9 +18,9 @@ public class Organization extends MutableEntity<Organization> {
 	@Expose protected String id;
 	@Expose protected String name;
 	@Expose protected boolean deleted;
-	@Expose protected String updated;
+	@Expose protected Date updated;
 	@Expose protected String changedBy;
-	@Expose protected String created;
+	@Expose protected Date created;
 	@Expose protected List<Webhook> webhooks;
 	@Expose protected List<DunningLine> dunningLines;
 	@Expose protected List<APIConfiguration> apiConfigurations;
@@ -42,7 +43,7 @@ public class Organization extends MutableEntity<Organization> {
 		return deleted;
 	}
 
-	public String getUpdated() {
+	public Date getUpdated() {
 		return updated;
 	}
 
@@ -50,7 +51,7 @@ public class Organization extends MutableEntity<Organization> {
 		return changedBy;
 	}
 
-	public String getCreated() {
+	public Date getCreated() {
 		return created;
 	}
 

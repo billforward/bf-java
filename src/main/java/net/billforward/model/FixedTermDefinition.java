@@ -1,6 +1,7 @@
 package net.billforward.model;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import net.billforward.BillForwardClient;
 
@@ -14,12 +15,12 @@ public class FixedTermDefinition extends MutableEntity<TaxationStrategy> {
 	@Expose protected String expiryBehaviour;
 	@Expose protected int firstTermPeriods;
 	@Expose protected int subsequentTermPeriods;
-	@Expose protected String productRatePlanAsOfTime;
+	@Expose protected Date productRatePlanAsOfTime;
 	@Expose protected BigDecimal uplift;
 	@Expose protected Boolean deleted;
-	@Expose protected String updated;
+	@Expose protected Date updated;
 	@Expose protected String changedBy;
-	@Expose protected String created;
+	@Expose protected Date created;
 
 	public String getID() {
 		return id;

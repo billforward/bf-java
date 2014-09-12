@@ -27,11 +27,11 @@ public class RatePlanTests extends TestBase {
 	@Test
 	public void UpdateRatePlan() throws BillforwardException {
 		//--Get rate-plan by ID
-		RatePlan ratePlan = RatePlan.getByID("5C7AD40C-9960-4257-8255-59416B7F45CC");
+		RatePlan ratePlan = RatePlan.getByID("2B9621AC-606A-49F3-970C-DE0B421470C4");
 		
 		System.out.println(ratePlan.toString());
 		
-		ratePlan.setTaxStatus(TaxStatus.exclusive);
+		//ratePlan.setTaxStatus(TaxStatus.inclusive);
 		
 		// Update the rate plan
 		ratePlan = ratePlan.save();
@@ -65,7 +65,7 @@ public class RatePlanTests extends TestBase {
 	@Test
 	public void GetByProductID() throws BillforwardException {
 		//--Get Product
-		Product product = Product.getByID("4D11A00F-B5AA-4B59-B8B7-12E45EDF88E1");
+		Product product = Product.getByID("69933463-4E56-4221-931A-5F009788B333");
 		
 		// Get rate-plans
 		RatePlan[] ratePlans = RatePlan.getByProductID(product.getID());
@@ -102,7 +102,7 @@ public class RatePlanTests extends TestBase {
 		pricingComponent.setUnitOfMeasureID(unitOfMeasure.getID());
 		pricingComponent.setUpgradeMode(ValueChangeMode.immediate);
 		pricingComponent.setDowngradeMode(ValueChangeMode.delayed);
-		pricingComponent.setDefaultQuantity(2);
+		//pricingComponent.setDefaultQuantity(2);
 		pricingComponent.setType(PricingComponentType.tieredPricingComponent);
 		pricingComponent.getTiers().add(tier);
 		

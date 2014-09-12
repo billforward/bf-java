@@ -1,5 +1,7 @@
 package net.billforward.model;
 
+import java.util.Date;
+
 import net.billforward.BillForwardClient;
 import net.billforward.exception.APIConnectionException;
 import net.billforward.exception.APIException;
@@ -24,9 +26,9 @@ public class PaymentMethod extends MutableEntity<PaymentMethod> {
 	@Expose protected int priority;
 	@Expose protected Boolean reusable;
 	@Expose protected Boolean deleted;
-	@Expose protected String updated;
+	@Expose protected Date updated;
 	@Expose protected String changedBy;
-	@Expose protected String created;
+	@Expose protected Date created;
 	
 	public String getID() {
 		return id;
@@ -132,7 +134,7 @@ public class PaymentMethod extends MutableEntity<PaymentMethod> {
 		this.deleted = deleted;
 	}
 
-	public String getUpdated() {
+	public Date getUpdated() {
 		return updated;
 	}
 
@@ -140,7 +142,7 @@ public class PaymentMethod extends MutableEntity<PaymentMethod> {
 		return changedBy;
 	}
 
-	public String getCreated() {
+	public Date getCreated() {
 		return created;
 	}
 

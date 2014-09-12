@@ -1,5 +1,6 @@
 package net.billforward.model;
 
+
 import net.billforward.exception.BillforwardException;
 import net.billforward.model.usage.Usage;
 
@@ -30,5 +31,13 @@ public class UsageTests extends TestBase {
 		for(Usage usage : usages) {
 			System.out.println(usage.toString());				
 		}
+	}
+
+	
+
+	@Test
+	public void generatePrice() throws BillforwardException {
+		PriceCalculation priceCalculation =  RealtimeUsagePriceCalculatorTest.GetPriceForSubscription("B26E8790-6624-4F2E-BA06-0CB537AA7211");
+		System.out.println(priceCalculation);		
 	}
 }

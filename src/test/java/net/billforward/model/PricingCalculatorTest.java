@@ -8,11 +8,19 @@ public class PricingCalculatorTest extends TestBase {
 	@Test
 	public void GetRatePlan() throws BillforwardException {
 
-		PriceRequest priceRequest = new PriceRequest();
-		priceRequest.setProductRatePlanID("");
+		RatePlan plan = RatePlan.getByID("2B9621AC-606A-49F3-970C-DE0B421470C4");
 		
-		PricingComponentValue value = new PricingComponentValue();
-		priceRequest.addPricingComponentValue(value);
+		PriceRequest priceRequest = new PriceRequest();
+		priceRequest.setProductRatePlanID(plan.getID());		
+		
+		for(PricingComponent pricingComponent : plan.getPricingComponents()) {
+			PricingComponentValue value = new PricingComponentValue();
+			value.setSubscriptionID(pricingComponent.getID());
+			value.setPricingComponentID(pricingComponent.getID());
+			value.setValue(5);
+			
+			priceRequest.addPricingComponentValue(value);
+		}		
 		
 		PriceCalculation price = PricingCalculator.requestPriceCalculation(priceRequest);
 		

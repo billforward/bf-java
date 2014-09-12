@@ -1,6 +1,7 @@
 package net.billforward.model;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import net.billforward.BillForwardClient;
 
@@ -18,9 +19,9 @@ public class InvoiceLine extends BillingEntity {
 	@Expose protected BigDecimal cost;
 	@Expose protected BigDecimal tax;
 	@Expose protected int componentValue;
-	@Expose protected String updated;
+	@Expose protected Date updated;
 	@Expose protected String changedBy;
-	@Expose protected String created;	
+	@Expose protected Date created;	
 	
 	protected UnitOfMeasure unitOfMeasure;
 	
@@ -64,7 +65,7 @@ public class InvoiceLine extends BillingEntity {
 		return componentValue;
 	}
 
-	public String getUpdated() {
+	public Date getUpdated() {
 		return updated;
 	}
 
@@ -72,7 +73,7 @@ public class InvoiceLine extends BillingEntity {
 		return changedBy;
 	}
 
-	public String getCreated() {
+	public Date getCreated() {
 		return created;
 	}
 

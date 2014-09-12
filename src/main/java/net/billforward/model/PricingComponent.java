@@ -1,6 +1,7 @@
 package net.billforward.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import net.billforward.BillForwardClient;
@@ -19,7 +20,6 @@ public class PricingComponent extends MutableEntity<PricingComponent> {
 	@Expose protected String description;
 	@Expose protected String productRatePlanID;
 	@Expose protected String unitOfMeasureID;
-	@Expose protected String validTill;
 	@Expose protected String chargeType;
 	@Expose protected String chargeModel;
 	@Expose protected String upgradeMode;
@@ -27,11 +27,12 @@ public class PricingComponent extends MutableEntity<PricingComponent> {
 	@Expose protected int defaultQuantity;
 	@Expose protected int minQuantity;
 	@Expose protected int maxQuantity;	
-	@Expose protected String validFrom;	
+	@Expose protected Date validTill;
+	@Expose protected Date validFrom;	
 	@Expose protected String name;
-	@Expose protected String updated;
+	@Expose protected Date updated;
 	@Expose protected String changedBy;
-	@Expose protected String created;
+	@Expose protected Date created;
 	@Expose protected List<PricingComponentTier> tiers = new ArrayList<PricingComponentTier>();
 	@Expose protected UnitOfMeasure unitOfMeasure;
 	//sage-rounding-strategies () 	
@@ -72,11 +73,11 @@ public class PricingComponent extends MutableEntity<PricingComponent> {
 		this.unitOfMeasureID = unitOfMeasureID;
 	}
 
-	public String getValidTill() {
+	public Date getValidTill() {
 		return validTill;
 	}
 
-	public void setValidTill(String validTill) {
+	public void setValidTill(Date validTill) {
 		this.validTill = validTill;
 	}
 	
@@ -152,11 +153,11 @@ public class PricingComponent extends MutableEntity<PricingComponent> {
 		this.maxQuantity = maxQuantity;
 	}
 
-	public String getValidFrom() {
+	public Date getValidFrom() {
 		return validFrom;
 	}
 
-	public void setValidFrom(String validFrom) {
+	public void setValidFrom(Date validFrom) {
 		this.validFrom = validFrom;
 	}
 
@@ -177,7 +178,7 @@ public class PricingComponent extends MutableEntity<PricingComponent> {
 		return productRatePlanID;
 	}
 
-	public String getUpdated() {
+	public Date getUpdated() {
 		return updated;
 	}
 
@@ -185,7 +186,7 @@ public class PricingComponent extends MutableEntity<PricingComponent> {
 		return changedBy;
 	}
 
-	public String getCreated() {
+	public Date getCreated() {
 		return created;
 	}
 

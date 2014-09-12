@@ -11,11 +11,11 @@ public class ProductTests extends TestBase {
 	@Test
 	public void GetProduct() throws BillforwardException {
 		//--Get product by ID
-		Product product = Product.getByID("D3E0F064-9E67-492E-8CFC-73E97B0B006A");
+		Product product = Product.getByID("69933463-4E56-4221-931A-5F009788B333");
 
 		System.out.println(product.toString());
 		
-		assertEquals("D3E0F064-9E67-492E-8CFC-73E97B0B006A", product.getID());
+		assertEquals("69933463-4E56-4221-931A-5F009788B333", product.getID());
 	}
 	
 	@Test
