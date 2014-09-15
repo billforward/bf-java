@@ -1,5 +1,7 @@
 package net.billforward.model.usage;
 
+import java.util.Date;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.reflect.TypeToken;
 
@@ -16,12 +18,12 @@ import net.billforward.model.ResourcePath;
 public class Period extends BillingEntity {
 	@Expose protected String subscriptionID;
 	@Expose protected String organizationID;
-	@Expose protected String start;
-	@Expose protected String stop;
+	@Expose protected Date start;
+	@Expose protected Date stop;
 	@Expose protected int period;
 	@Expose protected String usageType;
 	@Expose protected String state;
-	@Expose protected String created;
+	@Expose protected Date created;
 	
 	public String getSubscriptionID() {
 		return subscriptionID;
@@ -31,11 +33,11 @@ public class Period extends BillingEntity {
 		return organizationID;
 	}
 
-	public String getStart() {
+	public Date getStart() {
 		return start;
 	}
 
-	public String getStop() {
+	public Date getStop() {
 		return stop;
 	}
 
@@ -59,7 +61,7 @@ public class Period extends BillingEntity {
 		return UsageState.valueOf(state);
 	}
 
-	public String getCreated() {
+	public Date getCreated() {
 		return created;
 	}
 
@@ -69,6 +71,8 @@ public class Period extends BillingEntity {
 
 	public static Period getLatestPeriodsForSubscription(String subscriptionID_) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
 		Period[] periods = getByID(subscriptionID_, ResourcePath());
+		if(periods == null || periods.length == 0) return null;
+		
 		Period latestPeriod = null;
 		for(Period period : periods) {
 			if(latestPeriod == null) {

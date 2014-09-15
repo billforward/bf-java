@@ -37,7 +37,7 @@ public class UsageTests extends TestBase {
 
 	@Test
 	public void generatePrice() throws BillforwardException {
-		PriceCalculation priceCalculation =  RealtimeUsagePriceCalculatorTest.GetPriceForSubscription("B26E8790-6624-4F2E-BA06-0CB537AA7211");
+		PriceCalculation priceCalculation =  RealtimeUsagePriceCalculatorTest.GetPriceForSubscription("988C2978-2BE1-4E62-8349-EED609402E8B");
 		System.out.println(priceCalculation);		
 	}
 }

@@ -17,40 +17,48 @@ public class RealtimeUsagePriceCalculatorTest {
 		
 		Period period = Period.getLatestPeriodsForSubscription(subscription.getID());
 		
+		if(period == null) {
+			return null;
+		}
+
+		System.out.println(period);
+		System.out.println(subscription);
+		if(subscription.getCurrentPeriodStart().getTime() > period.getStart().getTime() &&
+		   period.getStart().getTime() <= subscription.getCurrentPeriodEnd().getTime()){
+			return null;
+		}
+		
 		Usage[] usages = Usage.getUsageForSubscriptionPeriod(subscription.getID(), period.getPeriod());		
 		
 		long length = 0;
 		if(usages != null) {
 			for(Usage usage : usages) {
-				Date start = usage.getStart();
-				Date stop = usage.getStop();
-				
-				if(stop == null) {
-					stop = new Date();
-				}
-								
-				long lengthDifferene = stop.getTime() - start.getTime();
-				if(lengthDifferene > 0) {
-					length += lengthDifferene;
-				}
-				
+					length += usage.getUsageValue();
 			}
 		}
 		
 		UsageSession[] usageSessions = UsageSession.getActiveSessionsForSubscription(subscription.getID());
 		
-		for(UsageSession usageSession : usageSessions) {
-			Date start = usageSession.getStart();
-			Date stop = usageSession.getStop();
-			
-			if(stop == null) {
-				stop = new Date();
-			}
-			
-			long lengthDifferene = stop.getTime() - start.getTime();
-			if(lengthDifferene > 0) {
-				length += lengthDifferene;
-			}
+		if(usageSessions != null) {
+			for(UsageSession usageSession : usageSessions) {
+				Date start = usageSession.getStart();
+				Date stop = usageSession.getStop();
+				
+				if(stop == null) {
+					stop = new Date();
+				}
+				
+				
+				//Deal with ongoing session
+				if(period.getStart().getTime() > start.getTime()) {
+					start = period.getStart();
+				}
+				
+				long lengthDifferene = stop.getTime() - start.getTime();
+				if(lengthDifferene > 0) {
+					length += lengthDifferene;
+				}
+			}			
 		}
 		
 		long currentUsage = aggregateSecondsToHours(length);
@@ -75,8 +83,8 @@ public class RealtimeUsagePriceCalculatorTest {
 	}
 	
 	public static long aggregateSecondsToHours(long usageDurationInMilliseconds_) {
-		int hour = (int)(usageDurationInMilliseconds_ / MINUTE);
-		int rem = (int)(usageDurationInMilliseconds_ % MINUTE);
+		long hour = (usageDurationInMilliseconds_ / SECOND);
+		long rem = (usageDurationInMilliseconds_ % SECOND);
 		
 		if(rem > 0) {
 			hour++;
