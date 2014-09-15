@@ -1,5 +1,7 @@
 package net.billforward.model.usage;
 
+import java.util.Date;
+
 import net.billforward.BillForwardClient;
 import net.billforward.model.APIResponse;
 import net.billforward.model.BillingEntity;
@@ -18,9 +20,9 @@ public class UsageRoundingStrategy extends BillingEntity {
 	@Expose protected String roundingLevel;
 	@Expose protected String threshold;
 	@Expose protected String thresholdValue;
-	@Expose protected String updated;
+	@Expose protected Date updated;
 	@Expose protected String changedBy;
-	@Expose protected String created;
+	@Expose protected Date created;
 	
 	protected PricingComponent thresholdComponent;
 
@@ -88,7 +90,7 @@ public class UsageRoundingStrategy extends BillingEntity {
 		return organizationID;
 	}
 
-	public String getUpdated() {
+	public Date getUpdated() {
 		return updated;
 	}
 
@@ -96,7 +98,7 @@ public class UsageRoundingStrategy extends BillingEntity {
 		return changedBy;
 	}
 
-	public String getCreated() {
+	public Date getCreated() {
 		return created;
 	}
 

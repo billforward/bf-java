@@ -1,5 +1,7 @@
 package net.billforward.model.usage;
 
+import java.util.Date;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.reflect.TypeToken;
 
@@ -20,9 +22,9 @@ public class UsagePeriod extends BillingEntity {
 	@Expose protected String subscriptionID;
 	@Expose protected String uom;
 	@Expose protected String invoiceID;
-	@Expose protected String state;
+	@Expose protected Date state;
 	@Expose protected int period;
-	@Expose protected String start;
+	@Expose protected Date start;
 	@Expose protected String stop;
 	@Expose protected String durationResolution;
 	@Expose protected String usageDuration;
@@ -53,7 +55,7 @@ public class UsagePeriod extends BillingEntity {
 		return invoiceID;
 	}
 
-	public String getState() {
+	public Date getState() {
 		return state;
 	}
 
@@ -61,7 +63,7 @@ public class UsagePeriod extends BillingEntity {
 		return period;
 	}
 
-	public String getStart() {
+	public Date getStart() {
 		return start;
 	}
 

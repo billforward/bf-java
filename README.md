@@ -17,14 +17,14 @@ Add this dependency to your project's POM:
     <dependency>
       <groupId>net.billforward</groupId>
       <artifactId>billforward-java</artifactId>
-      <version>1.2014.254</version>
+      <version>1.2014.255</version>
     </dependency>
     
 ### Gradle users
 
 Add this dependency to your project's build file:
 
-    compile "net.billforward:billforward-java:1.2014.254"
+    compile "net.billforward:billforward-java:1.2014.255"
 
 ### Others
 
