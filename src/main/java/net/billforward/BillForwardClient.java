@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import net.billforward.amendments.Amendment;
 import net.billforward.exception.APIConnectionException;
 import net.billforward.exception.APIException;
 import net.billforward.exception.AuthenticationException;
@@ -24,6 +25,7 @@ import net.billforward.gson.typeadapters.RuntimeTypeAdapterFactory;
 import net.billforward.model.APIResponse;
 import net.billforward.model.gateways.APIConfiguration;
 import net.billforward.model.gateways.GatewayTypeMapping;
+import net.billforward.model.notifications.Notification;
 import net.billforward.net.BillForwardResponse;
 
 import com.google.gson.FieldNamingPolicy;
@@ -90,11 +92,32 @@ public class BillForwardClient
 		for(GatewayTypeMapping mapping : mappings) {
 			apiConfigAdapter.registerSubtype((Class)mapping.getApiType(), mapping.getName());
 		}
+
+		/*
+		 * This is to support polymorphism in the different type of Amendments
+		 */
+		RuntimeTypeAdapterFactory<Amendment> amendmentConfigAdapter = RuntimeTypeAdapterFactory.of(Amendment.class, "@type");
+		mappings = Amendment.getTypeMappings();
+		for(GatewayTypeMapping mapping : mappings) {
+			amendmentConfigAdapter.registerSubtype((Class)mapping.getApiType(), mapping.getName());
+		}
+		
+		/*
+		 * This is to support polymorphism in the different type of Notifications
+		 */
+		RuntimeTypeAdapterFactory<Notification> notificationConfigAdapter = RuntimeTypeAdapterFactory.of(Notification.class, "domain");
+		mappings = Notification.getTypeMappings();
+		for(GatewayTypeMapping mapping : mappings) {
+			notificationConfigAdapter.registerSubtype((Class)mapping.getApiType(), mapping.getName());
+		}
+		
 		//2014-09-12T03:00:17Z
 		GSON = new GsonBuilder()
 		.setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
 		.excludeFieldsWithoutExposeAnnotation()
 		.registerTypeAdapterFactory(apiConfigAdapter)
+		.registerTypeAdapterFactory(amendmentConfigAdapter)
+		.registerTypeAdapterFactory(notificationConfigAdapter)
 		.setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
 		.create();
 	}

@@ -1,0 +1,10 @@
+{
+   "type" : "notification",
+   "created" : "2014-09-17T19:36:56Z",
+   "id" : "F3803D46-E0EB-47E5-AC7A-10A53C03BF31",
+   "domain" : "Invoice",
+   "action" : "Pending",
+   "organizationID" : "C61BA1C9-D3EA-4BA3-B4BA-0FB7D621E4F2",
+   "entityID" : "04116AE4-2256-4B7A-8C25-650048D15269",
+   "entity" : "{\"type\":\"invoice\",\"created\":\"2014-09-17T19:36:54Z\",\"updated\":\"2014-09-17T19:36:54Z\",\"versionID\":\"04116AE4-2256-4B7A-8C25-650048D15269\",\"id\":\"F3803D46-E0EB-47E5-AC7A-10A53C03BF31\",\"subscriptionID\":\"160EF8D8-916A-48C5-AB86-4726862CEE53\",\"accountID\":\"73D7E55C-DA1C-4F27-BBC5-8E03CA7BB215\",\"organizationID\":\"C61BA1C9-D3EA-4BA3-B4BA-0FB7D621E4F2\",\"state\":\"Pending\",\"periodStart\":\"2014-09-17T19:36:52Z\",\"periodEnd\":\"2014-09-17T19:39:52Z\",\"deleted\":false,\"totalExecutionAttempts\":0,\"nextExecutionAttempt\":\"2014-09-17T19:36:52Z\",\"currency\":\"USD\",\"invoiceCost\":0.00,\"invoicePaid\":0,\"discountAmount\":0.00,\"invoiceRefunded\":0,\"type\":\"Subscription\",\"managedBy\":\"BillForward\",\"initialInvoice\":false,\"versionNumber\":1}"
+}

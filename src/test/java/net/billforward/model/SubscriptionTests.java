@@ -1,7 +1,6 @@
 package net.billforward.model;
 
 import static org.junit.Assert.*;
-import junit.framework.Assert;
 import net.billforward.exception.BillforwardException;
 import net.billforward.model.Subscription.SubscriptionState;
 import net.billforward.model.Subscription.SubscriptionType;

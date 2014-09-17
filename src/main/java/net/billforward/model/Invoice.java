@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import net.billforward.BillForwardClient;
+import net.billforward.amendments.InvoiceNextExecutionAttemptAmendment;
+import net.billforward.amendments.InvoiceRecalculationAmendment;
+import net.billforward.amendments.IssueInvoiceAmendment;
 import net.billforward.exception.APIConnectionException;
 import net.billforward.exception.APIException;
 import net.billforward.exception.AuthenticationException;
@@ -15,6 +18,7 @@ import com.google.gson.reflect.TypeToken;
 
 public class Invoice extends BillingEntity {
 	@Expose protected String id;
+	@Expose protected String versionID;
 	@Expose protected String subscriptionID;
 	@Expose protected String accountID;
 	@Expose protected String organizationID;
@@ -44,9 +48,13 @@ public class Invoice extends BillingEntity {
 	
 	protected InvoiceLine[] invoiceLines;
 	protected InvoicePayment[] invoicePayments;
-	
+
 	public String getID() {
 		return id;
+	}
+	
+	public String getVersionID() {
+		return versionID;
 	}
 
 	public String getSubscriptionID() {
@@ -202,6 +210,40 @@ public class Invoice extends BillingEntity {
 	
 	static {
 		resourcePath = new ResourcePath("invoices", "invoice",  new TypeToken<APIResponse<Invoice>>() {}.getType());
+	}
+	
+	public InvoiceRecalculationAmendment recalculate(InvoiceState newInvoiceState) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		InvoiceRecalculationAmendment amendment = new InvoiceRecalculationAmendment();
+		amendment.setSubscriptionID(this.subscriptionID);
+		amendment.setInvoiceID(this.id);
+		amendment.setNewInvoiceState(newInvoiceState);
+		amendment = InvoiceRecalculationAmendment.create(amendment);
+		return amendment;
+	}
+
+	public InvoiceNextExecutionAttemptAmendment retryTakingPayment() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		return retryTakingPayment(null);
+	}
+	
+	public InvoiceNextExecutionAttemptAmendment retryTakingPayment(Date dateToExecute_) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		InvoiceNextExecutionAttemptAmendment amendment = new InvoiceNextExecutionAttemptAmendment();
+		amendment.setSubscriptionID(this.subscriptionID);
+		amendment.setInvoiceID(this.id);
+		
+		if(dateToExecute_ != null) {
+			amendment.setNextExecutionAttempt(dateToExecute_);			
+		}
+		
+		amendment = InvoiceNextExecutionAttemptAmendment.create(amendment);
+		return amendment;
+	}
+	
+	public IssueInvoiceAmendment issue() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {		
+		IssueInvoiceAmendment amendment = new IssueInvoiceAmendment();
+		amendment.setSubscriptionID(this.subscriptionID);
+		amendment.setInvoiceID(this.id);
+		amendment = IssueInvoiceAmendment.create(amendment);
+		return amendment ;
 	}
 	
 	public enum InvoiceState {

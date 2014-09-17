@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 import net.billforward.BillForwardClient;
+import net.billforward.amendments.CancellationAmendment;
+import net.billforward.amendments.CancellationAmendment.ServiceEndState;
 import net.billforward.exception.APIConnectionException;
 import net.billforward.exception.APIException;
 import net.billforward.exception.AuthenticationException;
@@ -267,5 +269,28 @@ public class Subscription extends MutableEntity<Subscription> {
 		PaymentMethodSubscriptionLink link = new PaymentMethodSubscriptionLink();
 		link.setPaymentMethodID(paymentMethod.getID());
 		paymentMethodSubscriptionLinks.add(link);
+	}
+
+	/** Cancels a subscription immediately
+	 * @return The amendment associated with the cancellation
+	 **/
+	public CancellationAmendment cancelImmediately() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		CancellationAmendment amendment = new CancellationAmendment();
+		amendment.setSubscriptionID(this.getID());
+		amendment.setServiceEnd(ServiceEndState.Immediate);
+		amendment = CancellationAmendment.create(amendment);
+		return amendment;
+	}
+	
+	/***
+	 * Cancel subscription at the current period end
+	 * @return The amendment associated with the cancellation
+	 */
+	public CancellationAmendment cancelAtPeriodEnd() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		CancellationAmendment amendment = new CancellationAmendment();
+		amendment.setSubscriptionID(this.getID());
+		amendment.setServiceEnd(ServiceEndState.AtPeriodEnd);
+		amendment = CancellationAmendment.create(amendment);
+		return amendment;
 	}
 }
