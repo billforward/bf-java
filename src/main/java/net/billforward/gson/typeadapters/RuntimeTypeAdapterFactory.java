@@ -212,6 +212,9 @@ public final class RuntimeTypeAdapterFactory<T> implements TypeAdapterFactory {
         String label = labelJsonElement.getAsString();
         @SuppressWarnings("unchecked") // registration requires that subtype extends T
         TypeAdapter<R> delegate = (TypeAdapter<R>) labelToDelegate.get(label);
+        if(delegate == null) {
+        	delegate = (TypeAdapter<R>)labelToDelegate.get("default_value_mapping");
+        }
         if (delegate == null) {
           throw new JsonParseException("cannot deserialize " + baseType + " subtype named "
               + label + "; did you forget to register a subtype?");

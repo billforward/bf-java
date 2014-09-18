@@ -108,7 +108,11 @@ public class BillForwardClient
 		RuntimeTypeAdapterFactory<Notification> notificationConfigAdapter = RuntimeTypeAdapterFactory.of(Notification.class, "domain");
 		mappings = Notification.getTypeMappings();
 		for(GatewayTypeMapping mapping : mappings) {
-			notificationConfigAdapter.registerSubtype((Class)mapping.getApiType(), mapping.getName());
+			if(mapping.getName() == null) {
+				notificationConfigAdapter.registerSubtype((Class)mapping.getApiType(), "default_value_mapping");				
+			} else {
+				notificationConfigAdapter.registerSubtype((Class)mapping.getApiType(), mapping.getName());				
+			}
 		}
 		
 		//2014-09-12T03:00:17Z

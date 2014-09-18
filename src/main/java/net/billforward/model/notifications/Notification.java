@@ -10,7 +10,7 @@ import net.billforward.model.gateways.GatewayTypeMapping;
 
 import com.google.gson.annotations.Expose;
 
-public abstract class Notification extends BillingEntity {
+public class Notification extends BillingEntity {
 
 	@Expose protected String id;
 	@Expose protected String type;
@@ -29,7 +29,9 @@ public abstract class Notification extends BillingEntity {
 		super(client_);		
 	}
 	
-	protected abstract void buildEntity();
+	protected void buildEntity() {
+		
+	}
 	
 	@Override
 	protected ResourcePath getResourcePath() {
@@ -38,8 +40,18 @@ public abstract class Notification extends BillingEntity {
 	
 	public static GatewayTypeMapping[] getTypeMappings() {
 		List<GatewayTypeMapping> typeMappings = new ArrayList<GatewayTypeMapping>();
+		
+		/* Fully Support Notification types */
 		typeMappings.add(new GatewayTypeMapping(SubscripitonNotification.class, NotificationDomain.Subscription.toString()));
 		typeMappings.add(new GatewayTypeMapping(InvoiceNotification.class, NotificationDomain.Invoice.toString()));
+		typeMappings.add(new GatewayTypeMapping(AmendmentNotification.class, NotificationDomain.Amendment.toString()));
+		typeMappings.add(new GatewayTypeMapping(InvoiceLineNotification.class, NotificationDomain.InvoiceLine.toString()));
+		typeMappings.add(new GatewayTypeMapping(AccountNotification.class, NotificationDomain.Account.toString()));
+		typeMappings.add(new GatewayTypeMapping(WebhookNotification.class, NotificationDomain.Webhook.toString()));
+		
+
+		/* Catch all for other things */
+		typeMappings.add(new GatewayTypeMapping(Notification.class));
 		
 		return typeMappings.toArray(new GatewayTypeMapping[]{});
 	}
