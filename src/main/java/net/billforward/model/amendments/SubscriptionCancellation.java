@@ -1,4 +1,4 @@
-package net.billforward.amendments;
+package net.billforward.model.amendments;
 
 import com.google.gson.annotations.Expose;
 

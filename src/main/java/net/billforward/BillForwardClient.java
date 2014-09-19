@@ -10,12 +10,16 @@ import java.lang.reflect.Type;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.net.URLStreamHandler;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.TimeZone;
 
-import net.billforward.amendments.Amendment;
 import net.billforward.exception.APIConnectionException;
 import net.billforward.exception.APIException;
 import net.billforward.exception.AuthenticationException;
@@ -23,6 +27,7 @@ import net.billforward.exception.CardException;
 import net.billforward.exception.InvalidRequestException;
 import net.billforward.gson.typeadapters.RuntimeTypeAdapterFactory;
 import net.billforward.model.APIResponse;
+import net.billforward.model.amendments.Amendment;
 import net.billforward.model.gateways.APIConfiguration;
 import net.billforward.model.gateways.GatewayTypeMapping;
 import net.billforward.model.notifications.Notification;
@@ -31,6 +36,13 @@ import net.billforward.net.BillForwardResponse;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import com.google.gson.annotations.Expose;
 
 @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -116,8 +128,10 @@ public class BillForwardClient
 		}
 		
 		//2014-09-12T03:00:17Z
+		//.setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+		
 		GSON = new GsonBuilder()
-		.setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+		.registerTypeAdapter(Date.class, new DateTypeAdapter())
 		.excludeFieldsWithoutExposeAnnotation()
 		.registerTypeAdapterFactory(apiConfigAdapter)
 		.registerTypeAdapterFactory(amendmentConfigAdapter)
@@ -126,7 +140,28 @@ public class BillForwardClient
 		.create();
 	}
 
-	
+	private static class DateTypeAdapter implements JsonSerializer<Date>, JsonDeserializer<Date> {
+		private final DateFormat dateFormat;
+		
+		private DateTypeAdapter() {
+			dateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US);
+			dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+		}
+		
+		public Date deserialize(JsonElement jsonElement, Type arg1, JsonDeserializationContext arg2) throws JsonParseException {
+			Date date = null;
+			try {
+				date = dateFormat.parse(jsonElement.getAsString());
+			} catch (ParseException e) {
+			}
+			return date;
+		}
+
+		public JsonElement serialize(Date date, Type arg1, JsonSerializationContext arg2) {
+			String dateFormatAsString = dateFormat.format(date);
+			return new JsonPrimitive(dateFormatAsString);
+		}	
+	}
 	
 	/*
 	 * Set this property to override your environment's default

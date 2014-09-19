@@ -1,7 +1,7 @@
 package net.billforward.model.notifications;
 
 import net.billforward.BillForwardClient;
-import net.billforward.amendments.Amendment;
+import net.billforward.model.amendments.Amendment;
 
 import com.google.gson.annotations.Expose;
 
@@ -10,6 +10,7 @@ public class AmendmentNotification extends Notification {
 	
 	public AmendmentNotification() {
 		super();
+		this.domain = NotificationDomain.Amendment.toString();
 	}
 	
 	public Amendment getInvoice() {

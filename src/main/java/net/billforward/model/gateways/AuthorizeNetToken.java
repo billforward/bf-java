@@ -7,14 +7,13 @@ import net.billforward.exception.AuthenticationException;
 import net.billforward.exception.CardException;
 import net.billforward.exception.InvalidRequestException;
 import net.billforward.model.APIResponse;
-import net.billforward.model.Account;
 import net.billforward.model.MutableEntity;
 import net.billforward.model.ResourcePath;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.reflect.TypeToken;
 
-public class AuthorizeNetToken extends MutableEntity<Account> {
+public class AuthorizeNetToken extends MutableEntity<AuthorizeNetToken> {
 	@Expose protected String id;
 	@Expose protected String organizationID;
 	@Expose protected String accountID;

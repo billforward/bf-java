@@ -1,4 +1,4 @@
-package net.billforward.amendments;
+package net.billforward.model.amendments;
 
 import net.billforward.BillForwardClient;
 import net.billforward.exception.APIConnectionException;

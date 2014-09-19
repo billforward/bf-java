@@ -5,13 +5,13 @@ import java.util.Date;
 import java.util.List;
 
 import net.billforward.BillForwardClient;
-import net.billforward.amendments.CancellationAmendment;
-import net.billforward.amendments.CancellationAmendment.ServiceEndState;
 import net.billforward.exception.APIConnectionException;
 import net.billforward.exception.APIException;
 import net.billforward.exception.AuthenticationException;
 import net.billforward.exception.CardException;
 import net.billforward.exception.InvalidRequestException;
+import net.billforward.model.amendments.CancellationAmendment;
+import net.billforward.model.amendments.CancellationAmendment.ServiceEndState;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.reflect.TypeToken;
@@ -24,7 +24,6 @@ public class Subscription extends MutableEntity<Subscription> {
 	@Expose protected String productRatePlanID;
 	@Expose protected String name;
 	@Expose protected String description;
-//	@SerializedName("@type")
 	@Expose protected String type;
 	@Expose protected String state;
 	@Expose protected Date currentPeriodStart;
@@ -38,7 +37,7 @@ public class Subscription extends MutableEntity<Subscription> {
 	@Expose protected Date updated;
 	@Expose protected String changedBy;
 	@Expose protected Date created;
-	protected RatePlan productRatePlan;
+	@Expose protected RatePlan productRatePlan;
 	
 	@Expose protected List<PaymentMethodSubscriptionLink> paymentMethodSubscriptionLinks = new ArrayList<PaymentMethodSubscriptionLink>();
 	@Expose protected List<PricingComponentValue>  pricingComponentValues = new ArrayList<PricingComponentValue>();

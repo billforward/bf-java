@@ -1,17 +1,20 @@
 package net.billforward.model;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import net.billforward.BillForwardClient;
-import net.billforward.amendments.InvoiceNextExecutionAttemptAmendment;
-import net.billforward.amendments.InvoiceRecalculationAmendment;
-import net.billforward.amendments.IssueInvoiceAmendment;
 import net.billforward.exception.APIConnectionException;
 import net.billforward.exception.APIException;
 import net.billforward.exception.AuthenticationException;
 import net.billforward.exception.CardException;
 import net.billforward.exception.InvalidRequestException;
+import net.billforward.model.PricingComponent.PricingComponentChargeType;
+import net.billforward.model.amendments.InvoiceNextExecutionAttemptAmendment;
+import net.billforward.model.amendments.InvoiceRecalculationAmendment;
+import net.billforward.model.amendments.IssueInvoiceAmendment;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.reflect.TypeToken;
@@ -259,5 +262,44 @@ public class Invoice extends BillingEntity {
 		Adhoc,
 		Trial,
 		FinalArrears
+	}
+
+	public void setUsage(int usage) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		Subscription subscription = Subscription.getByID(this.subscriptionID);
+		RatePlan ratePlan = subscription.getProductRatePlan();
+		
+		List<PricingComponentValue> newPricingComponentValues = new ArrayList<PricingComponentValue>();
+		
+		for(PricingComponent pricingComponent: ratePlan.getPricingComponents()) {
+			if(pricingComponent.getChargeType() == PricingComponentChargeType.usage) {
+
+				PricingComponentValue value = new PricingComponentValue();
+				value.setSubscriptionID(this.subscriptionID);
+				value.setPricingComponentID(pricingComponent.getID());
+				value.setValue(usage);
+				value.setAppliesFrom(this.getPeriodStart());
+				value.setAppliesTill(this.getPeriodStart());
+				newPricingComponentValues.add(value);
+			}
+		}
+		
+		for(PricingComponentValue value : newPricingComponentValues) {
+			
+			boolean update = false;
+			for(PricingComponentValue currentValue : subscription.getPricingComponentValues()) {
+				if(currentValue.getAppliesFrom().equals(value.getAppliesFrom()) && 
+				   currentValue.getAppliesTill().equals(value.getAppliesTill())) {
+					update = true;
+					value = currentValue;
+					break;
+				}
+			}
+			
+			if(update) {
+				value.save();
+			} else {
+				PricingComponentValue.create(value);			
+			}
+		}
 	}
 }

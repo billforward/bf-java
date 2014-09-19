@@ -6,8 +6,8 @@ import org.junit.Test;
 
 import net.billforward.exception.BillforwardException;
 import net.billforward.model.Invoice.InvoiceState;
-import net.billforward.amendments.*;
-import net.billforward.amendments.CancellationAmendment.ServiceEndState;
+import net.billforward.model.amendments.*;
+import net.billforward.model.amendments.CancellationAmendment.ServiceEndState;
 
 public class AmendmentTests extends TestBase {
 	//@Test

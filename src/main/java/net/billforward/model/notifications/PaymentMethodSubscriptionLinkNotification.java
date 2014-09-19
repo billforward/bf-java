@@ -3,6 +3,7 @@ package net.billforward.model.notifications;
 import net.billforward.BillForwardClient;
 import net.billforward.model.InvoiceLine;
 import net.billforward.model.PaymentMethodSubscriptionLink;
+import net.billforward.model.notifications.Notification.NotificationDomain;
 
 import com.google.gson.annotations.Expose;
 
@@ -11,6 +12,7 @@ public class PaymentMethodSubscriptionLinkNotification extends Notification {
 	
 	public PaymentMethodSubscriptionLinkNotification() {
 		super();
+		this.domain = NotificationDomain.PaymentMethodSubscriptionLink.toString();
 	}
 	
 	public PaymentMethodSubscriptionLink getPaymentMethodSubscriptionLink() {

@@ -1,4 +1,4 @@
-package net.billforward.amendments;
+package net.billforward.model.amendments;
 
 import java.util.ArrayList;
 import java.util.Date;

@@ -1,5 +1,6 @@
-package net.billforward.amendments;
+package net.billforward.model.amendments;
 
+import java.util.Date;
 
 import net.billforward.BillForwardClient;
 import net.billforward.exception.APIConnectionException;
@@ -8,19 +9,18 @@ import net.billforward.exception.AuthenticationException;
 import net.billforward.exception.CardException;
 import net.billforward.exception.InvalidRequestException;
 import net.billforward.model.APIResponse;
-import net.billforward.model.Invoice.InvoiceState;
 import net.billforward.model.ResourcePath;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 
-public class InvoiceRecalculationAmendment extends Amendment {
+public class InvoiceNextExecutionAttemptAmendment extends Amendment {
 	@SerializedName("@type")
-	@Expose protected String amendmentType = AmendmentType.InvoiceRecalculationAmendment.toString();
+	@Expose protected String amendmentType = AmendmentType.invoiceNextExecutionAttemptAmendment.toString();
 	@Expose String invoiceID;
-	@Expose String newInvoiceState;
-	
+	@Expose Date nextExecutionAttempt;	
+
 	public String getAmendmentTypeAsString() {
 		return amendmentType;
 	}
@@ -37,27 +37,19 @@ public class InvoiceRecalculationAmendment extends Amendment {
 		this.invoiceID = invoiceID;
 	}
 
-	public String getNewInvoiceStateAsString() {
-		return newInvoiceState;
-	}
-	
-	public InvoiceState getNewInvoiceState() {
-		return InvoiceState.valueOf(newInvoiceState);
+	public Date getNextExecutionAttempt() {
+		return nextExecutionAttempt;
 	}
 
-	public void setNewInvoiceState(InvoiceState newInvoiceState) {
-		this.newInvoiceState = newInvoiceState.toString();
+	public void setNextExecutionAttempt(Date nextExecutionAttempt) {
+		this.nextExecutionAttempt = nextExecutionAttempt;
 	}
-	
-	public static InvoiceRecalculationAmendment create(InvoiceRecalculationAmendment amendment) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
-		return create(amendment, ResourcePath())[0];
-	}
-	
-	public InvoiceRecalculationAmendment(BillForwardClient client_) {
+
+	public InvoiceNextExecutionAttemptAmendment(BillForwardClient client_) {
 		super(client_);
 	}
 	
-	public InvoiceRecalculationAmendment() {
+	public InvoiceNextExecutionAttemptAmendment() {
 		super();
 	}
 	
@@ -72,6 +64,10 @@ public class InvoiceRecalculationAmendment extends Amendment {
 	}
 		
 	static {
-		resourcePath = new ResourcePath("amendments", "amendments",  new TypeToken<APIResponse<InvoiceRecalculationAmendment>>() {}.getType());
+		resourcePath = new ResourcePath("amendments", "amendments",  new TypeToken<APIResponse<InvoiceNextExecutionAttemptAmendment>>() {}.getType());
+	}
+
+	public static InvoiceNextExecutionAttemptAmendment create(InvoiceNextExecutionAttemptAmendment amendment) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		return create(amendment, ResourcePath())[0];
 	}
 }

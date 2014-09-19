@@ -1,6 +1,7 @@
 package net.billforward.model.notifications;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import net.billforward.BillForwardClient;
@@ -19,8 +20,44 @@ public class Notification extends BillingEntity {
 	@Expose protected String organizationID;
 	@Expose protected String entityID;
 	@Expose protected String entity;
-	@Expose protected String created;
+	@Expose protected Date created;
 	
+	public String getID() {
+		return id;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public NotificationDomain getDomain() {
+		return NotificationDomain.valueOf(domain);
+	}
+
+	public NotificationAction getAction() {
+		return NotificationAction.valueOf(action);
+	}
+
+	public String getOrganizationID() {
+		return organizationID;
+	}
+
+	public String getEntityID() {
+		return entityID;
+	}
+	
+	public String getEntity() {
+		return entity;
+	}
+
+	public Date getCreated() {
+		return created;
+	}
+
 	protected Notification() {
 		
 	}

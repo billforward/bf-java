@@ -3,6 +3,11 @@ package net.billforward.model;
 import java.util.Date;
 
 import net.billforward.BillForwardClient;
+import net.billforward.exception.APIConnectionException;
+import net.billforward.exception.APIException;
+import net.billforward.exception.AuthenticationException;
+import net.billforward.exception.CardException;
+import net.billforward.exception.InvalidRequestException;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.reflect.TypeToken;
@@ -85,6 +90,12 @@ public class PricingComponentValue extends MutableEntity<PricingComponentValue> 
 
 	protected static ResourcePath resourcePath;
 
+
+	public static PricingComponentValue create(PricingComponentValue pricingComponentValue) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		return create(pricingComponentValue, ResourcePath())[0];
+	}		
+
+	
 	public PricingComponentValue(BillForwardClient client_) {
 		super(client_);		
 	}
@@ -102,6 +113,6 @@ public class PricingComponentValue extends MutableEntity<PricingComponentValue> 
 	}
 	
 	static {
-		resourcePath = new ResourcePath("pricing-component-values", "pricingComponentValue",  new TypeToken<APIResponse<Profile>>() {}.getType());
+		resourcePath = new ResourcePath("pricing-component-values", "pricingComponentValue",  new TypeToken<APIResponse<PricingComponentValue>>() {}.getType());
 	}
 }

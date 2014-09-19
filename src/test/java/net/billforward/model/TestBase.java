@@ -16,7 +16,7 @@ public class TestBase {
 	static BillForwardClient m_BfClient = null;
 	@BeforeClass
 	public static void setUp() {
-		m_BfClient = BillForwardClient.makeDefaultClient("API_KEY", "https://api-sandbox.billforward.net/2014.251.0");
+		m_BfClient = BillForwardClient.makeDefaultClient("API_TOKEN", "https://api-sandbox.billforward.net/2014.251.0");
 		
 //		System.setProperty("http.proxyHost", "127.0.0.1");
 //		System.setProperty("https.proxyHost", "127.0.0.1");

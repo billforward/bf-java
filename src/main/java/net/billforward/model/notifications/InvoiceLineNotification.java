@@ -10,6 +10,7 @@ public class InvoiceLineNotification extends Notification {
 	
 	public InvoiceLineNotification() {
 		super();
+		this.domain = NotificationDomain.InvoiceLine.toString();
 	}
 	
 	public InvoiceLine getInvoiceLine() {
