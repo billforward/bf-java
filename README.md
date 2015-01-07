@@ -1,6 +1,6 @@
 # BillForward Java Bindings
 
-Sign up for a BillForawrd account at https://www.billforward.net.
+Sign up for a BillForward account at https://www.billforward.net.
 
 Requirements
 ============
