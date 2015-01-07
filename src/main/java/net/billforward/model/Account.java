@@ -107,6 +107,10 @@ public class Account extends MutableEntity<Account> {
 	 * @return
 	 */
 	public Profile getProfile() {
+		if(profile == null) {
+			profile = new Profile();
+		}
+		
 		if(profile.m_client == null) {
 			profile.setClient(m_client);
 		}
