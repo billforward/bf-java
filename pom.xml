@@ -4,7 +4,7 @@
     <groupId>net.billforward</groupId>
     <artifactId>billforward-java</artifactId>
     <packaging>jar</packaging>
-    <version>1.2015.8</version>
+    <version>1.2015.9</version>
     <name>billforward-java</name>
     <url>https://github.com/billforward/bf-java</url>
     <licenses>
