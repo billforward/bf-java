@@ -98,6 +98,6 @@ public class StripeToken extends MutableEntity<StripeToken> {
 	}
 		
 	static {
-		resourcePath = new ResourcePath("vaulted-gateways/stripe", "vaulted-gateways",  new TypeToken<APIResponse<AuthorizeNetToken>>() {}.getType());
+		resourcePath = new ResourcePath("vaulted-gateways/stripe", "vaulted-gateways",  new TypeToken<APIResponse<StripeToken>>() {}.getType());
 	}
 }
