@@ -214,6 +214,10 @@ public class Invoice extends BillingEntity {
 	static {
 		resourcePath = new ResourcePath("invoices", "invoice",  new TypeToken<APIResponse<Invoice>>() {}.getType());
 	}
+
+	public InvoiceRecalculationAmendment recalculate() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		return this.recalculate(this.getState());
+	}
 	
 	public InvoiceRecalculationAmendment recalculate(InvoiceState newInvoiceState) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
 		InvoiceRecalculationAmendment amendment = new InvoiceRecalculationAmendment();
@@ -234,7 +238,7 @@ public class Invoice extends BillingEntity {
 		amendment.setInvoiceID(this.id);
 		
 		if(dateToExecute_ != null) {
-			amendment.setNextExecutionAttempt(dateToExecute_);			
+			amendment.setActioningTime(dateToExecute_);			
 		}
 		
 		amendment = InvoiceNextExecutionAttemptAmendment.create(amendment);

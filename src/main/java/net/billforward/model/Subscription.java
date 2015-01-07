@@ -2,7 +2,9 @@ package net.billforward.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import net.billforward.BillForwardClient;
 import net.billforward.exception.APIConnectionException;
@@ -12,6 +14,8 @@ import net.billforward.exception.CardException;
 import net.billforward.exception.InvalidRequestException;
 import net.billforward.model.amendments.CancellationAmendment;
 import net.billforward.model.amendments.CancellationAmendment.ServiceEndState;
+import net.billforward.model.amendments.ComponentChange;
+import net.billforward.model.amendments.PricingComponentValueChangeAmendment;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.reflect.TypeToken;
@@ -291,5 +295,83 @@ public class Subscription extends MutableEntity<Subscription> {
 		amendment.setServiceEnd(ServiceEndState.AtPeriodEnd);
 		amendment = CancellationAmendment.create(amendment);
 		return amendment;
+	}
+
+	/**
+	 * Upgrade or downgrade the subscription to the new value.
+	 * 
+	 * <p>
+	 * If the new value is greater than the existing value a downgrade will occur.
+	 * If the new value is less than the existing value an upgrade will occur.
+	 * 
+	 * By default upgrades happen immediately and the upgrade cost is added to the next invoice.
+	 * Downgrades happen at the end of the current billing period, with no refunds.  
+	 * </p>
+	 * 
+	 * @param name The name of the Pricing Component to upgrade
+	 * @param newValue The new value of the pricing component
+	 * @return The component change amendment which encapsulates the upgrade. 
+	 */
+	public PricingComponentValueChangeAmendment upgrade(String name, int newValue) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		HashMap<String, Integer> changes = new HashMap<String, Integer>();
+		changes.put(name, newValue);
+		return this.upgrade(changes);
+	}
+
+	/**
+	 * Upgrade or downgrade the subscription to the new value.
+	 * 
+	 * <p>
+	 * If the new value is greater than the existing value a downgrade will occur.
+	 * If the new value is less than the existing value an upgrade will occur.
+	 * 
+	 * By default upgrades happen immediately and the upgrade cost is added to the next invoice.
+	 * Downgrades happen at the end of the current billing period, with no refunds.  
+	 * </p>
+	 * 
+	 * @param name The name of the Pricing Component to upgrade
+	 * @param newValue The new value of the pricing component
+	 * @return The component change amendment which encapsulates the upgrade. 
+	 */
+	public PricingComponentValueChangeAmendment upgrade(HashMap<String, Integer> changes_) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+
+		PricingComponentValueChangeAmendment pricingComponentValueChangeAmendment = new PricingComponentValueChangeAmendment();
+		
+		for (Map.Entry<String, Integer> entry : changes_.entrySet()) {
+			ComponentChange change = new ComponentChange(entry.getKey(), entry.getValue());
+
+			pricingComponentValueChangeAmendment.addComponentChange(change);
+		}
+
+		pricingComponentValueChangeAmendment.setSubscriptionID(this.getID());
+		
+		return PricingComponentValueChangeAmendment.create(pricingComponentValueChangeAmendment);
+				
+	}
+	
+	/**
+	 * Upgrade or downgrade the subscription to the new value.
+	 * 
+	 * <p>
+	 * If the new value is greater than the existing value a downgrade will occur.
+	 * If the new value is less than the existing value an upgrade will occur.
+	 * 
+	 * By default upgrades happen immediately and the upgrade cost is added to the next invoice.
+	 * Downgrades happen at the end of the current billing period, with no refunds.  
+	 * </p>
+	 * 
+	 * @param name The name of the Pricing Component to upgrade
+	 * @param newValue The new value of the pricing component
+	 * @return The component change amendment which encapsulates the upgrade. 
+	 */
+	public PricingComponentValueChangeAmendment upgrade(List<ComponentChange> changes_) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		PricingComponentValueChangeAmendment pricingComponentValueChangeAmendment = new PricingComponentValueChangeAmendment();
+		for(ComponentChange change : changes_) {
+			pricingComponentValueChangeAmendment.addComponentChange(change);
+		}
+		
+		pricingComponentValueChangeAmendment.setSubscriptionID(this.getID());
+		
+		return PricingComponentValueChangeAmendment.create(pricingComponentValueChangeAmendment);
 	}
 }

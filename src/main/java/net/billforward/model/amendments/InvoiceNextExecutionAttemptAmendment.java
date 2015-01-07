@@ -10,6 +10,7 @@ import net.billforward.exception.CardException;
 import net.billforward.exception.InvalidRequestException;
 import net.billforward.model.APIResponse;
 import net.billforward.model.ResourcePath;
+import net.billforward.model.amendments.Amendment.AmendmentState;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -17,7 +18,7 @@ import com.google.gson.reflect.TypeToken;
 
 public class InvoiceNextExecutionAttemptAmendment extends Amendment {
 	@SerializedName("@type")
-	@Expose protected String amendmentType = AmendmentType.invoiceNextExecutionAttemptAmendment.toString();
+	@Expose protected String amendmentType = AmendmentType.InvoiceNextExecutionAttemptAmendment.toString();
 	@Expose String invoiceID;
 	@Expose Date nextExecutionAttempt;	
 
@@ -69,5 +70,34 @@ public class InvoiceNextExecutionAttemptAmendment extends Amendment {
 
 	public static InvoiceNextExecutionAttemptAmendment create(InvoiceNextExecutionAttemptAmendment amendment) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
 		return create(amendment, ResourcePath())[0];
+	}
+	
+
+	public static InvoiceNextExecutionAttemptAmendment get(String ID) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		InvoiceNextExecutionAttemptAmendment[] amendments = getByID(ID, ResourcePath());;
+		
+		if(amendments == null || amendments.length == 0) return null;
+		
+		return amendments[0];
+	}
+	
+	@SuppressWarnings("unchecked")
+	public InvoiceNextExecutionAttemptAmendment sync() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		
+		InvoiceNextExecutionAttemptAmendment amendment = this;
+		int maxQuery = 60;
+		while(amendment.getState() == AmendmentState.Pending) {
+			amendment = InvoiceNextExecutionAttemptAmendment.get(amendment.getID());
+			
+			if(--maxQuery <= 0) break;
+			
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				break;
+			}
+		}
+		
+		return amendment;
 	}
 }

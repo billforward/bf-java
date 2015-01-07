@@ -20,6 +20,8 @@ public class UsagePeriod extends BillingEntity {
 	@Expose protected String organizationID;
 	@Expose protected String sessiondID;
 	@Expose protected String subscriptionID;
+	@Expose protected String pricingComponentID;
+	@Expose protected String pricingComponentName;
 	@Expose protected String uom;
 	@Expose protected String invoiceID;
 	@Expose protected Date state;
@@ -45,6 +47,14 @@ public class UsagePeriod extends BillingEntity {
 
 	public String getSubscriptionID() {
 		return subscriptionID;
+	}	
+	
+	public String getPricingComponentID() {
+		return pricingComponentID;
+	}
+
+	public String getPricingComponentName() {
+		return pricingComponentName;
 	}
 
 	public String getUom() {

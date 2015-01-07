@@ -3,6 +3,9 @@ package net.billforward.model;
 import static org.junit.Assert.assertEquals;
 import net.billforward.exception.BillforwardException;
 import net.billforward.model.Invoice.InvoiceState;
+import net.billforward.model.amendments.InvoiceNextExecutionAttemptAmendment;
+import net.billforward.model.amendments.InvoiceRecalculationAmendment;
+import net.billforward.model.amendments.IssueInvoiceAmendment;
 
 import org.junit.Test;
 
@@ -13,6 +16,39 @@ public class InvoiceTests  extends TestBase {
 		
 		assertEquals("95CE489C-0867-4EB0-9086-C09E444B1249", invoice.getID());
 		System.out.println(invoice.toString());
+	}
+
+	@Test
+	public void issueInvoice() throws BillforwardException {
+		Invoice invoice = Invoice.getByID("B35BA5A6-8FBD-4604-B324-F72E6149C05C");
+		
+		//assertEquals("B35BA5A6-8FBD-4604-B324-F72E6149C05C", invoice.getID());
+		
+		IssueInvoiceAmendment issueInvoiceAmendment = invoice.issue().sync();
+		
+		System.out.println(issueInvoiceAmendment.toString());
+	}
+	
+	@Test
+	public void retryTakingPayment() throws BillforwardException {
+		Invoice invoice = Invoice.getByID("F227B797-C521-457B-B419-F63854543416");
+
+		InvoiceNextExecutionAttemptAmendment amendment = invoice.retryTakingPayment();
+		
+		amendment = amendment.sync();
+		
+		System.out.println(amendment.toString());
+	}
+	
+	@Test
+	public void recalcalculateInvoice() throws BillforwardException {
+		Invoice invoice = Invoice.getByID("005FC58C-EC20-407A-BE54-0A36AD299C6A");		
+		
+		InvoiceRecalculationAmendment invoiceRecalculationAmendment = invoice.recalculate();
+		
+		invoiceRecalculationAmendment = invoiceRecalculationAmendment.sync();
+		
+		System.out.println(invoiceRecalculationAmendment.toString());
 	}
 
 	@Test

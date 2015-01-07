@@ -15,7 +15,7 @@ import com.google.gson.reflect.TypeToken;
 
 public class CancellationAmendment extends Amendment {
 	@SerializedName("@type")
-	@Expose protected String amendmentType = AmendmentType.cancellationAmendment.toString();
+	@Expose protected String amendmentType = AmendmentType.CancellationAmendment.toString();
 	@Expose protected String source = "";
 	@Expose protected String serviceEnd;
 	@Expose protected SubscriptionCancellation subscriptionCancellation;

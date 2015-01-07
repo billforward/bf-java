@@ -8,6 +8,7 @@ import net.billforward.exception.APIException;
 import net.billforward.exception.AuthenticationException;
 import net.billforward.exception.CardException;
 import net.billforward.exception.InvalidRequestException;
+import net.billforward.model.tokenization.StripeTokenCapture;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.reflect.TypeToken;
@@ -175,5 +176,9 @@ public class PaymentMethod extends MutableEntity<PaymentMethod> {
 	
 	static {
 		resourcePath = new ResourcePath("payment-methods", "paymentMethod",  new TypeToken<APIResponse<PaymentMethod>>() {}.getType());
+	}
+
+	public static PaymentMethod capture(StripeTokenCapture token_) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		return token_.create();
 	}
 }

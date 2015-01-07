@@ -1,19 +1,63 @@
 package net.billforward.model;
 
 import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import net.billforward.exception.BillforwardException;
 import net.billforward.model.Subscription.SubscriptionState;
 import net.billforward.model.Subscription.SubscriptionType;
+import net.billforward.model.amendments.CancellationAmendment;
+import net.billforward.model.amendments.ComponentChange;
+import net.billforward.model.amendments.PricingComponentValueChangeAmendment;
 
 import org.junit.Test;
 
 public class SubscriptionTests extends TestBase {
+
+
+	@Test
+	public void UpgradeSubscription() throws BillforwardException {
+		//--Get Subscription by ID
+		Subscription subscription = Subscription.getByID("AF39E372-F990-4354-A43B-6D071CC307AA");
+		
+		assertEquals("AF39E372-F990-4354-A43B-6D071CC307AA", subscription.getID());
+		
+		//PricingComponentValueChangeAmendment change = subscription.upgrade("users", 10).sync();
+		
+//		HashMap<String, Integer> changes = new HashMap<String, Integer>();  
+//		changes.put("users", 10);
+//		PricingComponentValueChangeAmendment change = subscription.upgrade(changes).sync();
+		
+
+		List<ComponentChange> changes = new ArrayList<ComponentChange>();
+		changes.add(new ComponentChange("users", 10));
+		PricingComponentValueChangeAmendment change = subscription.upgrade(changes).sync();
+		
+		System.out.println(change.toString());
+	}
+
 	@Test
 	public void GetAllSubscriptions() throws BillforwardException {
 		//--Get all GetAllSubscriptions		
 		Subscription[] subscriptions = Subscription.getAll();
 		
 		assertNotNull(subscriptions);
+	}
+
+	@Test
+	public void CancelSubscription() throws BillforwardException {
+		//--Get subscription to cancel
+		Subscription subscription = Subscription.getByID("2A8DFF25-801E-465C-8921-1182BDA6CD07");
+		
+		CancellationAmendment cancellationAmendment = subscription.cancelImmediately();
+		
+		assertNotNull(cancellationAmendment);
+		
+
+		System.out.println(cancellationAmendment.toString());
 	}
 
 	@Test

@@ -19,7 +19,7 @@ import com.google.gson.reflect.TypeToken;
  */
 public class AmendmentDiscardAmendment  extends Amendment {
 	@SerializedName("@type")
-	@Expose protected String amendmentType = AmendmentType.amendmentDiscardAmendment.toString();
+	@Expose protected String amendmentType = AmendmentType.AmendmentDiscardAmendment.toString();
 	@Expose protected String amendmentToDiscardID;
 	
 	public String getAmendmentToDiscardID() {

@@ -9,7 +9,6 @@ import net.billforward.exception.BillforwardException;
 import net.billforward.model.PricingComponent.PricingComponentChargeModel;
 import net.billforward.model.PricingComponent.PricingComponentChargeType;
 import net.billforward.model.PricingComponent.PricingComponentType;
-import net.billforward.model.PricingComponent.ValueChangeMode;
 import net.billforward.model.PricingComponentTier.PricingComponentTierType;
 import net.billforward.model.RatePlan.TaxStatus;
 

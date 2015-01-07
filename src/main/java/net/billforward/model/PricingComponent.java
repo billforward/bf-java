@@ -233,11 +233,6 @@ public class PricingComponent extends MutableEntity<PricingComponent> {
 		tiered_volume
 	}
 	
-	public enum ValueChangeMode {
-		immediate,
-		delayed
-	}
-	
 	public enum PricingComponentType {
 		tieredPricingComponent,
 		tieredVolumePricingComponent,

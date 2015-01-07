@@ -12,14 +12,16 @@ import net.billforward.exception.AuthenticationException;
 import net.billforward.exception.CardException;
 import net.billforward.exception.InvalidRequestException;
 import net.billforward.model.APIResponse;
-import net.billforward.model.BillingEntity;
+import net.billforward.model.InsertableEntity;
 import net.billforward.model.ResourcePath;
 
-public class Usage extends BillingEntity {
+public class Usage extends InsertableEntity<Usage>  {
 	@Expose protected String id;
 	@Expose protected String organizationID;
 	@Expose protected String sessiondID;
 	@Expose protected String subscriptionID;
+	@Expose protected String pricingComponentID;
+	@Expose protected String pricingComponentName;
 	@Expose protected String uom;
 	@Expose protected int usagePeriod;
 	@Expose protected long usageDuration;
@@ -43,6 +45,14 @@ public class Usage extends BillingEntity {
 
 	public String getSubscriptionID() {
 		return subscriptionID;
+	}	
+
+	public String getPricingComponentID() {
+		return pricingComponentID;
+	}
+
+	public String getPricingComponentName() {
+		return pricingComponentName;
 	}
 
 	public String getUom() {
@@ -79,6 +89,46 @@ public class Usage extends BillingEntity {
 
 	public Date getUpdated() {
 		return updated;
+	}	
+	
+	public void setSessiondID(String sessiondID) {
+		this.sessiondID = sessiondID;
+	}
+
+	public void setSubscriptionID(String subscriptionID) {
+		this.subscriptionID = subscriptionID;
+	}
+
+	public void setUom(String uom) {
+		this.uom = uom;
+	}
+
+	public void setUsagePeriod(int usagePeriod) {
+		this.usagePeriod = usagePeriod;
+	}
+
+	public void setUsageDuration(long usageDuration) {
+		this.usageDuration = usageDuration;
+	}
+
+	public void setUsageType(UsageType usageType) {
+		this.usageType = usageType.toString();
+	}
+
+	public void setUsageValue(long usageValue) {
+		this.usageValue = usageValue;
+	}
+
+	public void setStart(Date start) {
+		this.start = start;
+	}
+
+	public void setStop(Date stop) {
+		this.stop = stop;
+	}
+
+	public static Usage create(Usage usage) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		return create(usage, ResourcePath())[0];
 	}
 	
 	public static Usage[] getUsageForSubscription(String subscriptionID_) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
@@ -95,7 +145,7 @@ public class Usage extends BillingEntity {
 		super(client_);		
 	}
 	
-	protected Usage() {
+	public Usage() {
 		
 	}
 

@@ -96,10 +96,10 @@ public abstract class Amendment extends InsertableEntity<Amendment> {
 	}
 	
 	public enum AmendmentType {
-		invoiceNextExecutionAttemptAmendment,
-		cancellationAmendment,
-		pricingComponentValueAmendment,
-		amendmentDiscardAmendment,
+		InvoiceNextExecutionAttemptAmendment,
+		CancellationAmendment,
+		PricingComponentValueChangeAmendment,
+		AmendmentDiscardAmendment,
 		CompoundAmendment,
 	    FixedTermExpiryAmendment,
 	    GatewayMigrationAmendment,
@@ -108,6 +108,7 @@ public abstract class Amendment extends InsertableEntity<Amendment> {
 	    EndTrialAmendment,
 	    CreateSubscriptionChargeAmendment,
 	    InvoiceOutstandingChargesAmendment,
+	    ProductRatePlanMigrationChargeAmendment,
 	    IssueInvoiceAmendment;
 	}
 	

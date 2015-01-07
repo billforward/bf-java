@@ -22,6 +22,8 @@ public class UsageSession extends InsertableEntity<UsageSession> {
 	@Expose protected String subscriptionID;
 	@Expose protected String organizationID;
 	@Expose protected String sessionID;
+	@Expose protected String pricingComponentID;
+	@Expose protected String pricingComponentName;
 	@Expose protected String uom;
 	@Expose protected String description;
 	@Expose protected long sessionix;
@@ -45,6 +47,22 @@ public class UsageSession extends InsertableEntity<UsageSession> {
 
 	public void setSessionID(String sessionID) {
 		this.sessionID = sessionID;
+	}
+
+	public String getPricingComponentID() {
+		return pricingComponentID;
+	}
+	
+	public void setPricingComponentID(String pricingComponentID_) {
+		pricingComponentID = pricingComponentID_;
+	}
+	
+	public String getPricingComponentName() {
+		return pricingComponentName;
+	}
+	
+	public void setPricingComponenName(String pricingComponentName_) {
+		pricingComponentName = pricingComponentName_;
 	}
 
 	public String getUom() {
@@ -106,6 +124,41 @@ public class UsageSession extends InsertableEntity<UsageSession> {
 	public static UsageSession startSession(UnitOfMeasure uom, String subscriptionID) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
 		return startSession(uom, subscriptionID, UUID.randomUUID().toString().toUpperCase());
 	}
+
+	public static UsageSession startSession(String pricingComponentName, String subscriptionID) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		return startSession(pricingComponentName, subscriptionID, UUID.randomUUID().toString().toUpperCase());
+	}
+	
+	public static UsageSession startSessionByPricingComponentID(String pricingComponentID, String subscriptionID) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		return startSessionByPricingComponentID(pricingComponentID, subscriptionID, UUID.randomUUID().toString().toUpperCase());
+	}
+
+
+	public static UsageSession startSessionByPricingComponentID(String pricingComponentID, String subscriptionID, String sessionID) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		BillForwardClient client = BillForwardClient.getClient();
+		
+		UsageSession session = new UsageSession(client);
+		session.setPricingComponentID(pricingComponentID);
+		session.setSubscriptionID(subscriptionID);
+		session.setSessionID(sessionID);
+		
+		
+		UsageSession[] sessions = startSessions(new UsageSession[] { session });
+		return sessions[0];
+	}
+	
+	public static UsageSession startSession(String pricingComponentName, String subscriptionID, String sessionID) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		BillForwardClient client = BillForwardClient.getClient();
+		
+		UsageSession session = new UsageSession(client);
+		session.setPricingComponenName(pricingComponentName);
+		session.setSubscriptionID(subscriptionID);
+		session.setSessionID(sessionID);
+		
+		
+		UsageSession[] sessions = startSessions(new UsageSession[] { session });
+		return sessions[0];
+	}
 	
 	public static UsageSession startSession(UnitOfMeasure uom, String subscriptionID, String sessionID) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
 		BillForwardClient client = BillForwardClient.getClient();
@@ -147,6 +200,11 @@ public class UsageSession extends InsertableEntity<UsageSession> {
 	public static UsageSession[] stopSession(UsageSession[] sessions_) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
 		UsageSession tmpUsageSession = new UsageSession(sessions_);		
 		return create(tmpUsageSession, ResourcePath(), "stop");
+	}
+	
+	public UsageSession stop() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		UsageSession[] sessions = stopSession(new UsageSession[] { this });
+		return sessions[0];
 	}
 	
 	public UsageSession(UsageSession[] sessions) {

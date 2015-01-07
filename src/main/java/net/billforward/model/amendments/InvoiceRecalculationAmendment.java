@@ -9,6 +9,7 @@ import net.billforward.exception.CardException;
 import net.billforward.exception.InvalidRequestException;
 import net.billforward.model.APIResponse;
 import net.billforward.model.Invoice.InvoiceState;
+import net.billforward.model.amendments.Amendment.AmendmentState;
 import net.billforward.model.ResourcePath;
 
 import com.google.gson.annotations.Expose;
@@ -73,5 +74,33 @@ public class InvoiceRecalculationAmendment extends Amendment {
 		
 	static {
 		resourcePath = new ResourcePath("amendments", "amendments",  new TypeToken<APIResponse<InvoiceRecalculationAmendment>>() {}.getType());
+	}
+	
+	public static InvoiceRecalculationAmendment get(String ID) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		InvoiceRecalculationAmendment[] amendments = getByID(ID, ResourcePath());;
+		
+		if(amendments == null || amendments.length == 0) return null;
+		
+		return amendments[0];
+	}
+	
+	@SuppressWarnings("unchecked")
+	public InvoiceRecalculationAmendment sync() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		
+		InvoiceRecalculationAmendment amendment = this;
+		int maxQuery = 60;
+		while(amendment.getState() == AmendmentState.Pending) {
+			amendment = InvoiceRecalculationAmendment.get(amendment.getID());
+			
+			if(--maxQuery <= 0) break;
+			
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				break;
+			}
+		}
+		
+		return amendment;
 	}
 }
