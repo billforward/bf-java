@@ -1,8 +1,6 @@
 package net.billforward.model;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 
 import net.billforward.BillForwardClient;
 import net.billforward.exception.APIConnectionException;
@@ -58,12 +56,19 @@ public abstract class BillingEntity {
 	}
 	
 	protected static <TStaticEntityType  extends BillingEntity> TStaticEntityType[] getByID(String ID, String prePath, ResourcePath path) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		return BillingEntity.getByID(ID, prePath, path, null);
+	}
+	
+	protected static <TStaticEntityType  extends BillingEntity> TStaticEntityType[] getByID(String ID, String prePath, ResourcePath path, String postfixPath) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
 		BillForwardClient client = BillForwardClient.getClient();
 		
 		String apiRoute = path.getPath();
 		String endPoint = String.format("/%s/%s", prePath, ID);
 		String fullRoute = String.format("%s%s", apiRoute, endPoint);
 		
+		if(postfixPath != null) {
+			 fullRoute = String.format("%s/%s", fullRoute, postfixPath);
+		}
 
 		APIResponse<TStaticEntityType> resp =  client.request(BillForwardClient.RequestMethod.GET, fullRoute, null, path.getResponseType());
 				
@@ -79,13 +84,21 @@ public abstract class BillingEntity {
 	}
 	
 	protected static <TStaticEntityType  extends BillingEntity> TStaticEntityType[] getByID(String ID, ResourcePath path) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		return BillingEntity.getByID(ID, path, null);
+	}
+	
+	protected static <TStaticEntityType  extends BillingEntity> TStaticEntityType[] getByID(String ID, ResourcePath path, String postfixPath) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
 		BillForwardClient client = BillForwardClient.getClient();
 		
 		String apiRoute = path.getPath();
 		String endPoint = String.format("/%s", ID);
 		String fullRoute = String.format("%s%s", apiRoute, endPoint);
 		
+		if(postfixPath != null) {
+			 fullRoute = String.format("%s/%s", fullRoute, postfixPath);
+		}
 
+		
 		APIResponse<TStaticEntityType> resp =  client.request(BillForwardClient.RequestMethod.GET, fullRoute, null, path.getResponseType());
 				
 		if(resp == null || resp.results == null || resp.results.length < 1) {
@@ -107,6 +120,24 @@ public abstract class BillingEntity {
 		
 
 		APIResponse<TStaticEntityType> resp =  client.request(BillForwardClient.RequestMethod.GET, fullRoute, null, path.getResponseType());
+				
+		if(resp == null || resp.results == null || resp.results.length < 1) {
+			return null;
+		}
+		TStaticEntityType[] res = resp.results;
+		for(TStaticEntityType ntt : res) {
+			ntt.setClient(client);
+		}
+		
+		return res;
+	}
+	
+
+	protected static <TStaticEntityType  extends BillingEntity> TStaticEntityType[] getAll(ResourcePath path, String explicitPath) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		BillForwardClient client = BillForwardClient.getClient();
+				
+
+		APIResponse<TStaticEntityType> resp =  client.request(BillForwardClient.RequestMethod.GET, explicitPath, null, path.getResponseType());
 				
 		if(resp == null || resp.results == null || resp.results.length < 1) {
 			return null;

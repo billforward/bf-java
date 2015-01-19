@@ -306,9 +306,15 @@ public class BillForwardClient
 	}
 
 	private java.net.HttpURLConnection createDeleteConnection(String url, String query, String apiKey) throws IOException, APIConnectionException {
+
+	
+		
+		
 		String deleteUrl = url; //formatURL(url, query);
 		java.net.HttpURLConnection conn = createBillForwardConnection(deleteUrl, apiKey);
-		conn.setRequestMethod("DELETE");
+
+		//iansau: FYI: java < 1.8 does not support POST body on delete, sad times.
+		conn.setRequestMethod("DELETE");		
 
 		return conn;
 	}
@@ -363,7 +369,7 @@ public class BillForwardClient
 						String.format(
 								"Unrecognized HTTP method %s. "
 										+ "This indicates a bug in the BillForward bindings. Please contact "
-										+ "support@BillForward.com for assistance.",
+										+ "support@BillForward.net for assistance.",
 								method));
 			}
 			// trigger the request
@@ -385,7 +391,7 @@ public class BillForwardClient
 							"IOException during API request to BillForward (%s): %s "
 									+ "Please check your internet connection and try again. If this problem persists,"
 									+ "you should check BillForward's service status at https://twitter.com/BillForwardstatus,"
-									+ " or let us know at support@BillForward.com.",
+									+ " or let us know at support@BillForward.net.",
 							getApiUrl(), e.getMessage()), e);
 		} finally {
 			if (conn != null) {
@@ -466,7 +472,7 @@ public class BillForwardClient
 			throw new AuthenticationException(
 					"No API key provided. (HINT: set your API key using 'BillForward.apiKey = <API-KEY>'. "
 							+ "You can generate API keys from the BillForward web interface. "
-							+ "See https://BillForward.com/api for details or email support@BillForward.com if you have questions.");
+							+ "See https://BillForward.com/api for details or email support@BillForward.net if you have questions.");
 		}
 
 		String query = "";
@@ -495,7 +501,7 @@ public class BillForwardClient
 			throw new AuthenticationException(
 					"No API key provided. (HINT: set your API key using 'BillForward.apiKey = <API-KEY>'. "
 							+ "You can generate API keys from the BillForward web interface. "
-							+ "See https://BillForward.com/api for details or email support@BillForward.com if you have questions.");
+							+ "See https://BillForward.com/api for details or email support@BillForward.net if you have questions.");
 		}
 
 		String query = "";

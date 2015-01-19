@@ -72,8 +72,8 @@ public class RatePlan extends MutableEntity<RatePlan> {
 		return currency;
 	}
 
-	public String getCurrency() {
-		return currency;
+	public Currency getCurrency() {
+		return Currency.getInstance(this.currency);
 	}
 
 	public void setCurrency(Currency currency) {

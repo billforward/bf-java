@@ -23,6 +23,18 @@ public abstract class InsertableEntity<TEntityType extends BillingEntity> extend
 	}
 	
 
+	protected static <TStaticEntityType  extends BillingEntity> TStaticEntityType[] createExplicitPath(TStaticEntityType entity, ResourcePath path, String explicitPath) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		BillForwardClient client = BillForwardClient.getClient();
+	
+				
+		APIResponse<TStaticEntityType> resp = client.request(BillForwardClient.RequestMethod.POST, explicitPath, entity, path.getResponseType());
+		
+		if(resp == null || resp.results == null || resp.results.length < 1) {
+			return null;
+		}
+		return resp.results;
+	}
+	
 	protected static <TStaticEntityType  extends BillingEntity> TStaticEntityType[] create(TStaticEntityType entity, ResourcePath path, String extraPath) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
 		BillForwardClient client = BillForwardClient.getClient();
 		String fullRoute =  path.getPath();
@@ -59,4 +71,5 @@ public abstract class InsertableEntity<TEntityType extends BillingEntity> extend
 		
 		return res;
 	}
+	
 }

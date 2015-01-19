@@ -374,4 +374,16 @@ public class Subscription extends MutableEntity<Subscription> {
 		
 		return PricingComponentValueChangeAmendment.create(pricingComponentValueChangeAmendment);
 	}
+
+	public Coupon addCouponCode(String couponCode) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		return Coupon.addCouponCodeToSubscription(couponCode, this.id);
+	}
+
+	public Coupon[] getCouponCodes() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		return Coupon.getCouponsForSubscription(this.id);
+	}
+
+	public Coupon removeCouponCode(String couponCode) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		return Coupon.removeCouponCode(couponCode);
+	}
 }
