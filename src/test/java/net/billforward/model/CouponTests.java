@@ -15,12 +15,21 @@ public class CouponTests extends TestBase {
 	//@Test
 	public void testCreation() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
 		Coupon coupon = new Coupon();
-		coupon.setCouponCode("SUMMERFUN");
+		coupon.setCouponCode("ian15");
 		coupon.setCoupons(10);
 		coupon.setUses(10);
 		coupon.setCurrency(Currency.getInstance("USD"));
+
+		coupon.setPercentageDiscount("u1 ", 100);
+		coupon.setPercentageDiscount("u2 ", 1);
+		coupon.setPercentageDiscount("u3 ", 10);
+		coupon.setPercentageDiscount("u4 ", 4);
+		coupon.setPercentageDiscount(10);
 		
-		coupon.unitsFree("Users", 10).percentDiscount("Users", 25).cashDiscount(10);
+//		coupon.setPercentageDiscount("Userss", 10);
+//		coupon.setCashDiscount("USerss", 20);
+//		coupon.setCashDiscount(3);
+//		coupon.setPercentageDiscount(4);
 		
 		Coupon newCoupon = Coupon.create(coupon);
 		
@@ -33,7 +42,7 @@ public class CouponTests extends TestBase {
 				setCoupons(10).
 				setUses(10).
 				setCurrency(Currency.getInstance("USD")).
-				unitsFree("Users", 10);
+				setUnitsFree("Users", 10);
 		
 		Coupon newCoupon = Coupon.create(coupon);
 		
@@ -97,21 +106,26 @@ public class CouponTests extends TestBase {
 
 	//@Test
 	public void removeCouponCode() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
-		Subscription subscription = Subscription.getByID("B51BF769-24BE-432B-B592-66E257ABEBF2");
-		Coupon coupon = subscription.removeCouponCode("ian60E145F70");
+		Subscription subscription = Subscription.getByID("D40FC351-7FB4-4E45-A43A-750A7DB2B249");
+		Coupon[] codes = subscription.getCouponCodes();
+		Coupon coupon = null;
+		for(Coupon code : codes) {
+			coupon = subscription.removeCouponCode(code.getCouponCode());
+			System.out.println(coupon);
+			
+		}
 				
-		System.out.println(coupon);
 	}
 	
 
 
 	@Test
 	public void addCoupon() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
-		Subscription subscription = Subscription.getByID("D4F6464B-C423-4601-9633-AA83B4DF76F2");
-		String[] couponCodes = Coupon.createCouponCodes("ian6", 1);
-		String code = couponCodes[0];
+		Subscription subscription = Subscription.getByID("D40FC351-7FB4-4E45-A43A-750A7DB2B249");
+	//	String[] couponCodes = Coupon.createCouponCodes("ian8", 1);
+	//	String code = couponCodes[0];
 		
-		Coupon coupon = subscription.addCouponCode(code);
+		Coupon coupon = subscription.addCouponCode("ian15");
 				
 		//subscription.removeCouponCode(code);
 		

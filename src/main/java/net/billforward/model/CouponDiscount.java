@@ -8,8 +8,8 @@ public class CouponDiscount {
 	@Expose protected String unitOfMeasureName;
 	@Expose protected String unitOfMeasureID;
 	@Expose protected Integer unitsFree;
-	@Expose protected Integer percentOff;
-	@Expose protected Integer amountOff;
+	@Expose protected Integer percentageDiscount;
+	@Expose protected Integer cashDiscount;
 	
 	public String getPricingComponentName() {
 		return pricingComponentName;
@@ -51,19 +51,19 @@ public class CouponDiscount {
 		this.unitsFree = unitsFree;
 	}
 	
-	public int getPercentOff() {
-		return percentOff;
+	public int getPercentageDiscount() {
+		return percentageDiscount;
 	}
 	
-	public void setPercentOff(int percentOff) {
-		this.percentOff = percentOff;
+	public void setPercentageDiscount(int percentOff) {
+		this.percentageDiscount = percentOff;
 	}
 	
-	public int getAmountOff() {
-		return amountOff;
+	public int getCashDiscount() {
+		return cashDiscount;
 	}
 	
-	public void setAmountOff(int amountOff) {
-		this.amountOff = amountOff;
+	public void setCashDiscount(int amountOff) {
+		this.cashDiscount = amountOff;
 	}	
 }

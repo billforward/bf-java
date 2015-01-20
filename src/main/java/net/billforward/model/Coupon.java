@@ -29,8 +29,8 @@ public class Coupon extends InsertableEntity<Coupon> {
 	@Expose protected String parentCouponCode;
 	@Expose protected CouponTarget appliesTo;
 	@Expose protected String appliesToID;
-	@Expose protected Integer remainingUses;
-	@Expose protected Integer used;
+	@Expose protected int remainingUses;
+	@Expose protected int used;
 	@Expose protected Date validUntil;
 
 	public String getName() {
@@ -202,7 +202,7 @@ public class Coupon extends InsertableEntity<Coupon> {
 		return codes.getCodes().toArray(new String[] {});
 	}
 
-	public Coupon unitsFree(String pricingComponentName, int unitsFree) {
+	public Coupon setUnitsFree(String pricingComponentName, int unitsFree) {
 		CouponDiscount discount = new CouponDiscount();
 		discount.setPricingComponentName(pricingComponentName);
 		discount.setUnitsFree(unitsFree);		
@@ -210,32 +210,32 @@ public class Coupon extends InsertableEntity<Coupon> {
 		return this;
 	}
 
-	public Coupon percentDiscount(String pricingComponentName, int percentOff) {
+	public Coupon setPercentageDiscount(String pricingComponentName, int percentOff) {
 		CouponDiscount discount = new CouponDiscount();
 		discount.setPricingComponentName(pricingComponentName);
-		discount.setPercentOff(percentOff);		
+		discount.setPercentageDiscount(percentOff);		
 		this.discounts.add(discount);
 		return this;
 	}
 	
-	public Coupon percentDiscount(int percentOff) {
+	public Coupon setPercentageDiscount(int percentOff) {
 		CouponDiscount discount = new CouponDiscount();
-		discount.setPercentOff(percentOff);		
+		discount.setPercentageDiscount(percentOff);		
 		this.discounts.add(discount);
 		return this;
 	}
 
-	public Coupon cashDiscount(String pricingComponentName, int discountAmount) {
+	public Coupon setCashDiscount(String pricingComponentName, int discountAmount) {
 		CouponDiscount discount = new CouponDiscount();
 		discount.setPricingComponentName(pricingComponentName);
-		discount.setAmountOff(discountAmount);
+		discount.setCashDiscount(discountAmount);
 		this.discounts.add(discount);
 		return this;
 	}
 
-	public Coupon cashDiscount(int discountAmount) {
+	public Coupon setCashDiscount(int discountAmount) {
 		CouponDiscount discount = new CouponDiscount();
-		discount.setAmountOff(discountAmount);
+		discount.setCashDiscount(discountAmount);
 		this.discounts.add(discount);
 		return this;
 	}
