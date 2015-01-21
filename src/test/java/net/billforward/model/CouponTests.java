@@ -14,8 +14,8 @@ public class CouponTests extends TestBase {
 	
 	//@Test
 	public void testCreation() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
-		Coupon coupon = new Coupon();
-		coupon.setCouponCode("ian15");
+		Coupon coupon = new Coupon("gold", "mix");
+		coupon.setCouponCode("ian19");
 		coupon.setCoupons(10);
 		coupon.setUses(10);
 		coupon.setCurrency(Currency.getInstance("USD"));
@@ -106,7 +106,7 @@ public class CouponTests extends TestBase {
 
 	//@Test
 	public void removeCouponCode() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
-		Subscription subscription = Subscription.getByID("D40FC351-7FB4-4E45-A43A-750A7DB2B249");
+		Subscription subscription = Subscription.getByID("7AD46404-A071-41C8-B189-DBF931EA0F71");
 		Coupon[] codes = subscription.getCouponCodes();
 		Coupon coupon = null;
 		for(Coupon code : codes) {
@@ -121,11 +121,11 @@ public class CouponTests extends TestBase {
 
 	@Test
 	public void addCoupon() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
-		Subscription subscription = Subscription.getByID("D40FC351-7FB4-4E45-A43A-750A7DB2B249");
+		Subscription subscription = Subscription.getByID("47EC173B-F6A2-46B4-85CF-AD0B6B491407");
 	//	String[] couponCodes = Coupon.createCouponCodes("ian8", 1);
 	//	String code = couponCodes[0];
 		
-		Coupon coupon = subscription.addCouponCode("ian15");
+		Coupon coupon = subscription.addCouponCode("ian19");
 				
 		//subscription.removeCouponCode(code);
 		

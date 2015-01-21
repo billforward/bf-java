@@ -22,7 +22,14 @@ public class Coupon extends InsertableEntity<Coupon> {
 	@Expose protected int uses;
 	@Expose protected String currency;
 	@Expose protected boolean masterCodeRedeemable = true;
-	@Expose protected String ratePlan;
+	@Expose protected String productRatePlan;
+	@Expose protected String product;
+	
+	@Expose protected String productRatePlanName;
+	@Expose protected String productRatePlanID;
+	@Expose protected String productID;
+	@Expose protected String productName;
+	
 	@Expose protected List<CouponDiscount> discounts = new ArrayList<CouponDiscount>();
 	
 	//Coupon code values
@@ -33,6 +40,7 @@ public class Coupon extends InsertableEntity<Coupon> {
 	@Expose protected int used;
 	@Expose protected Date validUntil;
 
+	
 	public String getName() {
 		return name;
 	}
@@ -88,16 +96,47 @@ public class Coupon extends InsertableEntity<Coupon> {
 		this.masterCodeRedeemable = masterCodeRedeemable;
 		return this;
 	}
-	
-	public String getRatePlan() {
-		return ratePlan;
+
+	public String getProductRatePlan() {
+		return productRatePlan;
 	}
-	
-	public Coupon setRatePlan(String ratePlan) {
-		this.ratePlan = ratePlan;
-		return this;
+
+	public void setProductRatePlan(String productRatePlan) {
+		this.productRatePlan = productRatePlan;
 	}
-	
+
+	public String getProductRatePlanName() {
+		return productRatePlanName;
+	}
+
+	public void setProductRatePlanName(String productRatePlanName) {
+		this.productRatePlanName = productRatePlanName;
+	}
+
+	public String getProductRatePlanID() {
+		return productRatePlanID;
+	}
+
+	public void setProductRatePlanID(String productRatePlanID) {
+		this.productRatePlanID = productRatePlanID;
+	}
+
+	public String getProductID() {
+		return productID;
+	}
+
+	public void setProductID(String productID) {
+		this.productID = productID;
+	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+
 	public String getParentCouponCode() {
 		return parentCouponCode;
 	}
@@ -164,6 +203,15 @@ public class Coupon extends InsertableEntity<Coupon> {
 
 	public Coupon() {
 		
+	}
+	
+	public Coupon(String productRateID_) {
+		this.productRatePlan = productRateID_;
+	}
+	
+	public Coupon(String product_, String productRatePlan_) {
+		this.product = product_;
+		this.productRatePlan = productRatePlan_;
 	}
 	
 	protected ResourcePath getResourcePath() {
