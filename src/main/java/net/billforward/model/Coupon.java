@@ -250,17 +250,15 @@ public class Coupon extends InsertableEntity<Coupon> {
 		return codes.getCodes().toArray(new String[] {});
 	}
 
-	public Coupon setUnitsFree(String pricingComponentName, int unitsFree) {
-		CouponDiscount discount = new CouponDiscount();
-		discount.setPricingComponentName(pricingComponentName);
+	public Coupon setUnitsFree(String pricingComponent, int unitsFree) {
+		CouponDiscount discount = new CouponDiscount(pricingComponent);
 		discount.setUnitsFree(unitsFree);		
 		this.discounts.add(discount);
 		return this;
 	}
 
-	public Coupon setPercentageDiscount(String pricingComponentName, int percentOff) {
-		CouponDiscount discount = new CouponDiscount();
-		discount.setPricingComponentName(pricingComponentName);
+	public Coupon setPercentageDiscount(String pricingComponent, int percentOff) {
+		CouponDiscount discount = new CouponDiscount(pricingComponent);
 		discount.setPercentageDiscount(percentOff);		
 		this.discounts.add(discount);
 		return this;
@@ -273,9 +271,8 @@ public class Coupon extends InsertableEntity<Coupon> {
 		return this;
 	}
 
-	public Coupon setCashDiscount(String pricingComponentName, int discountAmount) {
-		CouponDiscount discount = new CouponDiscount();
-		discount.setPricingComponentName(pricingComponentName);
+	public Coupon setCashDiscount(String pricingComponent, int discountAmount) {
+		CouponDiscount discount = new CouponDiscount(pricingComponent);
 		discount.setCashDiscount(discountAmount);
 		this.discounts.add(discount);
 		return this;

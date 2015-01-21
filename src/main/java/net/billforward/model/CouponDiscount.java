@@ -3,46 +3,33 @@ package net.billforward.model;
 import com.google.gson.annotations.Expose;
 
 public class CouponDiscount {
+	@Expose protected String pricingComponent;
 	@Expose protected String pricingComponentName;
 	@Expose protected String pricingComponentID;
-	@Expose protected String unitOfMeasureName;
-	@Expose protected String unitOfMeasureID;
 	@Expose protected Integer unitsFree;
 	@Expose protected Integer percentageDiscount;
 	@Expose protected Integer cashDiscount;
+
+	public CouponDiscount() {
+		
+	}
+	
+	public CouponDiscount(String pricingComponent) {
+		this.pricingComponent = pricingComponent;
+	}
 	
 	public String getPricingComponentName() {
 		return pricingComponentName;
 	}
 	
-	public void setPricingComponentName(String pricingComponentName) {
-		this.pricingComponentName = pricingComponentName;
+	public void setPricingComponent(String pricingComponent) {
+		this.pricingComponent = pricingComponentName;
 	}
 	
 	public String getPricingComponentID() {
 		return pricingComponentID;
 	}
-	
-	public void setPricingComponentID(String pricingComponentID) {
-		this.pricingComponentID = pricingComponentID;
-	}
-	
-	public String getUnitOfMeasureName() {
-		return unitOfMeasureName;
-	}
-	
-	public void setUnitOfMeasureName(String unitOfMeasureName) {
-		this.unitOfMeasureName = unitOfMeasureName;
-	}
-	
-	public String getUnitOfMeasureID() {
-		return unitOfMeasureID;
-	}
-	
-	public void setUnitOfMeasureID(String unitOfMeasureID) {
-		this.unitOfMeasureID = unitOfMeasureID;
-	}
-	
+		
 	public int getUnitsFree() {
 		return unitsFree;
 	}
