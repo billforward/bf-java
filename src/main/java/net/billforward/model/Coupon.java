@@ -18,17 +18,18 @@ import com.google.gson.reflect.TypeToken;
 public class Coupon extends InsertableEntity<Coupon> {
 	@Expose protected String name;
 	@Expose protected String couponCode;
-	@Expose protected int coupons;
-	@Expose protected int uses;
-	@Expose protected String currency;
-	@Expose protected boolean masterCodeRedeemable = true;
-	@Expose protected String productRatePlan;
+	@Expose protected Integer coupons;
+	@Expose protected Integer uses;
 	@Expose protected String product;
+	@Expose protected String productRatePlan;
+	@Expose protected String currency;
+	@Expose protected boolean parentCouponCodeRedeemable = true;
 	
 	@Expose protected String productRatePlanName;
 	@Expose protected String productRatePlanID;
 	@Expose protected String productID;
 	@Expose protected String productName;
+	@Expose protected boolean deleted = false;
 	
 	@Expose protected List<CouponDiscount> discounts = new ArrayList<CouponDiscount>();
 	
@@ -36,8 +37,8 @@ public class Coupon extends InsertableEntity<Coupon> {
 	@Expose protected String parentCouponCode;
 	@Expose protected CouponTarget appliesTo;
 	@Expose protected String appliesToID;
-	@Expose protected int remainingUses;
-	@Expose protected int used;
+	@Expose protected Integer remainingUses;
+	@Expose protected Integer used;
 	@Expose protected Date validUntil;
 
 	
@@ -88,12 +89,12 @@ public class Coupon extends InsertableEntity<Coupon> {
 		return this;
 	}
 	
-	public boolean isMasterCodeRedeemable() {
-		return masterCodeRedeemable;
+	public boolean isParentCouponCodeRedeemable() {
+		return parentCouponCodeRedeemable;
 	}
 	
-	public Coupon setMasterCodeRedeemable(boolean masterCodeRedeemable) {
-		this.masterCodeRedeemable = masterCodeRedeemable;
+	public Coupon setParentCouponCodeRedeemable(boolean parentCouponCodeRedeemable) {
+		this.parentCouponCodeRedeemable = parentCouponCodeRedeemable;
 		return this;
 	}
 
@@ -250,35 +251,35 @@ public class Coupon extends InsertableEntity<Coupon> {
 		return codes.getCodes().toArray(new String[] {});
 	}
 
-	public Coupon setUnitsFree(String pricingComponent, int unitsFree) {
+	public Coupon addUnitsFree(String pricingComponent, int unitsFree) {
 		CouponDiscount discount = new CouponDiscount(pricingComponent);
 		discount.setUnitsFree(unitsFree);		
 		this.discounts.add(discount);
 		return this;
 	}
 
-	public Coupon setPercentageDiscount(String pricingComponent, int percentOff) {
+	public Coupon addPercentageDiscount(String pricingComponent, int percentOff) {
 		CouponDiscount discount = new CouponDiscount(pricingComponent);
 		discount.setPercentageDiscount(percentOff);		
 		this.discounts.add(discount);
 		return this;
 	}
 	
-	public Coupon setPercentageDiscount(int percentOff) {
+	public Coupon addPercentageDiscount(int percentOff) {
 		CouponDiscount discount = new CouponDiscount();
 		discount.setPercentageDiscount(percentOff);		
 		this.discounts.add(discount);
 		return this;
 	}
 
-	public Coupon setCashDiscount(String pricingComponent, int discountAmount) {
+	public Coupon addCashDiscount(String pricingComponent, int discountAmount) {
 		CouponDiscount discount = new CouponDiscount(pricingComponent);
 		discount.setCashDiscount(discountAmount);
 		this.discounts.add(discount);
 		return this;
 	}
 
-	public Coupon setCashDiscount(int discountAmount) {
+	public Coupon addCashDiscount(int discountAmount) {
 		CouponDiscount discount = new CouponDiscount();
 		discount.setCashDiscount(discountAmount);
 		this.discounts.add(discount);
@@ -298,12 +299,12 @@ public class Coupon extends InsertableEntity<Coupon> {
 	public static Coupon addCouponCodeToSubscription(String couponCode, String subscriptionID) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
 		Coupon coupon = new Coupon();
 		coupon.setCouponCode(couponCode);
-		String path = String.format("subscriptions/%s/coupon", subscriptionID); 
+		String path = String.format("subscriptions/%s/coupons", subscriptionID); 
 		return createExplicitPath(coupon, ResourcePath(), path)[0];
 	}
 
 	public static Coupon[] getCouponsForSubscription(String subscriptionID) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
-		String path = String.format("subscriptions/%s/coupon", subscriptionID); 
+		String path = String.format("subscriptions/%s/coupons", subscriptionID); 
 		return getAll(ResourcePath(), path);
 	}
 

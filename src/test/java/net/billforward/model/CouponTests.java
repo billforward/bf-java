@@ -14,22 +14,13 @@ public class CouponTests extends TestBase {
 	
 	//@Test
 	public void testCreation() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
-		Coupon coupon = new Coupon("gold", "mix");
-		coupon.setCouponCode("ian22");
+		Coupon coupon = new Coupon("Premium", "Monthly");
+		coupon.setName("6 Months free");
+		coupon.setCouponCode("WINTERFUN1");
 		coupon.setCoupons(10);
-		coupon.setUses(10);
-		coupon.setCurrency(Currency.getInstance("USD"));
-
-		coupon.setPercentageDiscount("u1 ", 100);
-		coupon.setPercentageDiscount("u2 ", 1);
-		coupon.setPercentageDiscount("u3 ", 10);
-		coupon.setPercentageDiscount("u4 ", 4);
-		coupon.setPercentageDiscount(10);
+		coupon.setUses(6);
 		
-//		coupon.setPercentageDiscount("Userss", 10);
-//		coupon.setCashDiscount("USerss", 20);
-//		coupon.setCashDiscount(3);
-//		coupon.setPercentageDiscount(4);
+		coupon.addPercentageDiscount("Users", 50);
 		
 		Coupon newCoupon = Coupon.create(coupon);
 		
@@ -37,23 +28,37 @@ public class CouponTests extends TestBase {
 	}
 	
 	//@Test
-	public void testCreationSimple() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
-		Coupon coupon = new Coupon().setCouponCode("SUMMERFUN").
-				setCoupons(10).
-				setUses(10).
-				setCurrency(Currency.getInstance("USD")).
-				setUnitsFree("Users", 10);
+	public void testCreationComplex() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		Coupon coupon = new Coupon("Corporate", "EXAMPLE-CUSTOM");
+		coupon.setName("1 year discount");
+		coupon.setCouponCode("EXAMPLE-COMPLEX");
+		coupon.setCoupons(1);
+		coupon.setUses(12);
+		
+		coupon.addPercentageDiscount("Users", 50);
+		coupon.addUnitsFree("Licenses", 5);
+		coupon.addUnitsFree("Monthly Total API Requests", 1000);
+		coupon.addCashDiscount(10);
+		coupon.addPercentageDiscount(8);
 		
 		Coupon newCoupon = Coupon.create(coupon);
 		
 		System.out.println(newCoupon);
 	}
-	
+
+	//@Test
+	public void getAll() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		Coupon[] coupons = Coupon.getAll();
+		
+		for(Coupon code : coupons) {
+			System.out.println(code);			
+		}
+	}
 	
 
-	@Test
+	//@Test
 	public void testUniqueFetch() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
-		String[] codes = Coupon.getCouponCodes("ian22");
+		String[] codes = Coupon.getCouponCodes("WINTERFUN1");
 		
 		for(String code : codes) {
 			System.out.println(code);			
@@ -62,23 +67,23 @@ public class CouponTests extends TestBase {
 	
 	//@Test
 	public void createCouponCodes() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
-		String[] codes = Coupon.createCouponCodes("ian6", 1);
+		String[] codes = Coupon.createCouponCodes("WINTERFUN1", 5);
 		
 		for(String code : codes) {
 			System.out.println(code);			
 		}
 	}
 	
-	@Test
+	//@Test
 	public void getCoupon() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
-		Coupon coupon = Coupon.getByCode("ian22");
+		Coupon coupon = Coupon.getByCode("WINTERFUN");
 		
 		System.out.println(coupon);
 	}
 
 	//@Test
 	public void getCouponCode() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
-		Coupon coupon = Coupon.getByCode("ian60E145F70");
+		Coupon coupon = Coupon.getByCode("WINTERFUN13100291C");
 		
 		System.out.println(coupon);
 	}
@@ -106,28 +111,20 @@ public class CouponTests extends TestBase {
 
 	//@Test
 	public void removeCouponCode() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
-		Subscription subscription = Subscription.getByID("7AD46404-A071-41C8-B189-DBF931EA0F71");
+		Subscription subscription = Subscription.getByID("SUB-CE7A2F73-4ADA-4047-BFA6-C30FBFB6");
 		Coupon[] codes = subscription.getCouponCodes();
 		Coupon coupon = null;
 		for(Coupon code : codes) {
 			coupon = subscription.removeCouponCode(code.getCouponCode());
 			System.out.println(coupon);
 			
-		}
-				
+		}				
 	}
-	
-
 
 	//@Test
 	public void addCoupon() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
-		Subscription subscription = Subscription.getByID("1B2E736B-889B-41CA-B635-D933A23A90A0");
-	//	String[] couponCodes = Coupon.createCouponCodes("ian8", 1);
-	//	String code = couponCodes[0];
-		
-		Coupon coupon = subscription.addCouponCode("ian20");
-				
-		//subscription.removeCouponCode(code);
+		Subscription subscription = Subscription.getByID("SUB-CE7A2F73-4ADA-4047-BFA6-C30FBFB6");
+		Coupon coupon = subscription.addCouponCode("WINTERFUN1");
 		
 		System.out.println(coupon);
 	}

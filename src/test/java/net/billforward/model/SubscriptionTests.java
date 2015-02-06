@@ -18,7 +18,7 @@ import org.junit.Test;
 public class SubscriptionTests extends TestBase {
 
 
-	@Test
+	//@Test
 	public void UpgradeSubscription() throws BillforwardException {
 		//--Get Subscription by ID
 		Subscription subscription = Subscription.getByID("AF39E372-F990-4354-A43B-6D071CC307AA");
@@ -39,7 +39,7 @@ public class SubscriptionTests extends TestBase {
 		System.out.println(change.toString());
 	}
 
-	@Test
+	//@Test
 	public void GetAllSubscriptions() throws BillforwardException {
 		//--Get all GetAllSubscriptions		
 		Subscription[] subscriptions = Subscription.getAll();
@@ -47,7 +47,7 @@ public class SubscriptionTests extends TestBase {
 		assertNotNull(subscriptions);
 	}
 
-	@Test
+	//@Test
 	public void CancelSubscription() throws BillforwardException {
 		//--Get subscription to cancel
 		Subscription subscription = Subscription.getByID("2A8DFF25-801E-465C-8921-1182BDA6CD07");
@@ -60,7 +60,7 @@ public class SubscriptionTests extends TestBase {
 		System.out.println(cancellationAmendment.toString());
 	}
 
-	@Test
+	//@Test
 	public void GetSubscriptionByID() throws BillforwardException {
 		//--Get Subscription by ID
 		Subscription subscription = Subscription.getByID("79AA1229-4E97-4368-A513-8CFE8C0BDD95");
@@ -69,7 +69,7 @@ public class SubscriptionTests extends TestBase {
 		System.out.println(subscription.toString());
 	}
 	
-	@Test
+	//@Test
 	public void GetSubscriptionByAccountID() throws BillforwardException {
 		//--Get Account to get subscriptions for
 		Account account = Account.getByID("F15490C4-FC6B-4E40-90B2-1A16A66B619F");
@@ -84,7 +84,7 @@ public class SubscriptionTests extends TestBase {
 		assertNotNull(subscriptions);
 	}
 
-	@Test
+	//@Test
 	public void GetSubscriptionByRatePlan() throws BillforwardException {
 		//--Get RatePlan to get subscriptions for
 		RatePlan ratePlan = RatePlan.getByID("1234CC32-B6E6-4972-BB28-965323148D9F");
@@ -99,7 +99,7 @@ public class SubscriptionTests extends TestBase {
 		assertNotNull(subscriptions);
 	}
 	
-	@Test
+	//@Test
 	public void GetSubscriptionByProduct() throws BillforwardException {
 		//--Get Product to get subscriptions for
 		Product product = Product.getByID("D3E0F064-9E67-492E-8CFC-73E97B0B006A");
@@ -114,7 +114,7 @@ public class SubscriptionTests extends TestBase {
 		assertNotNull(subscriptions);
 	}
 	
-	@Test
+	//@Test
 	public void GetSubscriptionByState() throws BillforwardException {		
 		//  Get Subscription by state
 		Subscription subscriptions[] = Subscription.getByState(SubscriptionState.Provisioned);
@@ -126,7 +126,7 @@ public class SubscriptionTests extends TestBase {
 		assertNotNull(subscriptions);
 	}
 
-	@Test
+	//@Test
 	public void UpdateSubscription() throws BillforwardException {
 		//--Get Subscription by ID
 		Subscription subscription = Subscription.getByID("5F66E6F1-22DB-4F46-8EF8-0DD6CB34F05A");
@@ -143,7 +143,7 @@ public class SubscriptionTests extends TestBase {
 		assertEquals(SubscriptionState.AwaitingPayment, subscription.getState());
 	}
 	
-	@Test
+	//@Test
 	public void SubscriptionCreate() throws BillforwardException {
 		//--Get rate-plan for cost
 		RatePlan ratePlan = RatePlan.getByID("1234CC32-B6E6-4972-BB28-965323148D9F");
@@ -174,4 +174,29 @@ public class SubscriptionTests extends TestBase {
 		
 		System.out.println(subscription.toString());
 	}
+	
+
+	//@Test
+	public void getActivePricingComponentValues() throws BillforwardException {
+		//--Get Subscription by ID
+		Subscription subscription = Subscription.getByID("SUB-105D5BFE-C9E2-4C9A-BFD0-70AF961E");
+
+		PricingComponentValue[] values = subscription.getActivePricingComponentValues();
+		
+		for(PricingComponentValue value : values) {
+			System.out.println(value.toString());
+			
+		}
+	}
+	
+
+//	@Test
+//	public void setActivePricingComponentValues() throws BillforwardException {
+//		//--Get Subscription by ID
+//		Subscription subscription = Subscription.getByID("SUB-105D5BFE-C9E2-4C9A-BFD0-70AF961E");
+//
+//		PricingComponentValue value = subscription.setActivePricingComponentValue("Users", 31);
+//		
+//		System.out.println(value.toString());
+//	}
 }

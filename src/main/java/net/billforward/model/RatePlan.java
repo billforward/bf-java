@@ -36,9 +36,12 @@ public class RatePlan extends MutableEntity<RatePlan> {
 	/* Concrete objects returned */
 	protected Product product;
 	@Expose protected List<PricingComponent> pricingComponents = new ArrayList<PricingComponent>();
-	@Expose protected List<TaxationLink> taxation = new ArrayList<TaxationLink>();
 	@Expose protected List<FixedTermDefinition> fixedTermDefinitions = new ArrayList<FixedTermDefinition>();
 	@Expose protected UsageRoundingStrategy strategy;
+	
+	public TaxationStrategy[] getTax() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		return TaxationStrategy.getForProductRatePlan(this.id);
+	}
 	
 	public String getID() {
 		return id;
@@ -203,6 +206,20 @@ public class RatePlan extends MutableEntity<RatePlan> {
 	public static RatePlan[] getAll() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
 		return getAll(ResourcePath());
 	}
+
+	public TaxationStrategy addTax(String taxationStrategyID) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {		
+		return TaxationStrategy.addToRatePlan(this.id, taxationStrategyID);
+	}
+
+	public TaxationStrategy removeTax(String taxationStrategyID) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {		
+		return removeTax(this.id, taxationStrategyID);
+	}
+	
+
+	public static TaxationStrategy removeTax(String ratePlanID, String taxationStrategyID) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {		
+		return TaxationStrategy.removeFromRatePlan(ratePlanID, taxationStrategyID);
+	}	
+	
 	
 	protected static ResourcePath resourcePath;
 	

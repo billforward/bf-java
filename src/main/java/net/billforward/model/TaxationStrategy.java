@@ -1,6 +1,7 @@
 package net.billforward.model;
 
 import java.math.BigDecimal;
+import java.util.Currency;
 import java.util.Date;
 
 import net.billforward.BillForwardClient;
@@ -22,6 +23,7 @@ public class TaxationStrategy extends MutableEntity<TaxationStrategy> {
 	@Expose protected String currency;
 	@Expose protected String name;
 	@Expose protected BigDecimal percentage;
+	@Expose protected boolean defaultTaxationStrategy;
 	@Expose protected Date validTill;
 	@Expose protected Date validFrom;
 	@Expose protected Boolean deleted;
@@ -32,13 +34,17 @@ public class TaxationStrategy extends MutableEntity<TaxationStrategy> {
 	public String getID() {
 		return id;
 	}
-	
-	public String getCountry() {
+
+	public String getCountryAsString() {
 		return country;
 	}
+	
+	public TaxationCountry getCountry() {
+		return TaxationCountry.valueOf(country);
+	}
 
-	public void setCountry(String country) {
-		this.country = country;
+	public void setCountry(TaxationCountry country) {
+		this.country = country.toString();
 	}
 
 	public String getProvince() {
@@ -49,12 +55,16 @@ public class TaxationStrategy extends MutableEntity<TaxationStrategy> {
 		this.province = province;
 	}
 
-	public String getCurrency() {
+	public String getCurrencyAsString() {
 		return currency;
 	}
+	
+	public Currency getCurrency() {
+		return Currency.getInstance(currency);
+	}
 
-	public void setCurrency(String currency) {
-		this.currency = currency;
+	public void setCurrency(Currency currency) {
+		this.currency = currency.toString();
 	}
 
 	public String getName() {
@@ -71,6 +81,14 @@ public class TaxationStrategy extends MutableEntity<TaxationStrategy> {
 
 	public void setPercentage(BigDecimal percentage) {
 		this.percentage = percentage;
+	}
+	
+	public boolean isDefaultTaxationStrategy() {
+		return defaultTaxationStrategy;
+	}
+
+	public void setDefaultTaxationStrategy(boolean defaultTaxationStrategy) {
+		this.defaultTaxationStrategy = defaultTaxationStrategy;
 	}
 
 	public Date getValidTill() {
@@ -116,13 +134,40 @@ public class TaxationStrategy extends MutableEntity<TaxationStrategy> {
 	public Date getCreated() {
 		return created;
 	}
-	
+		
 	public static TaxationStrategy create(TaxationStrategy taxationStrategy) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
-		return taxationStrategy;
+		return create(taxationStrategy, ResourcePath())[0];
 	}	
+
+	public static TaxationStrategy removeFromRatePlan(String ratePlanID, String taxationStrategyID) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		String path = String.format("product-rate-plans/%s/tax/%s", ratePlanID, taxationStrategyID);
+		return retireExplicitPath(path, ResourcePath());
+	}
 	
+	public static TaxationStrategy addToRatePlan(String ratePlanID, String taxationStrategyID) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		TaxationStrategy taxationStrategy = new TaxationStrategy();
+		taxationStrategy.id = taxationStrategyID;
+		
+		String explicitPath = String.format("product-rate-plans/%s/tax", ratePlanID);				
+		return createExplicitPath(taxationStrategy, ResourcePath(), explicitPath)[0];
+	}
+	
+	public static TaxationStrategy[] getForProductRatePlan(String ratePlanID) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		String path = String.format("product-rate-plans/%s/tax", ratePlanID);
+		TaxationStrategy[] taxes = getAll(ResourcePath(), path);
+		if(taxes == null) {
+			return new TaxationStrategy[0];
+		}
+		return taxes;
+	}
+
 	public static TaxationStrategy getByID(String ID) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
 		TaxationStrategy[] taxStrategies = getByID(ID, ResourcePath());
+		return taxStrategies[0];
+	}
+	
+	public static TaxationStrategy getByVersionID(String ID) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		TaxationStrategy[] taxStrategies = getByID(ID, "version", ResourcePath());
 		return taxStrategies[0];
 	}
 	
@@ -150,5 +195,26 @@ public class TaxationStrategy extends MutableEntity<TaxationStrategy> {
 	
 	static {
 		resourcePath = new ResourcePath("taxation-strategies", "taxation-strategy",  new TypeToken<APIResponse<TaxationStrategy>>() {}.getType());
+	}
+	
+	public enum TaxationCountry {
+		UK,
+		USA,
+		Canada,
+		Mexico,
+		Brazil,
+		Argentina,
+		China,
+		France,
+		Germany,
+		Ireland
+	}
+
+	public void setID(String id) {
+		this.id = id;		
+	}
+
+	public TaxationStrategy retire() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		return retire(this.versionID, "version", this.getResourcePath());
 	}
 }

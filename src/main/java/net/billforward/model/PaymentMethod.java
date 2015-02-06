@@ -25,6 +25,7 @@ public class PaymentMethod extends MutableEntity<PaymentMethod> {
 	@Expose protected String gateway;
 	@Expose protected String linkID = "";
 	@Expose protected int priority;
+	@Expose protected Boolean defaultPaymentMethod;
 	@Expose protected Boolean reusable;
 	@Expose protected Boolean deleted;
 	@Expose protected Date updated;
@@ -119,6 +120,14 @@ public class PaymentMethod extends MutableEntity<PaymentMethod> {
 		this.priority = priority;
 	}
 
+	public Boolean getDefaultPaymentMethod() {
+		return defaultPaymentMethod;
+	}
+
+	public void setDefaultPaymentMethod(Boolean defaultPaymentMethod) {
+		this.defaultPaymentMethod = defaultPaymentMethod;
+	}
+
 	public Boolean getReusable() {
 		return reusable;
 	}
@@ -180,5 +189,27 @@ public class PaymentMethod extends MutableEntity<PaymentMethod> {
 
 	public static PaymentMethod capture(StripeTokenCapture token_) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
 		return token_.create();
+	}
+	
+	public static PaymentMethod addToSubscription(String subscriptionID, String paymentMethodID) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		PaymentMethod paymentMethod = new PaymentMethod();
+		paymentMethod.id = paymentMethodID;
+		
+		String explicitPath = String.format("subscriptions/%s/payment-methods", subscriptionID);				
+		return createExplicitPath(paymentMethod, ResourcePath(), explicitPath)[0];
+	}
+	
+	public static PaymentMethod removeFromSubscription(String subscriptionID, String paymentMethodID) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		String path = String.format("subscriptions/%s/payment-methods/%s", subscriptionID, paymentMethodID);
+		return retireExplicitPath(path, ResourcePath());
+	}
+	
+	public static PaymentMethod[] getForSubscription(String subscriptionID) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		String path = String.format("subscriptions/%s/payment-methods", subscriptionID);
+		PaymentMethod[] paymentMethods = getAll(ResourcePath(), path);
+		if(paymentMethods == null) {
+			return new PaymentMethod[0];
+		}
+		return paymentMethods;
 	}
 }

@@ -17,6 +17,7 @@ public class PricingComponentValue extends MutableEntity<PricingComponentValue> 
 	@Expose protected String subscriptionID;
 	@Expose protected String organizationID;
 	@Expose protected int value;
+	@Expose protected String pricingComponentName;
 	@Expose protected String pricingComponentID;
 	@Expose protected Date appliesFrom;
 	@Expose protected Date appliesTill;
@@ -50,6 +51,14 @@ public class PricingComponentValue extends MutableEntity<PricingComponentValue> 
 
 	public void setValue(int value) {
 		this.value = value;
+	}
+	
+	public String getPricingComponentName() {
+		return pricingComponentName;
+	}
+
+	public void setPricingComponentName(String pricingComponentName) {
+		this.pricingComponentName = pricingComponentName;
 	}
 
 	public String getPricingComponentID() {
@@ -90,6 +99,21 @@ public class PricingComponentValue extends MutableEntity<PricingComponentValue> 
 
 	protected static ResourcePath resourcePath;
 
+
+
+//	public static PricingComponentValue setActivePricingComponentValue(String subscriptionID_, String pricingComponentName, int value) {
+//		PricingComponentValue pricingComponentValue = new PricingComponentValue();
+//		pricingComponentValue.setPricingComponentName(pricingComponentName);
+//		pricingComponentValue.setValue(value);
+//		pricingComponentValue.setSubscriptionID(subscriptionID_);	
+//		
+//		return create(pricingComponentValue, ResourcePath())[0];
+//	}
+	
+	public static PricingComponentValue[] getActiveForSubscription(String subscriptionID_) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		String path = String.format("subscriptions/%s/pricing-component-value", subscriptionID_);
+		return getAll(ResourcePath(), path);
+	}
 
 	public static PricingComponentValue create(PricingComponentValue pricingComponentValue) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
 		return create(pricingComponentValue, ResourcePath())[0];
