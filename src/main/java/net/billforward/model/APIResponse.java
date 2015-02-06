@@ -4,17 +4,17 @@ import com.google.gson.annotations.Expose;
 
 
 public class APIResponse<T> {
-	@Expose protected int executionTime;
+	@Expose protected String executionTime;
 	@Expose protected T[] results;
 	@Expose protected String errorType;
 	@Expose protected String errorMessage;
 	@Expose protected int errorCode;
 	
-	public int getExecutionTime() {
+	public String getExecutionTime() {
 		return executionTime;
 	}
 	
-	public void setExecutionTime(int executionTime) {
+	public void setExecutionTime(String executionTime) {
 		this.executionTime = executionTime;
 	}
 	

@@ -23,6 +23,18 @@ public abstract class InsertableEntity<TEntityType extends BillingEntity> extend
 	}
 	
 
+	protected static <TStaticEntityType  extends BillingEntity> TStaticEntityType[] createExplicitPath(TStaticEntityType entity, ResourcePath path, String explicitPath) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		BillForwardClient client = BillForwardClient.getClient();
+	
+				
+		APIResponse<TStaticEntityType> resp = client.request(BillForwardClient.RequestMethod.POST, explicitPath, entity, path.getResponseType());
+		
+		if(resp == null || resp.results == null || resp.results.length < 1) {
+			return null;
+		}
+		return resp.results;
+	}
+	
 	protected static <TStaticEntityType  extends BillingEntity> TStaticEntityType[] create(TStaticEntityType entity, ResourcePath path, String extraPath) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
 		BillForwardClient client = BillForwardClient.getClient();
 		String fullRoute =  path.getPath();
@@ -40,6 +52,22 @@ public abstract class InsertableEntity<TEntityType extends BillingEntity> extend
 		}
 		return resp.results;
 	}
+	
+	protected static <TStaticEntityType  extends BillingEntity> TStaticEntityType retireExplicitPath(String explicitPath, ResourcePath path) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		BillForwardClient client = BillForwardClient.getClient();
+				
+
+		APIResponse<TStaticEntityType> resp =  client.request(BillForwardClient.RequestMethod.DELETE, explicitPath, null, path.getResponseType());
+				
+		if(resp == null || resp.results == null || resp.results.length < 1) {
+			return null;
+		}
+		TStaticEntityType res = resp.results[0];
+		res.setClient(client);
+		
+		return res;
+	}
+	
 	
 	protected static <TStaticEntityType  extends BillingEntity> TStaticEntityType retire(String ID, ResourcePath path) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
 		BillForwardClient client = BillForwardClient.getClient();
@@ -59,4 +87,45 @@ public abstract class InsertableEntity<TEntityType extends BillingEntity> extend
 		
 		return res;
 	}
+	
+
+	protected static <TStaticEntityType  extends BillingEntity> TStaticEntityType retire(String ID, ResourcePath path, String extraPath) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		BillForwardClient client = BillForwardClient.getClient();
+		
+		String apiRoute = path.getPath();
+		String endPoint = String.format("/%s/%s", ID, extraPath);
+		String fullRoute = String.format("%s%s", apiRoute, endPoint);
+		
+
+		APIResponse<TStaticEntityType> resp =  client.request(BillForwardClient.RequestMethod.DELETE, fullRoute, null, path.getResponseType());
+				
+		if(resp == null || resp.results == null || resp.results.length < 1) {
+			return null;
+		}
+		TStaticEntityType res = resp.results[0];
+		res.setClient(client);
+		
+		return res;
+	}
+	
+
+	protected static <TStaticEntityType  extends BillingEntity> TStaticEntityType retire(String ID,  String prefixPath, ResourcePath path) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		BillForwardClient client = BillForwardClient.getClient();
+		
+		String apiRoute = path.getPath();
+		String endPoint = String.format("/%s/%s", prefixPath, ID);
+		String fullRoute = String.format("%s%s", apiRoute, endPoint);
+		
+
+		APIResponse<TStaticEntityType> resp =  client.request(BillForwardClient.RequestMethod.DELETE, fullRoute, null, path.getResponseType());
+				
+		if(resp == null || resp.results == null || resp.results.length < 1) {
+			return null;
+		}
+		TStaticEntityType res = resp.results[0];
+		res.setClient(client);
+		
+		return res;
+	}
+	
 }

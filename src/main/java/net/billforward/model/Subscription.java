@@ -43,7 +43,6 @@ public class Subscription extends MutableEntity<Subscription> {
 	@Expose protected Date created;
 	@Expose protected RatePlan productRatePlan;
 	
-	@Expose protected List<PaymentMethodSubscriptionLink> paymentMethodSubscriptionLinks = new ArrayList<PaymentMethodSubscriptionLink>();
 	@Expose protected List<PricingComponentValue>  pricingComponentValues = new ArrayList<PricingComponentValue>();
 	
 	public String getID() {
@@ -266,12 +265,18 @@ public class Subscription extends MutableEntity<Subscription> {
 		Cancelled,
 		Failed,
 		Expired;
-	}
+	}	
 
-	public void addPaymentMethod(PaymentMethod paymentMethod) {
-		PaymentMethodSubscriptionLink link = new PaymentMethodSubscriptionLink();
-		link.setPaymentMethodID(paymentMethod.getID());
-		paymentMethodSubscriptionLinks.add(link);
+	public PaymentMethod[] getPaymentMethods() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		return PaymentMethod.getForSubscription(this.id);		
+	}
+	
+	public PaymentMethod removePaymentMethod(String paymentMethodID) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		return PaymentMethod.removeFromSubscription(this.id, paymentMethodID);		
+	}
+	
+	public PaymentMethod addPaymentMethod(String paymentMethodID) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		return PaymentMethod.addToSubscription(this.id, paymentMethodID);		
 	}
 
 	/** Cancels a subscription immediately
@@ -374,4 +379,25 @@ public class Subscription extends MutableEntity<Subscription> {
 		
 		return PricingComponentValueChangeAmendment.create(pricingComponentValueChangeAmendment);
 	}
+
+	public Coupon addCouponCode(String couponCode) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		return Coupon.addCouponCodeToSubscription(couponCode, this.id);
+	}
+
+	public Coupon[] getCouponCodes() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		return Coupon.getCouponsForSubscription(this.id);
+	}
+
+	public Coupon removeCouponCode(String couponCode) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		return Coupon.removeCouponCode(couponCode);
+	}
+
+//	public PricingComponentValue setActivePricingComponentValue(String pricingComponentName, int value) {
+//		return PricingComponentValue.setActivePricingComponentValue(this.id, pricingComponentName, value);
+//	}	
+
+	public PricingComponentValue[] getActivePricingComponentValues() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		return PricingComponentValue.getActiveForSubscription(this.id);
+	}
+	
 }

@@ -5,8 +5,9 @@ import java.lang.reflect.Type;
 public class ResourcePath {
 	protected String m_path;
 	protected String m_entityName;
+	protected String m_extension;
 	protected Type m_responseType;
-	
+
 	public ResourcePath(String path_, String entityName_, Type responseType_) {
 		m_path = path_;
 		m_entityName = entityName_;
@@ -20,6 +21,7 @@ public class ResourcePath {
 	public String getPath() {
 		return m_path;
 	}
+	
 
 	/***
 	 * Gets the XmlRootElement of the Entity. We see this in @type field of a response.

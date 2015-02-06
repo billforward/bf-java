@@ -245,7 +245,7 @@ public class ExampleUsageTests extends TestBase {
 		//creditNote = PaymentMethod.create(creditNote);
 		PaymentMethod creditNote = PaymentMethod.getByID("60FCC502-772A-49D4-AA90-2CDCBB71C589");
 		
-		sub.addPaymentMethod(creditNote);
+		sub.addPaymentMethod(creditNote.getID());
 		sub.save();
 	}
 }
