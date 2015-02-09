@@ -41,6 +41,8 @@ public class Coupon extends InsertableEntity<Coupon> {
 	@Expose protected Integer used;
 	@Expose protected Date validUntil;
 
+	//How many unique coupon codes to generate
+	@Expose protected int quantity;
 	
 	public String getName() {
 		return name;
@@ -227,28 +229,25 @@ public class Coupon extends InsertableEntity<Coupon> {
 		resourcePath = new ResourcePath("coupons", "coupon",  new TypeToken<APIResponse<Coupon>>() {}.getType());
 	}
 	
-	public String[] createUniqueCodes(int quantity) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {		
+	public Coupon[] createUniqueCodes(int quantity) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {		
 		return Coupon.createCouponCodes(couponCode, quantity);
 	}
 	
-	public static String[] createCouponCodes(String couponCode, int quantity) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
-		CouponCode codeRequest = new CouponCode();
+	public static Coupon[] createCouponCodes(String couponCode, int quantity) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		Coupon codeRequest = new Coupon();
 		codeRequest.quantity = quantity;
-		codeRequest.couponCode = couponCode;
 		
-		CouponCode couponCodes = CouponCode.create(codeRequest);
-		
-		return couponCodes.getCodes().toArray(new String[] {});
+		String extraPath = String.format("%s/codes", couponCode);
+		return create(codeRequest, ResourcePath(), extraPath);
 	}
 	
 
-	public String[] getCouponCodes() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+	public Coupon[] getCouponCodes() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
 		return Coupon.getCouponCodes(this.couponCode);
 	}
 	
-	public static String[] getCouponCodes(String couponCode) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
-		CouponCode codes = CouponCode.getByCouponCode(couponCode);
-		return codes.getCodes().toArray(new String[] {});
+	public static Coupon[] getCouponCodes(String couponCode) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		return getByID(couponCode, ResourcePath(), "codes");
 	}
 
 	public Coupon addUnitsFree(String pricingComponent, int unitsFree) {

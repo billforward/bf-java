@@ -14,13 +14,14 @@ public class CouponTests extends TestBase {
 	
 	//@Test
 	public void testCreation() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
-		Coupon coupon = new Coupon("Premium", "Monthly");
+		Coupon coupon = new Coupon();//"Premium", "Monthly");
 		coupon.setName("6 Months free");
 		coupon.setCouponCode("WINTERFUN1");
 		coupon.setCoupons(10);
 		coupon.setUses(6);
+		coupon.setCurrency(Currency.getInstance("USD"));
 		
-		coupon.addPercentageDiscount("Users", 50);
+		//coupon.addPercentageDiscount("Users", 50);
 		
 		Coupon newCoupon = Coupon.create(coupon);
 		
@@ -56,20 +57,20 @@ public class CouponTests extends TestBase {
 	}
 	
 
-	//@Test
+	@Test
 	public void testUniqueFetch() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
-		String[] codes = Coupon.getCouponCodes("WINTERFUN1");
+		Coupon[] codes = Coupon.getCouponCodes("WINTERFUN1");
 		
-		for(String code : codes) {
+		for(Coupon code : codes) {
 			System.out.println(code);			
 		}
 	}
 	
 	//@Test
 	public void createCouponCodes() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
-		String[] codes = Coupon.createCouponCodes("WINTERFUN1", 5);
+		Coupon[] codes = Coupon.createCouponCodes("WINTERFUN1", 1);
 		
-		for(String code : codes) {
+		for(Coupon code : codes) {
 			System.out.println(code);			
 		}
 	}

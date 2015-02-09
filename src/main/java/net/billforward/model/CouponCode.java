@@ -17,7 +17,6 @@ import com.google.gson.reflect.TypeToken;
 public class CouponCode extends InsertableEntity<CouponCode> {
 	@Expose protected String couponCode;
 	@Expose protected int quantity;
-	@Expose List<String> codes = new ArrayList<String>();	
 		
 	public String getCouponCode() {
 		return couponCode;
@@ -33,10 +32,6 @@ public class CouponCode extends InsertableEntity<CouponCode> {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
-	}
-
-	public List<String> getCodes() {
-		return codes;
 	}
 
 	protected static ResourcePath resourcePath;

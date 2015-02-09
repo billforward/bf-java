@@ -324,16 +324,9 @@ public class BillForwardClient
 	private class Error {
 		@Expose String errorType;
 		@Expose String errorMessage;
-		@Expose String[] errorParameters;
 		
 		public String getErrorParameters() {
-			String errorParams = "";
-			if(errorParameters == null) return errorParams;
-			
-			for(String s : errorParameters) {
-				errorParams += s + " ";
-			}
-			return errorParams;
+			return errorMessage;
 		}
 	}
 
