@@ -108,7 +108,7 @@ public class BillForwardClient
 		/*
 		 * This is to support polymorphism in the different type of Amendments
 		 */
-		RuntimeTypeAdapterFactory<Amendment> amendmentConfigAdapter = RuntimeTypeAdapterFactory.of(Amendment.class, "@type");
+		RuntimeTypeAdapterFactory<Amendment> amendmentConfigAdapter = RuntimeTypeAdapterFactory.of(Amendment.class, "amendmentType");
 		mappings = Amendment.getTypeMappings();
 		for(GatewayTypeMapping mapping : mappings) {
 			amendmentConfigAdapter.registerSubtype((Class)mapping.getApiType(), mapping.getName());
