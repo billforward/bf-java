@@ -5,6 +5,11 @@ import java.util.Date;
 import java.util.List;
 
 import net.billforward.BillForwardClient;
+import net.billforward.exception.APIConnectionException;
+import net.billforward.exception.APIException;
+import net.billforward.exception.AuthenticationException;
+import net.billforward.exception.CardException;
+import net.billforward.exception.InvalidRequestException;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -24,7 +29,7 @@ public class PricingComponent extends MutableEntity<PricingComponent> {
 	@Expose protected String chargeModel;
 	@Expose protected String upgradeMode;
 	@Expose protected String downgradeMode;
-	@Expose protected int defaultQuantity;
+	@Expose protected Integer defaultQuantity;
 	@Expose protected int minQuantity;
 	@Expose protected int maxQuantity;	
 	@Expose protected Date validTill;
@@ -178,6 +183,10 @@ public class PricingComponent extends MutableEntity<PricingComponent> {
 		return productRatePlanID;
 	}
 
+	public void setProductRatePlanID(String productRatePlanID) {
+		this.productRatePlanID = productRatePlanID;
+	}
+
 	public Date getUpdated() {
 		return updated;
 	}
@@ -217,7 +226,7 @@ public class PricingComponent extends MutableEntity<PricingComponent> {
 	}
 	
 	static {
-		resourcePath = new ResourcePath("pricing-components", "pricing-component",  new TypeToken<APIResponse<RatePlan>>() {}.getType());
+		resourcePath = new ResourcePath("pricing-components", "pricing-component",  new TypeToken<APIResponse<PricingComponent>>() {}.getType());
 	}
 	
 	public enum PricingComponentChargeType {
@@ -237,5 +246,9 @@ public class PricingComponent extends MutableEntity<PricingComponent> {
 		tieredPricingComponent,
 		tieredVolumePricingComponent,
 		flatPricingComponent
+	}
+
+	public static PricingComponent create(PricingComponent pricingComponent) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
+		return create(pricingComponent, ResourcePath())[0];
 	}
 }

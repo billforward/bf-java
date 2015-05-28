@@ -2,18 +2,23 @@ package net.billforward.model;
 
 import static org.junit.Assert.assertEquals;
 
+import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import net.billforward.exception.BillforwardException;
 import net.billforward.model.Invoice.InvoiceType;
 import net.billforward.model.amendments.PricingComponentValueMigrationChargeAmendmentMapping;
 import net.billforward.model.amendments.ProductRatePlanMigrationChargeAmendment;
+import net.billforward.model.charges.Charge;
+import net.billforward.model.charges.ChargeType;
+import net.billforward.model.charges.SubscriptionChargeType;
 
 import org.junit.Test;
 
 public class InvoicePlayTests extends TestBase {
 
-	@Test
+	//@Test
 	public void getByID() throws BillforwardException {
 //		Invoice invoice = Invoice.getByID("5B839520-957F-459B-BB25-5194E395A3E2");
 //		invoice.retryTakingPayment();
@@ -43,6 +48,63 @@ public class InvoicePlayTests extends TestBase {
 		migration = ProductRatePlanMigrationChargeAmendment.create(migration);
 		
 		System.out.println(migration);
+		
+		
+		
+	}
+	
+
+	@Test
+	public void getCharges() throws BillforwardException {
+		Subscription sub = Subscription.getByID("SUB-64600AE9-89BB-4669-9D6B-ACDB830A");
+		
+		Invoice inv = Invoice.getByID("INV-ADAE5F4C-E135-456B-A8B4-94F1111C");
+		//inv.recalculate();
+
+//		inv.addCharge(new BigDecimal("72"), "Petty cash ");
+////
+//		inv.addCharge(15, "Speed");
+//		inv.addCharge(25, "Speed");
+//		inv.addCharge(10, "Bandwidth");
+		
+		Charge[] charges = sub.getPendingCharges();
+		
+		System.out.println("Charges on sub");
+		if(charges != null) {
+			for(Charge charge : charges) {
+				System.out.println(String.format("%s %s [%s] - %s", charge.getType(), charge.getDescription(), charge.getAmount(), charge.getID()));
+				if(charge.getType().equals(SubscriptionChargeType.Manual)) {
+					
+					//break;
+				}
+				
+				//inv.addCharge(charge.getID());
+				if(charge.getID().equals("CHG-E54B2E4B-B6A6-4435-8004-B57EFCD5")) {
+				//	charge.delete();
+				}
+				//break;
+				
+					//charge.delete();
+			}
+		}	
+
+		System.out.println("\n\nCharges on inv");
+		charges = inv.getCharges();
+		
+		if(charges != null) {
+			for(Charge charge : charges) {
+				System.out.println(String.format("%s %s [%s] - %s", charge.getType(), charge.getDescription(), charge.getAmount(), charge.getID()));
+				if(charge.getType().equals(SubscriptionChargeType.Manual)) {
+//					inv.removeCharge(charge);
+				}
+				//inv.addCharge(charge.getID());
+			//	inv.removeCharge(charge);
+				//charge.delete();
+		//		break;
+			}
+		}	
+		
+	inv.recalculate();
 	}
 	
 }

@@ -2,6 +2,7 @@ package net.billforward.model;
 
 import static org.junit.Assert.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,31 +13,41 @@ import net.billforward.model.Subscription.SubscriptionType;
 import net.billforward.model.amendments.CancellationAmendment;
 import net.billforward.model.amendments.ComponentChange;
 import net.billforward.model.amendments.PricingComponentValueChangeAmendment;
+import net.billforward.model.charges.ChargeRequest;
+import net.billforward.model.charges.Charge;
 
 import org.junit.Test;
 
 public class SubscriptionTests extends TestBase {
 
 
-	//@Test
+//	@Test
 	public void UpgradeSubscription() throws BillforwardException {
 		//--Get Subscription by ID
-		Subscription subscription = Subscription.getByID("AF39E372-F990-4354-A43B-6D071CC307AA");
-		
-		assertEquals("AF39E372-F990-4354-A43B-6D071CC307AA", subscription.getID());
-		
-		//PricingComponentValueChangeAmendment change = subscription.upgrade("users", 10).sync();
-		
-//		HashMap<String, Integer> changes = new HashMap<String, Integer>();  
-//		changes.put("users", 10);
-//		PricingComponentValueChangeAmendment change = subscription.upgrade(changes).sync();
-		
+		Subscription subscription = Subscription.getByID("SUB-F5A88586-6C31-4FA0-8131-2F6BFB0B");
 
-		List<ComponentChange> changes = new ArrayList<ComponentChange>();
-		changes.add(new ComponentChange("users", 10));
-		PricingComponentValueChangeAmendment change = subscription.upgrade(changes).sync();
 		
-		System.out.println(change.toString());
+		//ChargeRequest r = subscription.addCharge(new BigDecimal("10.00"));
+
+		//ChargeRequest r = subscription.addCharge(50, "Bandwidth");
+		Charge r = subscription.addCharge(50, "Speed");
+		
+		
+		System.out.println(r.toString());
+	}
+	
+	@Test
+	public void getCharges() throws BillforwardException {
+		//--Get Subscription by ID
+		Subscription subscription = Subscription.getByID("SUB-F5A88586-6C31-4FA0-8131-2F6BFB0B");
+	
+		
+		Charge[] r = subscription.getPendingCharges();
+		
+			
+		for(Charge rr : r) {
+			System.out.println(rr.toString());
+		}
 	}
 
 	//@Test

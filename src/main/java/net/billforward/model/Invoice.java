@@ -15,6 +15,8 @@ import net.billforward.model.PricingComponent.PricingComponentChargeType;
 import net.billforward.model.amendments.InvoiceNextExecutionAttemptAmendment;
 import net.billforward.model.amendments.InvoiceRecalculationAmendment;
 import net.billforward.model.amendments.IssueInvoiceAmendment;
+import net.billforward.model.charges.Charge;
+import net.billforward.model.charges.ChargeRequest;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.reflect.TypeToken;
@@ -305,5 +307,68 @@ public class Invoice extends BillingEntity {
 				PricingComponentValue.create(value);			
 			}
 		}
+	}
+	
+	public Charge addCharge(BigDecimal value, String description) throws APIException, AuthenticationException, InvalidRequestException, APIConnectionException, CardException {
+		ChargeRequest request = new ChargeRequest();
+		request.setAmount(value);
+		request.setDescription(description);
+		
+		return addCharge(request);
+	}
+
+	public Charge addCharge(String chargeID) throws APIException, AuthenticationException, InvalidRequestException, APIConnectionException, CardException {
+		ChargeRequest request = new ChargeRequest();
+		request.setID(chargeID);
+		
+		return addCharge(request);
+	}
+	
+	public Charge addCharge(int quantity, String pricingComponentName) throws APIException, AuthenticationException, InvalidRequestException, APIConnectionException, CardException {
+		ChargeRequest request = new ChargeRequest();
+		request.setPricingComponentValue(quantity);
+		request.setPricingComponentName(pricingComponentName);
+		
+		return addCharge(request);
+	}
+	
+	private Charge addCharge(ChargeRequest request) throws APIException,
+			AuthenticationException, InvalidRequestException,
+			APIConnectionException, CardException {
+		BillForwardClient client = BillForwardClient.getClient();
+
+		String path = String.format("invoices/%s/charge", this.getID());
+		
+		APIResponse<Charge> resp = client.requestUntyped(BillForwardClient.RequestMethod.POST, path, request, new TypeToken<APIResponse<Charge>>(){}.getType());
+		
+		if(resp == null || resp.results == null || resp.results.length < 1) {
+			return null;
+		}
+		return resp.results[0];
+	}
+	
+	public Charge removeCharge(Charge charge_) throws APIException, AuthenticationException, InvalidRequestException, APIConnectionException, CardException {
+		BillForwardClient client = BillForwardClient.getClient();
+		String path = String.format("invoices/%s/charge/%s", this.getID(), charge_.getID());
+		
+		APIResponse<Charge> resp = client.requestUntyped(BillForwardClient.RequestMethod.DELETE, path, "", new TypeToken<APIResponse<Charge>>(){}.getType());
+		
+		if(resp == null || resp.results == null || resp.results.length < 1) {
+			return null;
+		}
+		return resp.results[0];
+	}
+
+	public Charge[] getCharges() throws APIException, AuthenticationException, InvalidRequestException, APIConnectionException, CardException {
+		String path = String.format("invoices/%s/charge", this.getID());
+
+		BillForwardClient client = BillForwardClient.getClient();
+		
+		APIResponse<Charge> resp = client.requestUntyped(BillForwardClient.RequestMethod.GET, path, null, new TypeToken<APIResponse<Charge>>(){}.getType());
+		
+		if(resp == null || resp.results == null || resp.results.length < 1) {
+			return null;
+		}
+		return resp.results;
 	}
 }

@@ -57,7 +57,7 @@ public class CouponTests extends TestBase {
 	}
 	
 
-	@Test
+	//@Test
 	public void testUniqueFetch() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
 		Coupon[] codes = Coupon.getCouponCodes("WINTERFUN1");
 		
@@ -99,11 +99,10 @@ public class CouponTests extends TestBase {
 		System.out.println(coupon);
 	}
 
-	//@Test
+	@Test
 	public void getCouponCodes() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
-		Subscription subscription = Subscription.getByID("B51BF769-24BE-432B-B592-66E257ABEBF2");
+		Subscription subscription = Subscription.getByID("SUB-684FA942-35C2-4865-A365-48672842");
 		Coupon[] coupons = subscription.getCouponCodes();
-		
 		
 		for(Coupon coupon : coupons) {
 			System.out.println(coupon);			

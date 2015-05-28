@@ -1,5 +1,6 @@
 package net.billforward.model;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -16,6 +17,8 @@ import net.billforward.model.amendments.CancellationAmendment;
 import net.billforward.model.amendments.CancellationAmendment.ServiceEndState;
 import net.billforward.model.amendments.ComponentChange;
 import net.billforward.model.amendments.PricingComponentValueChangeAmendment;
+import net.billforward.model.charges.ChargeRequest;
+import net.billforward.model.charges.Charge;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.reflect.TypeToken;
@@ -250,6 +253,7 @@ public class Subscription extends MutableEntity<Subscription> {
 	static {
 		resourcePath = new ResourcePath("subscriptions", "subscription",  new TypeToken<APIResponse<Subscription>>() {}.getType());
 	}
+	
 	public enum SubscriptionType {
 		Adhoc,
 		Subscription,
@@ -398,6 +402,50 @@ public class Subscription extends MutableEntity<Subscription> {
 
 	public PricingComponentValue[] getActivePricingComponentValues() throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
 		return PricingComponentValue.getActiveForSubscription(this.id);
+	}
+	
+	public Charge addCharge(BigDecimal value) throws APIException, AuthenticationException, InvalidRequestException, APIConnectionException, CardException {
+		ChargeRequest request = new ChargeRequest();
+		request.setAmount(value);
+		
+		return addCharge(request);
+	}
+
+	
+	public Charge addCharge(int quantity, String pricingComponentName) throws APIException, AuthenticationException, InvalidRequestException, APIConnectionException, CardException {
+		ChargeRequest request = new ChargeRequest();
+		request.setPricingComponentValue(quantity);
+		request.setPricingComponentName(pricingComponentName);
+		
+		return addCharge(request);
+	}
+	
+	private Charge addCharge(ChargeRequest request) throws APIException,
+			AuthenticationException, InvalidRequestException,
+			APIConnectionException, CardException {
+		BillForwardClient client = BillForwardClient.getClient();
+
+		String path = String.format("subscriptions/%s/charge", this.getID());
+		
+		APIResponse<Charge> resp = client.requestUntyped(BillForwardClient.RequestMethod.POST, path, request, new TypeToken<APIResponse<Charge>>(){}.getType());
+		
+		if(resp == null || resp.results == null || resp.results.length < 1) {
+			return null;
+		}
+		return resp.results[0];
+	}
+
+	public Charge[] getPendingCharges() throws APIException, AuthenticationException, InvalidRequestException, APIConnectionException, CardException {
+		String path = String.format("subscriptions/%s/charge", this.getID());
+
+		BillForwardClient client = BillForwardClient.getClient();
+		
+		APIResponse<Charge> resp = client.requestUntyped(BillForwardClient.RequestMethod.GET, path, null, new TypeToken<APIResponse<Charge>>(){}.getType());
+		
+		if(resp == null || resp.results == null || resp.results.length < 1) {
+			return null;
+		}
+		return resp.results;
 	}
 	
 }

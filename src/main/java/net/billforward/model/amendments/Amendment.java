@@ -121,10 +121,10 @@ public abstract class Amendment extends InsertableEntity<Amendment> {
 	
 	public static GatewayTypeMapping[] getTypeMappings() {
 		List<GatewayTypeMapping> typeMappings = new ArrayList<GatewayTypeMapping>();
-		typeMappings.add(new GatewayTypeMapping(InvoiceNextExecutionAttemptAmendment.class, InvoiceNextExecutionAttemptAmendment.class.getSimpleName()));
-		typeMappings.add(new GatewayTypeMapping(InvoiceRecalculationAmendment.class, InvoiceRecalculationAmendment.class.getSimpleName()));
-		typeMappings.add(new GatewayTypeMapping(IssueInvoiceAmendment.class, IssueInvoiceAmendment.class.getSimpleName()));
-		typeMappings.add(new GatewayTypeMapping(CancellationAmendment.class, CancellationAmendment.class.getSimpleName()));
+		typeMappings.add(new GatewayTypeMapping(InvoiceNextExecutionAttemptAmendment.class, InvoiceNextExecutionAttemptAmendment.class.getSimpleName().replaceAll("Amendment", "")));
+		typeMappings.add(new GatewayTypeMapping(InvoiceRecalculationAmendment.class, InvoiceRecalculationAmendment.class.getSimpleName().replaceAll("Amendment", "")));
+		typeMappings.add(new GatewayTypeMapping(IssueInvoiceAmendment.class, IssueInvoiceAmendment.class.getSimpleName().replaceAll("Amendment", "")));
+		typeMappings.add(new GatewayTypeMapping(CancellationAmendment.class, CancellationAmendment.class.getSimpleName().replaceAll("Amendment", "")));
 		
 		return typeMappings.toArray(new GatewayTypeMapping[]{});
 	}

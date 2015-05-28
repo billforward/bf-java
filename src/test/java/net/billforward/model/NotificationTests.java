@@ -41,4 +41,14 @@ public class NotificationTests extends TestBase {
 		
 		System.out.println(notificaiton);
 	}
+
+	@Test
+	public void parseAmendmentsUpdated() throws BillforwardException, FileNotFoundException {;
+		
+		String content = getResourceData("notificationExamples/amendments/Updated.json");
+		Notification notificaiton = NotificationHelper.parse(content);
+
+		System.out.println(notificaiton);
+		System.out.println(notificaiton);
+	}
 }

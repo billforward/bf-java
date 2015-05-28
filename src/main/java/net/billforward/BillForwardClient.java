@@ -28,6 +28,7 @@ import net.billforward.exception.InvalidRequestException;
 import net.billforward.gson.typeadapters.RuntimeTypeAdapterFactory;
 import net.billforward.model.APIResponse;
 import net.billforward.model.amendments.Amendment;
+import net.billforward.model.charges.Charge;
 import net.billforward.model.gateways.APIConfiguration;
 import net.billforward.model.gateways.GatewayTypeMapping;
 import net.billforward.model.notifications.Notification;
@@ -108,10 +109,19 @@ public class BillForwardClient
 		/*
 		 * This is to support polymorphism in the different type of Amendments
 		 */
-		RuntimeTypeAdapterFactory<Amendment> amendmentConfigAdapter = RuntimeTypeAdapterFactory.of(Amendment.class, "@type");
+		RuntimeTypeAdapterFactory<Amendment> amendmentConfigAdapter = RuntimeTypeAdapterFactory.of(Amendment.class, "amendmentType");
 		mappings = Amendment.getTypeMappings();
 		for(GatewayTypeMapping mapping : mappings) {
 			amendmentConfigAdapter.registerSubtype((Class)mapping.getApiType(), mapping.getName());
+		}
+
+		/*
+		 * This is to support polymorphism in the different type of Charges
+		 */
+		RuntimeTypeAdapterFactory<Charge> chargesConfigAdapter = RuntimeTypeAdapterFactory.of(Charge.class, "@type");
+		mappings = Charge.getTypeMappings();
+		for(GatewayTypeMapping mapping : mappings) {
+			chargesConfigAdapter.registerSubtype((Class)mapping.getApiType(), mapping.getName());
 		}
 		
 		/*
@@ -136,6 +146,7 @@ public class BillForwardClient
 		.registerTypeAdapterFactory(apiConfigAdapter)
 		.registerTypeAdapterFactory(amendmentConfigAdapter)
 		.registerTypeAdapterFactory(notificationConfigAdapter)
+		.registerTypeAdapterFactory(chargesConfigAdapter)
 		.setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
 		.create();
 	}

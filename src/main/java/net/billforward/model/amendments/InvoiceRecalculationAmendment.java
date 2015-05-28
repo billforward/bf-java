@@ -21,6 +21,8 @@ public class InvoiceRecalculationAmendment extends Amendment {
 	@Expose protected String amendmentType = AmendmentType.InvoiceRecalculationAmendment.toString();
 	@Expose String invoiceID;
 	@Expose String newInvoiceState;
+	@Expose Boolean includeInvoicedChargesOnly = true;
+	@Expose ChargeAssociationStrategy associateCharges = ChargeAssociationStrategy.Associated;
 	
 	public String getAmendmentTypeAsString() {
 		return amendmentType;
@@ -48,8 +50,16 @@ public class InvoiceRecalculationAmendment extends Amendment {
 
 	public void setNewInvoiceState(InvoiceState newInvoiceState) {
 		this.newInvoiceState = newInvoiceState.toString();
-	}
+	}	
 	
+	public ChargeAssociationStrategy getAssociateCharges() {
+		return associateCharges;
+	}
+
+	public void setAssociateCharges(ChargeAssociationStrategy associateCharges) {
+		this.associateCharges = associateCharges;
+	}
+
 	public static InvoiceRecalculationAmendment create(InvoiceRecalculationAmendment amendment) throws AuthenticationException, InvalidRequestException, APIConnectionException, CardException, APIException {
 		return create(amendment, ResourcePath())[0];
 	}
