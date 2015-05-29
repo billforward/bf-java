@@ -121,10 +121,12 @@ public abstract class Amendment extends InsertableEntity<Amendment> {
 	
 	public static GatewayTypeMapping[] getTypeMappings() {
 		List<GatewayTypeMapping> typeMappings = new ArrayList<GatewayTypeMapping>();
-		typeMappings.add(new GatewayTypeMapping(InvoiceNextExecutionAttemptAmendment.class, InvoiceNextExecutionAttemptAmendment.class.getSimpleName().replace("Amendment", "")));
-		typeMappings.add(new GatewayTypeMapping(InvoiceRecalculationAmendment.class, InvoiceRecalculationAmendment.class.getSimpleName().replace("Amendment", "")));
-		typeMappings.add(new GatewayTypeMapping(IssueInvoiceAmendment.class, IssueInvoiceAmendment.class.getSimpleName().replace("Amendment", "")));
-		typeMappings.add(new GatewayTypeMapping(CancellationAmendment.class, CancellationAmendment.class.getSimpleName().replace("Amendment", "")));
+		typeMappings.add(new GatewayTypeMapping(InvoiceNextExecutionAttemptAmendment.class, InvoiceNextExecutionAttemptAmendment.class.getSimpleName()));
+		typeMappings.add(new GatewayTypeMapping(InvoiceRecalculationAmendment.class, InvoiceRecalculationAmendment.class.getSimpleName()));
+		typeMappings.add(new GatewayTypeMapping(IssueInvoiceAmendment.class, IssueInvoiceAmendment.class.getSimpleName()));
+		typeMappings.add(new GatewayTypeMapping(CancellationAmendment.class, CancellationAmendment.class.getSimpleName()));
+		typeMappings.add(new GatewayTypeMapping(SubscriptionCancellationAmendment.class, "subscriptionCancellation"));
+		typeMappings.add(new GatewayTypeMapping(ServiceEndAmendment.class, ServiceEndAmendment.class.getSimpleName()));
 		
 		return typeMappings.toArray(new GatewayTypeMapping[]{});
 	}

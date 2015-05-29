@@ -19,6 +19,6 @@ public class InvoiceLineNotification extends Notification {
 
 	@Override
 	protected void buildEntity() {
-		invoiceLine = BillForwardClient.GSON.fromJson(this.entity, InvoiceLine.class);
+		invoiceLine = BillForwardClient.GSON_NOTIFICATION_ENTITY.fromJson(this.entity, InvoiceLine.class);
 	}
 }

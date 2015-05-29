@@ -92,8 +92,9 @@ public class BillForwardClient
 	public String getApiUrl() {
 		return apiUrl;
 	}
-	
+
 	public static Gson GSON;
+	public static Gson GSON_NOTIFICATION_ENTITY;
 	
 	static {
 		/*
@@ -106,12 +107,22 @@ public class BillForwardClient
 		}
 
 		/*
-		 * This is to support polymorphism in the different type of Amendments
+		 * This is to support polymorphism in the different type of Amendments from API
 		 */
-		RuntimeTypeAdapterFactory<Amendment> amendmentConfigAdapter = RuntimeTypeAdapterFactory.of(Amendment.class, "amendmentType");
+		RuntimeTypeAdapterFactory<Amendment> amendmentConfigAdapter = RuntimeTypeAdapterFactory.of(Amendment.class, "@type");
 		mappings = Amendment.getTypeMappings();
 		for(GatewayTypeMapping mapping : mappings) {
 			amendmentConfigAdapter.registerSubtype((Class)mapping.getApiType(), mapping.getName());
+		}
+
+
+		/*
+		 * This is to support polymorphism in the different type of Amendments from Notifications
+		 */
+		RuntimeTypeAdapterFactory<Amendment> amendmentNotifcationConfigAdapter = RuntimeTypeAdapterFactory.of(Amendment.class, "type");
+		mappings = Amendment.getTypeMappings();
+		for(GatewayTypeMapping mapping : mappings) {
+			amendmentNotifcationConfigAdapter.registerSubtype((Class)mapping.getApiType(), mapping.getName());
 		}
 		
 		/*
@@ -135,6 +146,16 @@ public class BillForwardClient
 		.excludeFieldsWithoutExposeAnnotation()
 		.registerTypeAdapterFactory(apiConfigAdapter)
 		.registerTypeAdapterFactory(amendmentConfigAdapter)
+		.registerTypeAdapterFactory(notificationConfigAdapter)
+		.setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
+		.create();
+		
+
+		GSON_NOTIFICATION_ENTITY = new GsonBuilder()
+		.registerTypeAdapter(Date.class, new DateTypeAdapter())
+		.excludeFieldsWithoutExposeAnnotation()
+		.registerTypeAdapterFactory(apiConfigAdapter)
+		.registerTypeAdapterFactory(amendmentNotifcationConfigAdapter)
 		.registerTypeAdapterFactory(notificationConfigAdapter)
 		.setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
 		.create();

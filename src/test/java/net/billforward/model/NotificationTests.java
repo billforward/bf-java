@@ -50,4 +50,31 @@ public class NotificationTests extends TestBase {
 		
 		System.out.println(notificaiton);
 	}
+
+	@Test
+	public void InvoiceRecalculationAmendment() throws BillforwardException, FileNotFoundException {;
+		
+		String content = getResourceData("notificationExamples/amendments/InvoiceRecalculationAmendment.json");
+		Notification notificaiton = NotificationHelper.parse(content);
+		
+		System.out.println(notificaiton);
+	}
+	
+	@Test
+	public void SubscriptionCancellation() throws BillforwardException, FileNotFoundException {;
+		
+		String content = getResourceData("notificationExamples/amendments/SubscriptionCancellation.json");
+		Notification notificaiton = NotificationHelper.parse(content);
+		
+		System.out.println(notificaiton);
+	}
+	
+	@Test
+	public void ServiceEndAmendment() throws BillforwardException, FileNotFoundException {;
+		
+		String content = getResourceData("notificationExamples/amendments/ServiceEndAmendment.json");
+		Notification notificaiton = NotificationHelper.parse(content);
+		
+		System.out.println(notificaiton);
+	}
 }

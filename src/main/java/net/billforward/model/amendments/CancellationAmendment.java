@@ -18,7 +18,7 @@ public class CancellationAmendment extends Amendment {
 	@Expose protected String amendmentType = AmendmentType.CancellationAmendment.toString();
 	@Expose protected String source = "";
 	@Expose protected String serviceEnd;
-	@Expose protected SubscriptionCancellation subscriptionCancellation;
+	@Expose protected SubscriptionCancellationAmendment subscriptionCancellation;
 	
 	public String getSource() {
 		return source;
@@ -40,7 +40,7 @@ public class CancellationAmendment extends Amendment {
 		this.serviceEnd = serviceEnd.toString();
 	}
 
-	public SubscriptionCancellation getSubscriptionCancellation() {
+	public SubscriptionCancellationAmendment getSubscriptionCancellation() {
 		return subscriptionCancellation;
 	}
 

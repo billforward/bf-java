@@ -19,6 +19,6 @@ public class AmendmentNotification extends Notification {
 
 	@Override
 	protected void buildEntity() {
-		amendment = BillForwardClient.GSON.fromJson(this.entity, Amendment.class);
+		amendment = BillForwardClient.GSON_NOTIFICATION_ENTITY.fromJson(this.entity, Amendment.class);
 	}
 }
