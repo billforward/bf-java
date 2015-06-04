@@ -21,6 +21,8 @@ public class Notification extends BillingEntity {
 	@Expose protected String entityID;
 	@Expose protected String entity;
 	@Expose protected Date created;
+	@Expose String changes;
+	@Expose List<FieldChange> internalChanges = new  ArrayList<FieldChange>(); 
 	
 	public String getID() {
 		return id;
@@ -57,6 +59,10 @@ public class Notification extends BillingEntity {
 	public Date getCreated() {
 		return created;
 	}
+	
+	public List<FieldChange> getAuditFieldChanges() {
+		return internalChanges;
+	}
 
 	protected Notification() {
 		
@@ -67,7 +73,10 @@ public class Notification extends BillingEntity {
 	}
 	
 	protected void buildEntity() {
-		
+		if(changes != null) {
+			AuditFieldChanges auditFieldChanges = BillForwardClient.GSON_NOTIFICATION_ENTITY.fromJson(this.changes, AuditFieldChanges.class);
+			this.internalChanges = auditFieldChanges.getAuditFieldChanges();			
+		}
 	}
 	
 	@Override
@@ -85,6 +94,8 @@ public class Notification extends BillingEntity {
 		typeMappings.add(new GatewayTypeMapping(InvoiceLineNotification.class, NotificationDomain.InvoiceLine.toString()));
 		typeMappings.add(new GatewayTypeMapping(AccountNotification.class, NotificationDomain.Account.toString()));
 		typeMappings.add(new GatewayTypeMapping(WebhookNotification.class, NotificationDomain.Webhook.toString()));
+		typeMappings.add(new GatewayTypeMapping(SubscriptionCancellationNotification.class, NotificationDomain.SubscriptionCancellation.toString()));
+		typeMappings.add(new GatewayTypeMapping(CreditNoteNotification.class, NotificationDomain.CreditNote.toString()));
 		
 
 		/* Catch all for other things */

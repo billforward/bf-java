@@ -1,0 +1,11 @@
+{
+   "type" : "notification",
+   "created" : "2015-06-02T15:49:09Z",
+   "id" : "NOT-25AF1E00-2BF5-4C01-BD4D-5CF1AFD5",
+   "domain" : "Subscription",
+   "action" : "Cancelled",
+   "organizationID" : "958C9C72-FDB6-4BDB-9C23-4894B4201D6E",
+   "entityID" : "0BA31F74-05F7-44C0-BD7D-ACDF46FFF695",
+   "entity" : "{\"type\":\"subscription\",\"created\":\"2015-01-19T18:58:41Z\",\"updated\":\"2015-06-02T15:49:04Z\",\"id\":\"0BA31F74-05F7-44C0-BD7D-ACDF46FFF695\",\"versionID\":\"0BA31F74-05F7-44C0-BD7D-ACDF46FFF695\",\"accountID\":\"AC50FE1F-F8A0-43C4-AB39-9770DC6F099F\",\"organizationID\":\"958C9C72-FDB6-4BDB-9C23-4894B4201D6E\",\"productID\":\"7BC2D943-448F-43AD-B46C-E9AC045F6546\",\"productRatePlanID\":\"7B89B36A-B07A-465F-8DA0-542D352C1B45\",\"name\":\"Memorable Subscription\",\"description\":\"Memorable Subscription Description\",\"type\":\"Subscription\",\"state\":\"Cancelled\",\"currentPeriodStart\":\"2015-05-19T18:58:59Z\",\"currentPeriodEnd\":\"2015-06-19T18:58:59Z\",\"subscriptionEnd\":\"2015-06-02T15:49:04Z\",\"initialPeriodStart\":\"2015-01-19T18:58:59Z\",\"successfulPeriods\":1,\"managedBy\":\"BillForward\",\"versionStart\":\"2015-01-19T18:58:41Z\",\"versionNumber\":1}",
+   "changes" : "{\"auditFieldChanges\":[{\"attributeName\":\"state\",\"previousValue\":\"AwaitingPayment\",\"newValue\":\"Cancelled\"},{\"attributeName\":\"subscriptionEnd\",\"newValue\":\"Tue Jun 02 15:49:04 UTC 2015\"}]}"
+}

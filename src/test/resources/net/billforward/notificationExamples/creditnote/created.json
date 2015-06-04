@@ -1,0 +1,10 @@
+{
+   "type" : "notification",
+   "created" : "2015-06-02T15:48:28Z",
+   "id" : "NOT-EDEC3FCE-B50A-427A-8991-A7EFF3F1",
+   "domain" : "CreditNote",
+   "action" : "Created",
+   "organizationID" : "958C9C72-FDB6-4BDB-9C23-4894B4201D6E",
+   "entityID" : "CDT-0B2F5CAE-859D-4A22-8C7D-CF3B5F67",
+   "entity" : "{\"type\":\"creditNote\",\"updated\":\"2015-06-02T15:48:26Z\",\"id\":\"CDT-0B2F5CAE-859D-4A22-8C7D-CF3B5F67\",\"accountID\":\"ACC-9F4D7E95-B6AA-431D-99A1-DA821D94\",\"organizationID\":\"958C9C72-FDB6-4BDB-9C23-4894B4201D6E\",\"type\":\"manual\",\"currency\":\"USD\",\"description\":\"\",\"remainingValue\":1,\"createdBy\":\"78FB9BDC-D972-4AE4-8984-255B3151826B\"}"
+}

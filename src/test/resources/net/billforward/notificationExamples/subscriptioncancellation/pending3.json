@@ -1,0 +1,10 @@
+{
+   "type" : "notification",
+   "created" : "2015-06-03T21:25:53Z",
+   "id" : "NOT-69EF3014-9084-4E4E-B3B9-DDA7BD4B",
+   "domain" : "SubscriptionCancellation",
+   "action" : "Pending",
+   "organizationID" : "C0177BB4-DE94-447E-855E-506F3F05F1AC",
+   "entityID" : "3FACD43B-1B41-4510-9130-A2D274C1446D",
+   "entity" : "{\"type\":\"subscriptionCancellation\",\"created\":\"2015-06-03T21:25:52Z\",\"updated\":\"2015-06-03T21:25:52Z\",\"id\":\"3FACD43B-1B41-4510-9130-A2D274C1446D\",\"subscriptionID\":\"SUB-DDEB9767-7163-4774-9D5D-7E267C6E\",\"organizationID\":\"C0177BB4-DE94-447E-855E-506F3F05F1AC\",\"source\":\"User with ID: 1781503C-A9FC-41FB-BB97-E83AB0AB4926\",\"serviceEnd\":\"Immediate\",\"state\":\"Pending\"}"
+}

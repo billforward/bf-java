@@ -1,0 +1,11 @@
+{
+   "type" : "notification",
+   "created" : "2015-06-02T15:49:09Z",
+   "id" : "NOT-A8C948A9-FFB5-49D4-999A-DB2ACA89",
+   "domain" : "Amendment",
+   "action" : "Updated",
+   "organizationID" : "958C9C72-FDB6-4BDB-9C23-4894B4201D6E",
+   "entityID" : "99FF4FCF-8BCF-49DF-9C38-26CC0AACB751",
+   "entity" : "{\"type\":\"ServiceEndAmendment\",\"created\":\"2015-06-02T15:49:05Z\",\"changedBy\":\"System\",\"updated\":\"2015-06-02T15:49:05Z\",\"id\":\"99FF4FCF-8BCF-49DF-9C38-26CC0AACB751\",\"organizationID\":\"958C9C72-FDB6-4BDB-9C23-4894B4201D6E\",\"subscriptionID\":\"0BA31F74-05F7-44C0-BD7D-ACDF46FFF695\",\"amendmentType\":\"ServiceEnd\",\"actioningTime\":\"2015-06-02T15:49:04Z\",\"actionedTime\":\"2015-06-02T15:49:05Z\",\"state\":\"Pending\",\"deleted\":false}",
+   "changes" : "{\"auditFieldChanges\":[{\"attributeName\":\"actionedTime\",\"newValue\":\"Tue Jun 02 15:49:05 UTC 2015\"}]}"
+}

@@ -13,12 +13,13 @@ public class AmendmentNotification extends Notification {
 		this.domain = NotificationDomain.Amendment.toString();
 	}
 	
-	public Amendment getInvoice() {
+	public Amendment getAmendment() {
 		return amendment;
 	}
 
 	@Override
 	protected void buildEntity() {
+		super.buildEntity();
 		amendment = BillForwardClient.GSON_NOTIFICATION_ENTITY.fromJson(this.entity, Amendment.class);
 	}
 }

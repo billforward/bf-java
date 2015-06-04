@@ -1,0 +1,11 @@
+{
+   "type" : "notification",
+   "created" : "2015-05-28T21:09:42Z",
+   "id" : "NOT-7EE3F612-650A-4B53-A525-25E06FEE",
+   "domain" : "Amendment",
+   "action" : "Pending",
+   "organizationID" : "C0177BB4-DE94-447E-855E-506F3F05F1AC",
+   "entityID" : "A4DFAED8-A44C-45FF-A0C6-45D7403F2A8E",
+   "entity" : "{\"type\":\"subscriptionCancellation\",\"created\":\"2015-05-28T21:09:33Z\",\"updated\":\"2015-05-28T21:09:37Z\",\"id\":\"A4DFAED8-A44C-45FF-A0C6-45D7403F2A8E\",\"subscriptionID\":\"SUB-44E1F070-37B9-4DBC-9850-8B177DE5\",\"organizationID\":\"C0177BB4-DE94-447E-855E-506F3F05F1AC\",\"source\":\"User with ID: 1781503C-A9FC-41FB-BB97-E83AB0AB4926\",\"serviceEnd\":\"AtPeriodEnd\",\"state\":\"Cancelled\"}",
+   "changes" : "{\"auditFieldChanges\":[{\"attributeName\":\"state\",\"previousValue\":\"Pending\",\"newValue\":\"Cancelled\"}]}"
+}

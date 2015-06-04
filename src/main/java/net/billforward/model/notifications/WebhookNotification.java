@@ -20,6 +20,7 @@ public class WebhookNotification extends Notification {
 
 	@Override
 	protected void buildEntity() {
+		super.buildEntity();
 		webHook = BillForwardClient.GSON_NOTIFICATION_ENTITY.fromJson(this.entity, Webhook.class);
 	}
 }

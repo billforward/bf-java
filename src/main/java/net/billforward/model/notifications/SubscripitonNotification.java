@@ -20,6 +20,7 @@ public class SubscripitonNotification extends Notification {
 
 	@Override
 	protected void buildEntity() {
+		super.buildEntity();
 		subscription = BillForwardClient.GSON_NOTIFICATION_ENTITY.fromJson(this.entity, Subscription.class);
 	}
 }

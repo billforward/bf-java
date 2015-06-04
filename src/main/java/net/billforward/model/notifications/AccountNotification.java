@@ -18,6 +18,7 @@ public class AccountNotification extends Notification {
 
 	@Override
 	protected void buildEntity() {
+		super.buildEntity();
 		account = BillForwardClient.GSON_NOTIFICATION_ENTITY.fromJson(this.entity, Account.class);
 	}
 }
