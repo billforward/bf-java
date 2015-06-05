@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.util.List;
 
 import net.billforward.exception.BillforwardException;
+import net.billforward.model.notifications.AccountNotification;
 import net.billforward.model.notifications.AmendmentNotification;
 import net.billforward.model.notifications.FieldChange;
 import net.billforward.model.notifications.Notification;
@@ -38,9 +39,31 @@ public class NotificationTests extends TestBase {
 	}	
 
 	@Test
+	public void parseAccountUpdated3() throws BillforwardException, FileNotFoundException {;
+		
+		String content = getResourceData("notificationExamples/account/Updated3.json");
+		Notification notf = NotificationHelper.parse(content);
+		AccountNotification accNot = (AccountNotification)notf;
+		
+		System.out.println(accNot.getAccount());
+		if(notf.getDomain() == Notification.NotificationDomain.Subscription && notf.getAction() == Notification.NotificationAction.Provisioned) {
+			System.out.println("foo");
+		}
+	
+	}
+	@Test
+	public void parseAccountUpdated2() throws BillforwardException, FileNotFoundException {;
+		
+		String content = getResourceData("notificationExamples/account/Updated2.json");
+		Notification notificaiton = NotificationHelper.parse(content);
+		
+		System.out.println(notificaiton);
+	}
+
+	@Test
 	public void parseAccountUpdated() throws BillforwardException, FileNotFoundException {;
 		
-		String content = getResourceData("notificationExamples/account/updated.json");
+		String content = getResourceData("notificationExamples/account/Updated.json");
 		Notification notificaiton = NotificationHelper.parse(content);
 		
 		System.out.println(notificaiton);
