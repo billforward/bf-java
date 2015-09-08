@@ -184,6 +184,13 @@ public class Subscription extends MutableEntity<Subscription> {
 	}
 
 	public RatePlan getProductRatePlan() {
+		if(productRatePlan == null) {
+			try {
+				productRatePlan = RatePlan.getByID(this.productRatePlanID);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		return productRatePlan;
 	}
 	

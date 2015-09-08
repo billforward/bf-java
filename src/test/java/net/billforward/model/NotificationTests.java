@@ -9,6 +9,7 @@ import net.billforward.model.notifications.AmendmentNotification;
 import net.billforward.model.notifications.FieldChange;
 import net.billforward.model.notifications.Notification;
 import net.billforward.model.notifications.NotificationHelper;
+import net.billforward.model.notifications.SubscripitonNotification;
 
 import org.junit.Test;
 
@@ -20,6 +21,46 @@ public class NotificationTests extends TestBase {
 		
 		System.out.println(notificaiton);
 	}
+	
+	@Test
+	public void parseUpdatedInvoiceLineCreated() throws BillforwardException, FileNotFoundException {
+		String content = getResourceData("notificationExamples/invoiceline/created.json");
+		Notification notificaiton = NotificationHelper.parse(content);
+		
+		List<FieldChange> changes = notificaiton.getAuditFieldChanges();
+
+		System.out.println(notificaiton.getDomain());
+		System.out.println(notificaiton.getAction());
+		
+		for(FieldChange change : changes) {
+			System.out.println(change.getNewValueAsDate());
+			System.out.println(change.getPreviousValueAsDate());
+		}
+	}
+	
+	@Test
+	public void parseUpdatedSubscription() throws BillforwardException, FileNotFoundException {
+		String content = getResourceData("notificationExamples/subscription/updated.json");
+		Notification notificaiton = NotificationHelper.parse(content);
+		
+		SubscripitonNotification sNote = (SubscripitonNotification)notificaiton;
+		Subscription s = sNote.getSubscripton();
+		
+		System.out.println(s.getCurrentPeriodStart());
+		
+		System.out.println(s.getCurrentPeriodEnd());
+		
+		List<FieldChange> changes = sNote.getAuditFieldChanges();
+
+		System.out.println(sNote.getDomain());
+		System.out.println(sNote.getAction());
+		
+		for(FieldChange change : changes) {
+			System.out.println(change.getNewValueAsDate());
+			System.out.println(change.getPreviousValueAsDate());
+		}
+	}
+
 	@Test
 	public void parseProvisionedSubscription() throws BillforwardException, FileNotFoundException {
 		String content = getResourceData("notificationExamples/subscription/provisioned.json");

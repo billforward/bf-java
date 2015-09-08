@@ -1,0 +1,11 @@
+{
+   "type" : "notification",
+   "created" : "2015-06-06T00:22:03Z",
+   "id" : "NOT-0AD323FE-10AB-4E85-838B-13602F6C",
+   "domain" : "Subscription",
+   "action" : "Updated",
+   "organizationID" : "C0177BB4-DE94-447E-855E-506F3F05F1AC",
+   "entityID" : "SUB-61D88AD4-BA8A-450F-8EF4-AFFACE5E",
+   "entity" : "{\"type\":\"subscription\",\"created\":\"2015-05-26T03:07:12Z\",\"updated\":\"2015-06-06T00:22:01Z\",\"id\":\"SUB-61D88AD4-BA8A-450F-8EF4-AFFACE5E\",\"versionID\":\"SUB-61D88AD4-BA8A-450F-8EF4-AFFACE5E\",\"accountID\":\"ACC-838306BA-2775-489E-8D2B-16026AAC\",\"organizationID\":\"C0177BB4-DE94-447E-855E-506F3F05F1AC\",\"productID\":\"PRO-8338774F-A747-4DD1-9188-64B7EFE0\",\"productRatePlanID\":\"PRP-8A1C713F-4FB4-4348-862B-AC6137E0\",\"name\":\"usage plan subscription plan\",\"type\":\"Subscription\",\"state\":\"AwaitingPayment\",\"currentPeriodStart\":\"2015-06-06T00:22:00Z\",\"currentPeriodEnd\":\"2015-06-06T00:37:00Z\",\"initialPeriodStart\":\"2015-05-26T03:07:00Z\",\"successfulPeriods\":14,\"managedBy\":\"BillForward\",\"versionStart\":\"2015-05-26T03:07:12Z\",\"versionNumber\":1}",
+   "changes" : "{\"auditFieldChanges\":[{\"attributeName\":\"currentPeriodEnd\",\"previousValue\":\"Sat Jun 06 00:22:00 UTC 2015\",\"newValue\":\"Sat Jun 06 00:37:00 UTC 2015\"},{\"attributeName\":\"currentPeriodStart\",\"previousValue\":\"Sat Jun 06 00:07:00 UTC 2015\",\"newValue\":\"Sat Jun 06 00:22:00 UTC 2015\"},{\"attributeName\":\"totalPeriods\",\"previousValue\":\"1045\",\"newValue\":\"1046\"}]}"
+}

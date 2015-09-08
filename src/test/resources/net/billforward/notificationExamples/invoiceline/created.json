@@ -1,0 +1,10 @@
+{
+   "type" : "notification",
+   "created" : "2015-06-07T17:37:06Z",
+   "id" : "NOT-133822BF-718F-4EF2-AC5D-802B6035",
+   "domain" : "InvoiceLine",
+   "action" : "Created",
+   "organizationID" : "C0177BB4-DE94-447E-855E-506F3F05F1AC",
+   "entityID" : "59F5D3E8-0198-44C3-A3CC-1085F0BA33C1",
+   "entity" : "{\"type\":\"invoiceLine\",\"created\":\"2015-06-07T17:37:03Z\",\"updated\":\"2015-06-07T17:37:03Z\",\"id\":\"59F5D3E8-0198-44C3-A3CC-1085F0BA33C1\",\"invoiceID\":\"INV-B8BB4079-4319-4999-8B9F-2A700A69\",\"unitOfMeasureID\":\"UOM-528E9288-ADD5-462F-8100-0154FF32\",\"organizationID\":\"C0177BB4-DE94-447E-855E-506F3F05F1AC\",\"name\":\"Host\",\"description\":\"Pricing for Host\",\"calculation\":\"0 items at 1.00 each, cost 0.00\\t\",\"cost\":0E-7,\"tax\":0E-7,\"componentValue\":0}"
+}
